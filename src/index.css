@@ -1,0 +1,24 @@
+:root {
+  color-scheme: light only;
+}
+
+html, body, #root {
+  background: #F7F6F2 !important;
+  color: #1a1a1a !important;
+  min-height: 100vh;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: #F7F6F2;
+}
