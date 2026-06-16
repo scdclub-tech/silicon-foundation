@@ -72,6 +72,8 @@ export default function FoundryCEO() {
   const timerRef = useRef(null)
   const startTime = useRef(Date.now())
 
+  const alreadyDone = student ? localStorage.getItem(`foundry-ceo-${student.roll_number}`) : false
+
   useEffect(() => {
     if (!student) navigate('/challenges')
   }, [student])
@@ -124,6 +126,7 @@ export default function FoundryCEO() {
     setScreen('result')
     if (submitted) return
     setSubmitted(true)
+    localStorage.setItem(`foundry-ceo-${student.roll_number}`, 'done')
     const timeTaken = Math.floor((Date.now() - startTime.current) / 1000)
     const finalValuation = metrics.valuation * 10000000
     try {
@@ -156,6 +159,28 @@ export default function FoundryCEO() {
   const timerPct = (timeLeft / 30) * 100
   const timerColor = timerPct > 50 ? '#22c55e' : timerPct > 25 ? '#f59e0b' : '#ef4444'
 
+  // ✅ CORRECT POSITION — before the main return
+  if (alreadyDone) return (
+    <div style={{ minHeight: '100vh', background: '#F7F6F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ textAlign: 'center', maxWidth: '400px', padding: '2rem' }}>
+        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔒</div>
+        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Already submitted!</h2>
+        <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px', lineHeight: 1.8, marginBottom: '2rem' }}>
+          You've already completed Foundry CEO. Only one attempt is allowed per student. Check the leaderboard to see your ranking!
+        </p>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
+          <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+            🏆 View leaderboard
+          </button>
+          <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+            Back to hub
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+
+  // ✅ MAIN return — completely separate
   return (
     <div style={{ minHeight: '100vh', background: '#F7F6F2' }}>
       <style>{`@keyframes pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}`}</style>
@@ -197,7 +222,6 @@ export default function FoundryCEO() {
           <div style={{ animation: 'pop 0.3s ease' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '1.5rem', alignItems: 'start' }}>
               <div>
-                {/* Timer */}
                 {!showExplanation && (
                   <div style={{ marginBottom: '1.2rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
@@ -210,14 +234,12 @@ export default function FoundryCEO() {
                   </div>
                 )}
 
-                {/* Situation */}
                 <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1rem' }}>
                   <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>situation</div>
                   <p style={{ fontSize: '0.95rem', color: '#0f0f0f', lineHeight: 1.7, marginBottom: '1rem' }}>{scenario.situation}</p>
                   <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1rem', fontWeight: 600, color: '#0f0f0f' }}>{scenario.question}</div>
                 </div>
 
-                {/* Options */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {scenario.options.map((opt, i) => {
                     const isSelected = selected?.value === opt.value
@@ -242,7 +264,6 @@ export default function FoundryCEO() {
                   })}
                 </div>
 
-                {/* Explanation */}
                 {showExplanation && selected && (
                   <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '12px', padding: '1.2rem', marginTop: '1rem', animation: 'pop 0.3s ease' }}>
                     <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#16a34a', fontWeight: 700, marginBottom: '0.4rem' }}>📊 analysis</div>
@@ -264,7 +285,6 @@ export default function FoundryCEO() {
                 )}
               </div>
 
-              {/* Metrics sidebar */}
               <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.2rem', position: 'sticky', top: '1rem' }}>
                 <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>your metrics</div>
                 {metricBar('Valuation', metrics.valuation, '#2563EB')}
@@ -294,14 +314,12 @@ export default function FoundryCEO() {
             <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px', marginBottom: '2rem' }}>
               SiliconForge final valuation
             </p>
-
             <div style={{ background: '#0f0f0f', borderRadius: '16px', padding: '2rem', marginBottom: '2rem', maxWidth: '400px', margin: '0 auto 2rem' }}>
               <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '3rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>
                 ${(metrics.valuation * 10).toFixed(0)}M
               </div>
               <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#555' }}>company valuation</div>
             </div>
-
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.8rem', marginBottom: '2rem', maxWidth: '500px', margin: '0 auto 2rem' }}>
               {[['Yield', metrics.yield + '%', '#16a34a'], ['Client Sat.', metrics.satisfaction + '%', '#f59e0b'], ['Risk', metrics.risk + '%', '#ef4444']].map(([l, v, c]) => (
                 <div key={l} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '10px', padding: '1rem' }}>
@@ -310,7 +328,6 @@ export default function FoundryCEO() {
                 </div>
               ))}
             </div>
-
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
               <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 2rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
                 🏆 View leaderboard

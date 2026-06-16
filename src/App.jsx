@@ -7,6 +7,8 @@ import WaferDefectMap from './activities/wafer-defect-map/WaferDefectMap'
 import SizeOfTransistor from './activities/size-of-transistor/SizeOfTransistor'
 import WeekHub from './activities/week-activities/WeekHub'
 import FoundryCEO from './activities/week-activities/foundry-ceo/FoundryCEO'
+import TapeoutSprint from './activities/week-activities/tapeout-sprint/TapeoutSprint'
+import SiliconDetective from './activities/week-activities/silicon-detective/SiliconDetective'
 import Dashboard from './activities/dashboard/Dashboard'
 import Leaderboard from './activities/week-activities/Leaderboard'
 
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/size-of-transistor" element={<SizeOfTransistor />} />
         <Route path="/challenges" element={<WeekHub />} />
         <Route path="/challenges/foundry-ceo" element={<FoundryCEO />} />
+        <Route path="/challenges/tapeout-sprint" element={<TapeoutSprint />} />
+        <Route path="/challenges/silicon-detective" element={<SiliconDetective />} />
         <Route path="/challenges/dashboard" element={<Dashboard />} />
         <Route path="/challenges/leaderboard" element={<Leaderboard />} />
       </Routes>

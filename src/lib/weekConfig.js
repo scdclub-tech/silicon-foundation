@@ -1,3 +1,5 @@
+import { q } from "framer-motion/client"
+
 export const WEEK_CONFIG = {
   1: {
     unlockDate: new Date('2026-06-14'),
@@ -6,7 +8,7 @@ export const WEEK_CONFIG = {
     emoji: '🏭',
     description: 'You are the CEO of a struggling fab. Make critical decisions under pressure.',
   },
-  2: {
+2: {
     unlockDate: new Date('2026-06-21'),
     activity: 'tapeout-sprint',
     title: 'Tapeout Sprint',
