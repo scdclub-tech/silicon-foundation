@@ -2,21 +2,24 @@ import { q } from "framer-motion/client"
 
 export const WEEK_CONFIG = {
   1: {
-    unlockDate: new Date('2026-06-14'),
+    unlockDate: new Date('2026-06-11'),
+    deadline: new Date('2026-06-17T23:59:00'),
     activity: 'foundry-ceo',
     title: 'Foundry CEO',
     emoji: '🏭',
     description: 'You are the CEO of a struggling fab. Make critical decisions under pressure.',
   },
-2: {
-    unlockDate: new Date('2026-06-21'),
+  2: {
+    unlockDate: new Date('2026-06-18'),
+    deadline: new Date('2026-06-24T23:59:00'),
     activity: 'tapeout-sprint',
     title: 'Tapeout Sprint',
     emoji: '⚙️',
     description: 'Design a real chip from scratch. Every decision has tradeoffs.',
   },
   3: {
-    unlockDate: new Date('2026-06-28'),
+    unlockDate: new Date('2026-06-25'),
+    deadline: new Date('2026-07-01T23:59:00'),
     activity: 'silicon-detective',
     title: 'Silicon Detective',
     emoji: '🔍',
@@ -27,6 +30,7 @@ export const WEEK_CONFIG = {
 export function getWeekStatus(weekNum) {
   const config = WEEK_CONFIG[weekNum]
   const now = new Date()
+  if (now > config.deadline) return 'expired'
   if (now >= config.unlockDate) return 'unlocked'
   return 'locked'
 }
