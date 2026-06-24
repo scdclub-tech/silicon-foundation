@@ -1,157 +1,728 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const STOPS = [
-  { label: 'Human Hair', size: '70,000 nm', fact: 'A single strand of human hair is about 70 micrometers wide — roughly 10,000× wider than a modern transistor.', color: '#f59e0b', emoji: '🧑', scale: '70,000 nm wide' },
-  { label: 'Red Blood Cell', size: '8,000 nm', fact: 'A red blood cell is 8 micrometers across. It carries oxygen through your blood and is still thousands of times larger than a transistor.', color: '#ef4444', emoji: '🩸', scale: '8,000 nm wide' },
-  { label: 'Bacterium', size: '1,000 nm', fact: 'A typical bacterium is about 1 micron long. Early 1970s transistors were roughly this size — we\'ve come a long way.', color: '#84cc16', emoji: '🦠', scale: '1,000 nm wide' },
-  { label: 'Virus', size: '100 nm', fact: 'A coronavirus is about 100nm across. The 90nm chip node from 2004 was already smaller than most viruses.', color: '#a78bfa', emoji: '🔵', scale: '100 nm wide' },
-  { label: 'DNA Strand', size: '2.5 nm', fact: 'A DNA double helix is just 2.5nm wide. Modern 3nm transistors are now comparable to the molecules of life itself.', color: '#34d399', emoji: '🧬', scale: '2.5 nm wide' },
-  { label: '3nm Transistor', size: '3 nm', fact: 'A modern transistor gate is just a few nanometers. Apple\'s M3 chip packs over 25 billion of these into a thumbnail-sized die.', color: '#2563EB', emoji: '⚡', scale: '~3 nm' },
-  { label: 'Silicon Atom', size: '0.22 nm', fact: 'A silicon atom is 0.22nm wide. We are now building transistors just 10–15 atoms across. This is the physical limit of silicon.', color: '#f97316', emoji: '⚛️', scale: '0.22 nm wide' },
+const OBJECTS = [
+  {
+    id: 'ant',
+    label: 'Ant',
+    nm: 1_000_000,
+    color: '#b45309',
+    type: 'bio',
+    shape: 'oval',
+    fact: 'A reference point. One million nanometers — start here.',
+  },
+  {
+    id: 'hair',
+    label: 'Human Hair',
+    nm: 70_000,
+    color: '#d97706',
+    type: 'bio',
+    shape: 'circle',
+    fact: 'A single strand of hair is about 70 micrometers wide — 35,000× wider than a modern transistor.',
+  },
+  {
+    id: 'pollen',
+    label: 'Pollen Grain',
+    nm: 50_000,
+    color: '#ca8a04',
+    type: 'bio',
+    shape: 'spiky',
+    fact: 'Pollen grains range from 10–100 µm. Their spiky surface helps them stick to pollinators.',
+  },
+  {
+    id: 'rbc',
+    label: 'Red Blood Cell',
+    nm: 8_000,
+    color: '#dc2626',
+    type: 'bio',
+    shape: 'circle',
+    fact: 'Your red blood cells are 8 µm across and carry oxygen through vessels just wide enough to squeeze through.',
+  },
+  {
+    id: 'ecoli',
+    label: 'E. coli Bacterium',
+    nm: 2_000,
+    color: '#16a34a',
+    type: 'bio',
+    shape: 'oval',
+    fact: 'E. coli is ~2 µm long. Early 1970s transistors were roughly this size. We\'ve come a long way.',
+  },
+  {
+    id: 'intel4004',
+    label: 'Intel 4004 (1971)',
+    nm: 10_000,
+    color: '#64748b',
+    type: 'chip',
+    shape: 'rect',
+    fact: 'First commercial microprocessor. 2,300 transistors. Changed the world.',
+  },
+  {
+    id: 'intel286',
+    label: 'Intel 286 (1982)',
+    nm: 1_500,
+    color: '#475569',
+    type: 'chip',
+    shape: 'rect',
+    fact: 'IBM PC/AT era. 134,000 transistors on a chip.',
+  },
+  {
+    id: 'coronavirus',
+    label: 'Coronavirus',
+    nm: 120,
+    color: '#7c3aed',
+    type: 'bio',
+    shape: 'spiky',
+    fact: 'The COVID-19 virus is ~120 nm across. The 90nm chip node (2004) was already smaller than this.',
+  },
+  {
+    id: 'pentium',
+    label: 'Pentium (1993)',
+    nm: 800,
+    color: '#3b82f6',
+    type: 'chip',
+    shape: 'rect',
+    fact: '3.1 million transistors. The chip that brought computing home.',
+  },
+  {
+    id: 'core2006',
+    label: 'Intel Core (2006)',
+    nm: 65,
+    color: '#2563eb',
+    type: 'chip',
+    shape: 'rect',
+    fact: '65nm — smaller than a flu virus. The era of "tick-tock" begins.',
+  },
+  {
+    id: 'ribosome',
+    label: 'Ribosome',
+    nm: 25,
+    color: '#ea580c',
+    type: 'bio',
+    shape: 'circle',
+    fact: 'Ribosomes assemble proteins from amino acids. They\'re the nanomachines inside every living cell.',
+  },
+  {
+    id: 'applea7',
+    label: 'Apple A7 (2013)',
+    nm: 28,
+    color: '#0891b2',
+    type: 'chip',
+    shape: 'rect',
+    fact: 'First 64-bit mobile chip. In your pocket.',
+  },
+  {
+    id: 'tsmc7',
+    label: 'TSMC 7nm (2018)',
+    nm: 7,
+    color: '#0284c7',
+    type: 'chip',
+    shape: 'rect',
+    fact: '7nm — twice the density of DNA.',
+  },
+  {
+    id: 'dna',
+    label: 'DNA Double Helix',
+    nm: 2.5,
+    color: '#22c55e',
+    type: 'bio',
+    shape: 'helix',
+    fact: 'The molecule of life is 2.5 nm wide. Modern transistors are now the same scale as your own genome.',
+  },
+  {
+    id: 'applem1',
+    label: 'Apple M1 (2020)',
+    nm: 5,
+    color: '#1d4ed8',
+    type: 'chip',
+    shape: 'rect',
+    fact: '5nm. 16 billion transistors. Desktop performance in a laptop.',
+  },
+  {
+    id: 'tsmc3',
+    label: 'TSMC 3nm (2022)',
+    nm: 3,
+    color: '#4f46e5',
+    type: 'chip',
+    shape: 'rect',
+    fact: '3nm. The width of 15 silicon atoms.',
+  },
+  {
+    id: 'glucose',
+    label: 'Glucose Molecule',
+    nm: 0.9,
+    color: '#3b82f6',
+    type: 'bio',
+    shape: 'cluster',
+    fact: 'A glucose molecule is 0.9 nm. The sugar that fuels every cell — now larger than a transistor.',
+  },
+  {
+    id: 'intel18a',
+    label: 'Intel 18A / TSMC 2nm (2025)',
+    nm: 2,
+    color: '#6366f1',
+    type: 'chip',
+    shape: 'rect',
+    fact: '2nm. The bleeding edge. You are here.',
+    isLast: true,
+  },
 ]
+
+const SORTED = [...OBJECTS].sort((a, b) => b.nm - a.nm)
+const MAX_NM = SORTED[0].nm
+const MIN_NM = SORTED[SORTED.length - 1].nm
+
+function nmToLog(nm) {
+  return (Math.log10(nm) - Math.log10(MIN_NM)) / (Math.log10(MAX_NM) - Math.log10(MIN_NM))
+}
+
+function formatNm(nm) {
+  if (nm >= 1_000_000) return `${(nm / 1_000_000).toLocaleString()} mm`
+  if (nm >= 1_000) return `${(nm / 1_000).toLocaleString()} µm`
+  return `${nm} nm`
+}
+
+function ObjectShape({ obj, visible }) {
+  const logScale = nmToLog(obj.nm)
+  const size = Math.max(40, Math.min(220, 40 + logScale * 180))
+  const glow = obj.type === 'chip' ? `0 0 40px ${obj.color}66, 0 0 80px ${obj.color}22` : `0 0 60px ${obj.color}44`
+
+  const baseStyle = {
+    transition: 'opacity 0.8s ease, transform 0.8s ease',
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'scale(1)' : 'scale(0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  }
+
+  if (obj.shape === 'rect' || obj.type === 'chip') {
+    const w = size * 1.4
+    const h = size * 0.7
+    return (
+      <div style={baseStyle}>
+        <div style={{
+          width: w, height: h,
+          background: `linear-gradient(135deg, ${obj.color}33, ${obj.color}11)`,
+          border: `1px solid ${obj.color}99`,
+          borderRadius: '4px',
+          boxShadow: glow,
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          {/* circuit lines */}
+          {[0.25, 0.5, 0.75].map(frac => (
+            <div key={frac} style={{
+              position: 'absolute',
+              left: `${frac * 100}%`,
+              top: 0, bottom: 0,
+              width: '1px',
+              background: `${obj.color}44`,
+            }} />
+          ))}
+          {[0.33, 0.66].map(frac => (
+            <div key={frac} style={{
+              position: 'absolute',
+              top: `${frac * 100}%`,
+              left: 0, right: 0,
+              height: '1px',
+              background: `${obj.color}44`,
+            }} />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (obj.shape === 'spiky') {
+    const spikes = obj.id === 'coronavirus' ? 16 : 12
+    return (
+      <div style={{ ...baseStyle, width: size + 40, height: size + 40 }}>
+        <svg width={size + 40} height={size + 40} viewBox={`0 0 ${size + 40} ${size + 40}`}>
+          <defs>
+            <radialGradient id={`grad-${obj.id}`} cx="40%" cy="35%">
+              <stop offset="0%" stopColor={obj.color} stopOpacity="0.5" />
+              <stop offset="100%" stopColor={obj.color} stopOpacity="0.1" />
+            </radialGradient>
+          </defs>
+          {Array.from({ length: spikes }).map((_, i) => {
+            const angle = (i / spikes) * Math.PI * 2
+            const r = size / 2
+            const spikeLen = r * 0.3
+            const x1 = (size / 2 + 20) + Math.cos(angle) * r
+            const y1 = (size / 2 + 20) + Math.sin(angle) * r
+            const x2 = (size / 2 + 20) + Math.cos(angle) * (r + spikeLen)
+            const y2 = (size / 2 + 20) + Math.sin(angle) * (r + spikeLen)
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={obj.color} strokeWidth="2" strokeOpacity="0.7" />
+          })}
+          <circle cx={size / 2 + 20} cy={size / 2 + 20} r={size / 2}
+            fill={`url(#grad-${obj.id})`} stroke={obj.color} strokeWidth="1.5" strokeOpacity="0.8" />
+        </svg>
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', boxShadow: glow, pointerEvents: 'none' }} />
+      </div>
+    )
+  }
+
+  if (obj.shape === 'helix') {
+    const h = size * 1.5
+    return (
+      <div style={{ ...baseStyle, width: size, height: h }}>
+        <svg width={size} height={h} viewBox={`0 0 ${size} ${h}`}>
+          {Array.from({ length: 10 }).map((_, i) => {
+            const y = (i / 9) * h
+            const x1 = size * 0.2 + Math.sin(i * 0.7) * size * 0.2
+            const x2 = size * 0.8 - Math.sin(i * 0.7) * size * 0.2
+            return (
+              <g key={i}>
+                <line x1={x1} y1={y} x2={x2} y2={y} stroke={obj.color} strokeWidth="1.5" strokeOpacity="0.7" />
+                <circle cx={x1} cy={y} r="3" fill={obj.color} fillOpacity="0.9" />
+                <circle cx={x2} cy={y} r="3" fill={obj.color} fillOpacity="0.9" />
+              </g>
+            )
+          })}
+          <path d={`M ${size * 0.2} 0 ${Array.from({ length: 20 }, (_, i) => {
+            const t = i / 19
+            const y = t * h
+            const x = size * 0.2 + Math.sin(t * Math.PI * 2.5) * size * 0.2
+            return `L ${x} ${y}`
+          }).join(' ')}`} fill="none" stroke={obj.color} strokeWidth="2" strokeOpacity="0.5" />
+          <path d={`M ${size * 0.8} 0 ${Array.from({ length: 20 }, (_, i) => {
+            const t = i / 19
+            const y = t * h
+            const x = size * 0.8 - Math.sin(t * Math.PI * 2.5) * size * 0.2
+            return `L ${x} ${y}`
+          }).join(' ')}`} fill="none" stroke={obj.color} strokeWidth="2" strokeOpacity="0.5" />
+        </svg>
+        <div style={{ position: 'absolute', inset: 0, boxShadow: glow, pointerEvents: 'none', borderRadius: '50%' }} />
+      </div>
+    )
+  }
+
+  if (obj.shape === 'cluster') {
+    return (
+      <div style={{ ...baseStyle, width: size, height: size }}>
+        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+          <circle cx={size * 0.5} cy={size * 0.5} r={size * 0.18} fill={obj.color} fillOpacity="0.8" />
+          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
+            const rad = (deg * Math.PI) / 180
+            const cx = size * 0.5 + Math.cos(rad) * size * 0.28
+            const cy = size * 0.5 + Math.sin(rad) * size * 0.28
+            return (
+              <g key={i}>
+                <line x1={size * 0.5} y1={size * 0.5} x2={cx} y2={cy} stroke={obj.color} strokeWidth="1.5" strokeOpacity="0.5" />
+                <circle cx={cx} cy={cy} r={size * 0.12} fill={obj.color} fillOpacity="0.7" />
+              </g>
+            )
+          })}
+        </svg>
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', boxShadow: glow, pointerEvents: 'none' }} />
+      </div>
+    )
+  }
+
+  // oval
+  if (obj.shape === 'oval') {
+    return (
+      <div style={baseStyle}>
+        <div style={{
+          width: size * 1.6,
+          height: size,
+          borderRadius: '50%',
+          background: `radial-gradient(ellipse at 35% 35%, ${obj.color}55, ${obj.color}11)`,
+          border: `1.5px solid ${obj.color}88`,
+          boxShadow: glow,
+        }} />
+      </div>
+    )
+  }
+
+  // default circle
+  return (
+    <div style={baseStyle}>
+      <div style={{
+        width: size,
+        height: size,
+        borderRadius: '50%',
+        background: `radial-gradient(circle at 35% 35%, ${obj.color}55, ${obj.color}11)`,
+        border: `1.5px solid ${obj.color}88`,
+        boxShadow: glow,
+      }} />
+    </div>
+  )
+}
+
+function ObjectCard({ obj, index }) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  const isEven = index % 2 === 0
+
+  return (
+    <div
+      ref={ref}
+      data-nm={obj.nm}
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '4rem 2rem 4rem calc(220px + 2rem)',
+        position: 'relative',
+      }}
+    >
+      <div style={{
+        display: 'flex',
+        flexDirection: isEven ? 'row' : 'row-reverse',
+        alignItems: 'center',
+        gap: '5rem',
+        maxWidth: '900px',
+        width: '100%',
+        transition: 'opacity 0.9s ease, transform 0.9s ease',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(60px)',
+      }}>
+        <ObjectShape obj={obj} visible={visible} />
+
+        <div style={{ flex: 1 }}>
+          <div style={{
+            fontFamily: 'Space Mono, monospace',
+            fontSize: '13px',
+            color: obj.color,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            marginBottom: '0.75rem',
+            opacity: 0.9,
+          }}>
+            {formatNm(obj.nm)}
+          </div>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+            fontWeight: 700,
+            color: '#fff',
+            marginBottom: '1rem',
+            fontFamily: 'Space Grotesk, sans-serif',
+            lineHeight: 1.1,
+          }}>
+            {obj.label}
+          </h2>
+          <p style={{
+            fontSize: '1rem',
+            color: '#888',
+            lineHeight: 1.8,
+            fontStyle: obj.type === 'chip' ? 'normal' : 'italic',
+            fontFamily: 'Space Grotesk, sans-serif',
+          }}>
+            {obj.fact}
+          </p>
+          {obj.isLast && (
+            <div style={{
+              marginTop: '2rem',
+              padding: '1rem 1.5rem',
+              background: 'rgba(99,102,241,0.1)',
+              border: '1px solid rgba(99,102,241,0.3)',
+              borderRadius: '8px',
+              fontFamily: 'Space Mono, monospace',
+              fontSize: '12px',
+              color: '#6366f1',
+              letterSpacing: '0.05em',
+            }}>
+              ▼ THE BOTTOM — 2nm is the physical frontier of silicon computing
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function SizeOfTransistor() {
   const navigate = useNavigate()
-  const [current, setCurrent] = useState(0)
-  const [animating, setAnimating] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [currentNm, setCurrentNm] = useState(MAX_NM)
+  const [currentLabel, setCurrentLabel] = useState(SORTED[0].label)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const containerRef = useRef(null)
+  const hintRef = useRef(null)
 
-  const goTo = (idx) => {
-    if (animating || idx === current) return
-    setAnimating(true)
-    setTimeout(() => {
-      setCurrent(idx)
-      setAnimating(false)
-    }, 300)
-  }
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY
+    const maxScroll = document.body.scrollHeight - window.innerHeight
+    const progress = maxScroll > 0 ? scrollY / maxScroll : 0
+    setScrollProgress(progress)
 
-  const next = () => { if (current < STOPS.length - 1) goTo(current + 1) }
-  const prev = () => { if (current > 0) goTo(current - 1) }
+    if (scrollY > 80 && !scrolled) setScrolled(true)
+
+    // find which object is most centered in viewport
+    const cards = document.querySelectorAll('[data-nm]')
+    const viewportMid = scrollY + window.innerHeight / 2
+    let closest = null
+    let closestDist = Infinity
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect()
+      const cardMid = scrollY + rect.top + rect.height / 2
+      const dist = Math.abs(cardMid - viewportMid)
+      if (dist < closestDist) {
+        closestDist = dist
+        closest = card
+      }
+    })
+    if (closest) {
+      const nm = parseFloat(closest.getAttribute('data-nm'))
+      setCurrentNm(nm)
+      // find label
+      const obj = SORTED.find(o => o.nm === nm)
+      if (obj) setCurrentLabel(obj.label)
+    }
+  }, [scrolled])
 
   useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next()
-      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prev()
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
-  }, [current, animating])
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
 
-  const stop = STOPS[current]
-  const progress = current / (STOPS.length - 1)
+  const bgDepth = Math.round(10 + scrollProgress * 4)
+  const bgColor = `rgb(${bgDepth}, ${bgDepth}, ${Math.round(bgDepth * 1.5)})`
 
-  // Visual size of the circle — gets smaller as we zoom in
-  const circleSize = 220 - current * 26
+  const progressPercent = (1 - nmToLog(currentNm)) * 100
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', color: '#fff', display: 'flex', flexDirection: 'column' }}>
+    <div ref={containerRef} style={{ background: bgColor, minHeight: '100vh', transition: 'background 0.5s ease' }}>
       <style>{`
-        @keyframes fadeIn { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
-        @keyframes pulse-ring { 0%{transform:scale(1);opacity:0.4} 100%{transform:scale(1.6);opacity:0} }
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital@0;1&family=Space+Grotesk:wght@400;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+        @keyframes bounceDown {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(8px); }
+        }
+        @keyframes fadeOutHint {
+          0% { opacity: 1; }
+          100% { opacity: 0; pointer-events: none; }
+        }
       `}</style>
 
-      {/* Nav */}
-      <div style={{ padding: '1.5rem 2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <button onClick={() => navigate('/')} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#666', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
+      {/* Fixed header */}
+      <div style={{
+        position: 'fixed',
+        top: 0, left: 0, right: 0,
+        height: '56px',
+        background: 'rgba(10,10,15,0.85)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 2rem',
+        zIndex: 100,
+      }}>
+        <button
+          onClick={() => navigate('/')}
+          style={{
+            fontFamily: 'Space Mono, monospace',
+            fontSize: '12px',
+            color: '#666',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            letterSpacing: '0.06em',
+            padding: '4px 0',
+          }}
+        >
           ← back
         </button>
-        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-          the size of a transistor
+        <div style={{
+          fontFamily: 'Space Mono, monospace',
+          fontSize: '11px',
+          color: '#444',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+        }}>
+          The Size of a Transistor
         </div>
-        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#444' }}>
-          {current + 1} / {STOPS.length}
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#555', letterSpacing: '0.08em' }}>
+            {currentLabel}
+          </div>
+          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#4f9eff', letterSpacing: '0.06em' }}>
+            {formatNm(currentNm)}
+          </div>
         </div>
       </div>
 
-      {/* Main */}
-      <div style={{ flex: 1, display: 'flex', gap: '0', overflow: 'hidden' }}>
-
-        {/* Left — timeline */}
-        <div style={{ width: '200px', padding: '2rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-          <div style={{ fontSize: '10px', fontFamily: 'Space Mono, monospace', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>zoom scale</div>
-          {STOPS.map((s, i) => (
-            <button key={i} onClick={() => goTo(i)} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'none', border: 'none', cursor: 'pointer', padding: '10px 0', textAlign: 'left', position: 'relative' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: current === i ? s.color : '#333', border: current === i ? `2px solid ${s.color}` : '2px solid #444', flexShrink: 0, transition: 'all 0.3s', boxShadow: current === i ? `0 0 8px ${s.color}` : 'none' }} />
-              <div style={{ fontSize: '11px', fontFamily: 'Space Mono, monospace', color: current === i ? '#fff' : '#555', transition: 'color 0.3s', lineHeight: 1.3 }}>
-                <div style={{ color: current === i ? s.color : '#555' }}>{s.label}</div>
-                <div style={{ fontSize: '10px', color: '#444', marginTop: '1px' }}>{s.size}</div>
-              </div>
-            </button>
-          ))}
+      {/* Fixed left sidebar */}
+      <div style={{
+        position: 'fixed',
+        left: 0, top: 0, bottom: 0,
+        width: '220px',
+        background: 'rgba(10,10,15,0.7)',
+        backdropFilter: 'blur(8px)',
+        borderRight: '1px solid rgba(255,255,255,0.05)',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '80px 1.5rem 2rem',
+        zIndex: 90,
+      }}>
+        <div style={{
+          fontFamily: 'Space Mono, monospace',
+          fontSize: '9px',
+          color: '#444',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          marginBottom: '1rem',
+        }}>
+          Scale
         </div>
 
-        {/* Center — visual */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative' }}>
-
-          {/* Scale bar */}
-          <div style={{ position: 'absolute', top: '2rem', left: '50%', transform: 'translateX(-50%)', background: 'rgba(255,255,255,0.04)', borderRadius: '99px', padding: '6px 16px' }}>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#666' }}>
-              viewing at scale: <span style={{ color: stop.color }}>{stop.scale}</span>
-            </div>
-          </div>
-
-          {/* Circle visualization */}
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '3rem' }}>
-            {/* Pulse rings */}
-            <div style={{ position: 'absolute', width: circleSize + 'px', height: circleSize + 'px', borderRadius: '50%', border: `1px solid ${stop.color}`, animation: 'pulse-ring 2s ease-out infinite', opacity: 0.4 }} />
-            <div style={{ position: 'absolute', width: circleSize + 'px', height: circleSize + 'px', borderRadius: '50%', border: `1px solid ${stop.color}`, animation: 'pulse-ring 2s ease-out infinite 1s', opacity: 0.4 }} />
-
-            {/* Main circle */}
+        {/* Scale bar */}
+        <div style={{ display: 'flex', gap: '12px', flex: 1 }}>
+          <div style={{ position: 'relative', width: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '2px', flex: '0 0 4px' }}>
             <div style={{
-              width: circleSize + 'px',
-              height: circleSize + 'px',
+              position: 'absolute',
+              top: 0,
+              left: 0, right: 0,
+              height: `${progressPercent}%`,
+              background: 'linear-gradient(to bottom, #4f9eff, #6366f1)',
+              borderRadius: '2px',
+              transition: 'height 0.3s ease',
+            }} />
+            <div style={{
+              position: 'absolute',
+              top: `${progressPercent}%`,
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '10px',
+              height: '10px',
               borderRadius: '50%',
-              background: `radial-gradient(circle at 35% 35%, ${stop.color}33, ${stop.color}11)`,
-              border: `2px solid ${stop.color}66`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: current > 4 ? '2.5rem' : '4rem',
-              animation: animating ? 'none' : 'fadeIn 0.4s ease',
-              transition: 'width 0.5s ease, height 0.5s ease, background 0.5s ease, border-color 0.5s ease',
-              boxShadow: `0 0 60px ${stop.color}22`,
-            }}>
-              {stop.emoji}
-            </div>
+              background: '#6366f1',
+              boxShadow: '0 0 12px #6366f1',
+              transition: 'top 0.3s ease',
+            }} />
           </div>
 
-          {/* Label + size */}
-          <div style={{ textAlign: 'center', animation: animating ? 'none' : 'fadeIn 0.4s ease', maxWidth: '500px' }}>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: stop.color, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-              {stop.size}
-            </div>
-            <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', marginBottom: '1rem', fontFamily: 'Space Grotesk, sans-serif' }}>
-              {stop.label}
-            </h2>
-            <p style={{ fontSize: '0.95rem', color: '#888', lineHeight: 1.8, marginBottom: '2.5rem' }}>
-              {stop.fact}
-            </p>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>1 mm</div>
+            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>1 µm</div>
+            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>100 nm</div>
+            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>10 nm</div>
+            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#4f9eff' }}>2 nm</div>
           </div>
+        </div>
 
-          {/* Progress bar */}
-          <div style={{ width: '100%', maxWidth: '400px', marginBottom: '2rem' }}>
-            <div style={{ height: '2px', background: 'rgba(255,255,255,0.08)', borderRadius: '99px', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${progress * 100}%`, background: stop.color, transition: 'width 0.5s ease, background 0.5s ease', borderRadius: '99px' }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#444' }}>
-              <span>70,000 nm</span><span>← zooming in →</span><span>0.22 nm</span>
-            </div>
+        <div style={{ marginTop: '1.5rem' }}>
+          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '6px' }}>
+            CURRENT
           </div>
+          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '14px', color: '#4f9eff', fontWeight: 'bold' }}>
+            {formatNm(currentNm)}
+          </div>
+        </div>
+      </div>
 
-          {/* Nav buttons */}
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <button onClick={prev} disabled={current === 0} style={{ background: 'rgba(255,255,255,0.06)', color: current === 0 ? '#333' : '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', padding: '0.75rem 1.5rem', fontSize: '13px', cursor: current === 0 ? 'default' : 'pointer', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600 }}>
-              ← zoom out
-            </button>
-            <button onClick={next} disabled={current === STOPS.length - 1} style={{ background: current === STOPS.length - 1 ? 'rgba(255,255,255,0.04)' : stop.color, color: '#fff', border: 'none', borderRadius: '10px', padding: '0.75rem 1.5rem', fontSize: '13px', cursor: current === STOPS.length - 1 ? 'default' : 'pointer', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, transition: 'background 0.3s' }}>
-              zoom in →
-            </button>
+      {/* Hero section */}
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: '220px',
+        position: 'relative',
+      }}>
+        <div style={{
+          textAlign: 'center',
+          maxWidth: '640px',
+          padding: '2rem',
+        }}>
+          <div style={{
+            fontFamily: 'Space Mono, monospace',
+            fontSize: '11px',
+            color: '#4f9eff',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            marginBottom: '1.5rem',
+          }}>
+            A journey through scale
           </div>
+          <h1 style={{
+            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+            fontWeight: 700,
+            color: '#fff',
+            fontFamily: 'Space Grotesk, sans-serif',
+            lineHeight: 1.05,
+            marginBottom: '1.5rem',
+          }}>
+            The Size of a<br />
+            <span style={{ color: '#4f9eff' }}>Transistor</span>
+          </h1>
+          <p style={{
+            fontSize: '1.1rem',
+            color: '#666',
+            lineHeight: 1.8,
+            fontFamily: 'Space Grotesk, sans-serif',
+            marginBottom: '3rem',
+          }}>
+            From a strand of hair to a glucose molecule — scroll through 6 orders of magnitude and discover where transistors sit in the scale of reality.
+          </p>
+          <div style={{
+            fontFamily: 'Space Mono, monospace',
+            fontSize: '12px',
+            color: '#4f9eff',
+            letterSpacing: '0.1em',
+            animation: `bounceDown 1.5s ease-in-out infinite`,
+            opacity: scrolled ? 0 : 1,
+            transition: 'opacity 0.6s ease',
+          }}>
+            ↓ scroll to zoom in
+          </div>
+        </div>
+      </div>
 
-          <div style={{ marginTop: '1rem', fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#333' }}>
-            use arrow keys to navigate
+      {/* Object cards */}
+      {SORTED.map((obj, i) => (
+        <ObjectCard key={obj.id} obj={obj} index={i} />
+      ))}
+
+      {/* End cap */}
+      <div style={{
+        minHeight: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: '220px',
+      }}>
+        <div style={{ textAlign: 'center', maxWidth: '500px', padding: '2rem' }}>
+          <div style={{
+            fontFamily: 'Space Mono, monospace',
+            fontSize: '11px',
+            color: '#444',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            marginBottom: '1rem',
+          }}>
+            You've reached the bottom
           </div>
+          <p style={{
+            fontSize: '1rem',
+            color: '#666',
+            lineHeight: 1.8,
+            fontFamily: 'Space Grotesk, sans-serif',
+          }}>
+            At 2nm, we're building transistors from just a handful of silicon atoms. The physics of classical semiconductors is running out. What comes next is quantum.
+          </p>
         </div>
       </div>
     </div>
