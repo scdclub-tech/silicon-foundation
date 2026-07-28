@@ -7,6 +7,7 @@ import About from './pages/About'
 import Domains from './pages/Domains'
 import Programs from './pages/Programs'
 import Events from './pages/Events'
+import EventDetail from './pages/EventDetail'
 import Team from './pages/Team'
 import Join from './pages/Join'
 
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/domains" element={<Domains />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/team" element={<Team />} />
         <Route path="/join" element={<Join />} />
 
