@@ -32,7 +32,7 @@ export default function Events() {
           ))}
         </ul>
       )}
-      {/* TODO: content pending */}
+      {/* TODO: content pending — body copy goes in <p className="prose-serif"> */}
     </main>
   )
 }

@@ -52,9 +52,13 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
 
+  // `no-underline` must not be in the base: Tailwind emits it after `underline`
+  // in the utilities layer, so it would win on the active link regardless of order.
   const linkClass = ({ isActive }) =>
-    `text-[13px] no-underline transition-colors ${
-      isActive ? 'underline decoration-1 underline-offset-[6px]' : 'hover:opacity-70'
+    `text-[13px] transition-colors ${
+      isActive
+        ? 'underline decoration-1 underline-offset-[6px]'
+        : 'no-underline hover:opacity-70'
     }`
 
   const linkStyle = ({ isActive }) => ({

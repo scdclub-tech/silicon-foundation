@@ -87,6 +87,13 @@ new code.
 **Fonts:** Archivo (display / UI), Newsreader (body serif), IBM Plex Mono (data, labels,
 metadata). Loaded globally via Google Fonts in `index.html`.
 
+**Font rule — Archivo is the default.** The `body` rule in `index.css` sets Archivo, and
+it applies to all UI, headings, buttons, and labels. Newsreader is *only* for
+multi-sentence prose on the club site pages, and it must be applied explicitly with the
+`.prose-serif` utility class (defined in `index.css`). Never set Newsreader as an
+inherited default, and never use it for UI chrome. IBM Plex Mono stays scoped to data,
+labels, and metadata.
+
 **Never use Space Grotesk or Space Mono** — they were removed from the project.
 
 **Design direction:** restrained, generous whitespace, near-monochrome. Electronics motifs

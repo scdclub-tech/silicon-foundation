@@ -12,7 +12,7 @@ export default function Join() {
       >
         Join us
       </h1>
-      {/* TODO: content pending */}
+      {/* TODO: content pending — body copy goes in <p className="prose-serif"> */}
     </main>
   )
 }

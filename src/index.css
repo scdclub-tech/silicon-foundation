@@ -19,6 +19,15 @@ html, body, #root {
 }
 
 body {
-  font-family: 'Newsreader', serif;
+  font-family: 'Archivo', sans-serif;
   background: #F7F6F2;
+}
+
+/*
+ * Archivo is the global default — UI, headings, buttons, labels.
+ * Newsreader is opt-in: apply .prose-serif to multi-sentence body copy
+ * on the club site pages only.
+ */
+.prose-serif {
+  font-family: 'Newsreader', serif;
 }
