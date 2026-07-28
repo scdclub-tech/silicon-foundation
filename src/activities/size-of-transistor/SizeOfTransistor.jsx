@@ -396,7 +396,7 @@ function ObjectCard({ obj, index }) {
 
         <div style={{ flex: 1 }}>
           <div style={{
-            fontFamily: 'Space Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '13px',
             color: obj.color,
             letterSpacing: '0.12em',
@@ -411,7 +411,7 @@ function ObjectCard({ obj, index }) {
             fontWeight: 700,
             color: '#fff',
             marginBottom: '1rem',
-            fontFamily: 'Space Grotesk, sans-serif',
+            fontFamily: 'Archivo, sans-serif',
             lineHeight: 1.1,
           }}>
             {obj.label}
@@ -421,7 +421,7 @@ function ObjectCard({ obj, index }) {
             color: '#888',
             lineHeight: 1.8,
             fontStyle: obj.type === 'chip' ? 'normal' : 'italic',
-            fontFamily: 'Space Grotesk, sans-serif',
+            fontFamily: 'Archivo, sans-serif',
           }}>
             {obj.fact}
           </p>
@@ -432,7 +432,7 @@ function ObjectCard({ obj, index }) {
               background: 'rgba(99,102,241,0.1)',
               border: '1px solid rgba(99,102,241,0.3)',
               borderRadius: '8px',
-              fontFamily: 'Space Mono, monospace',
+              fontFamily: 'IBM Plex Mono, monospace',
               fontSize: '12px',
               color: '#6366f1',
               letterSpacing: '0.05em',
@@ -530,9 +530,9 @@ export default function SizeOfTransistor() {
         zIndex: 100,
       }}>
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/playground')}
           style={{
-            fontFamily: 'Space Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '12px',
             color: '#666',
             background: 'none',
@@ -545,7 +545,7 @@ export default function SizeOfTransistor() {
           ← back
         </button>
         <div style={{
-          fontFamily: 'Space Mono, monospace',
+          fontFamily: 'IBM Plex Mono, monospace',
           fontSize: '11px',
           color: '#444',
           letterSpacing: '0.12em',
@@ -554,10 +554,10 @@ export default function SizeOfTransistor() {
           The Size of a Transistor
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#555', letterSpacing: '0.08em' }}>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#555', letterSpacing: '0.08em' }}>
             {currentLabel}
           </div>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#4f9eff', letterSpacing: '0.06em' }}>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#4f9eff', letterSpacing: '0.06em' }}>
             {formatNm(currentNm)}
           </div>
         </div>
@@ -577,7 +577,7 @@ export default function SizeOfTransistor() {
         zIndex: 90,
       }}>
         <div style={{
-          fontFamily: 'Space Mono, monospace',
+          fontFamily: 'IBM Plex Mono, monospace',
           fontSize: '9px',
           color: '#444',
           letterSpacing: '0.1em',
@@ -614,19 +614,19 @@ export default function SizeOfTransistor() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>1 mm</div>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>1 µm</div>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>100 nm</div>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555' }}>10 nm</div>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#4f9eff' }}>2 nm</div>
+            <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '9px', color: '#555' }}>1 mm</div>
+            <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '9px', color: '#555' }}>1 µm</div>
+            <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '9px', color: '#555' }}>100 nm</div>
+            <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '9px', color: '#555' }}>10 nm</div>
+            <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '9px', color: '#4f9eff' }}>2 nm</div>
           </div>
         </div>
 
         <div style={{ marginTop: '1.5rem' }}>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '6px' }}>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '6px' }}>
             CURRENT
           </div>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '14px', color: '#4f9eff', fontWeight: 'bold' }}>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '14px', color: '#4f9eff', fontWeight: 'bold' }}>
             {formatNm(currentNm)}
           </div>
         </div>
@@ -648,7 +648,7 @@ export default function SizeOfTransistor() {
           padding: '2rem',
         }}>
           <div style={{
-            fontFamily: 'Space Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '11px',
             color: '#4f9eff',
             letterSpacing: '0.2em',
@@ -661,7 +661,7 @@ export default function SizeOfTransistor() {
             fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
             fontWeight: 700,
             color: '#fff',
-            fontFamily: 'Space Grotesk, sans-serif',
+            fontFamily: 'Archivo, sans-serif',
             lineHeight: 1.05,
             marginBottom: '1.5rem',
           }}>
@@ -672,13 +672,13 @@ export default function SizeOfTransistor() {
             fontSize: '1.1rem',
             color: '#666',
             lineHeight: 1.8,
-            fontFamily: 'Space Grotesk, sans-serif',
+            fontFamily: 'Archivo, sans-serif',
             marginBottom: '3rem',
           }}>
             From a strand of hair to a glucose molecule — scroll through 6 orders of magnitude and discover where transistors sit in the scale of reality.
           </p>
           <div style={{
-            fontFamily: 'Space Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '12px',
             color: '#4f9eff',
             letterSpacing: '0.1em',
@@ -706,7 +706,7 @@ export default function SizeOfTransistor() {
       }}>
         <div style={{ textAlign: 'center', maxWidth: '500px', padding: '2rem' }}>
           <div style={{
-            fontFamily: 'Space Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '11px',
             color: '#444',
             letterSpacing: '0.12em',
@@ -719,7 +719,7 @@ export default function SizeOfTransistor() {
             fontSize: '1rem',
             color: '#666',
             lineHeight: 1.8,
-            fontFamily: 'Space Grotesk, sans-serif',
+            fontFamily: 'Archivo, sans-serif',
           }}>
             At 2nm, we're building transistors from just a handful of silicon atoms. The physics of classical semiconductors is running out. What comes next is quantum.
           </p>

@@ -82,7 +82,7 @@ export default function Leaderboard() {
   return (
     <div style={{ minHeight: '100vh', background: '#F7F6F2' }}>
       <div style={{ padding: '1.5rem 2.5rem 0' }}>
-        <button onClick={() => navigate('/challenges')} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
+        <button onClick={() => navigate('/challenges')} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
           ← back to hub
         </button>
       </div>
@@ -92,10 +92,10 @@ export default function Leaderboard() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{ fontSize: '3rem', marginBottom: '0.8rem' }}>🏆</div>
-          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+          <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
             Leaderboard
           </h1>
-          <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px' }}>
+          <p style={{ color: '#888', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px' }}>
             Weekly challenge rankings
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function Leaderboard() {
               onClick={() => setActiveTab(i)}
               style={{
                 flex: 1,
-                fontFamily: 'Space Mono, monospace',
+                fontFamily: 'IBM Plex Mono, monospace',
                 fontSize: '12px',
                 padding: '0.55rem 0.75rem',
                 background: activeTab === i ? '#0f0f0f' : 'none',
@@ -128,18 +128,18 @@ export default function Leaderboard() {
 
         {/* Week subtitle */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#0f0f0f' }}>{tab.title}</div>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa', marginTop: '0.25rem' }}>{tab.subtitle}</div>
+          <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#0f0f0f' }}>{tab.title}</div>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa', marginTop: '0.25rem' }}>{tab.subtitle}</div>
         </div>
 
         {isLoading || results === null ? (
-          <div style={{ textAlign: 'center', fontFamily: 'Space Mono, monospace', color: '#aaa', padding: '3rem' }}>
+          <div style={{ textAlign: 'center', fontFamily: 'IBM Plex Mono, monospace', color: '#aaa', padding: '3rem' }}>
             Loading results...
           </div>
         ) : results.length === 0 ? (
           <div style={{ textAlign: 'center', background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '3rem' }}>
             <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👀</div>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '13px', color: '#aaa' }}>
+            <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '13px', color: '#aaa' }}>
               No submissions yet — be the first!
             </div>
           </div>
@@ -159,13 +159,13 @@ export default function Leaderboard() {
                     order: i === 0 ? 2 : i === 1 ? 1 : 3,
                   }}>
                     <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{medals[i]}</div>
-                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.9rem', fontWeight: 700, color: i === 0 ? '#fff' : '#0f0f0f', marginBottom: '0.3rem' }}>
+                    <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '0.9rem', fontWeight: 700, color: i === 0 ? '#fff' : '#0f0f0f', marginBottom: '0.3rem' }}>
                       {r.name.split(' ')[0]}
                     </div>
-                    <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: i === 0 ? '#555' : '#aaa', marginBottom: '0.5rem' }}>
+                    <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: i === 0 ? '#555' : '#aaa', marginBottom: '0.5rem' }}>
                       {r.roll_number}
                     </div>
-                    <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '1.1rem', fontWeight: 700, color: i === 0 ? '#22c55e' : tab.scoreColor }}>
+                    <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '1.1rem', fontWeight: 700, color: i === 0 ? '#22c55e' : tab.scoreColor }}>
                       {tab.formatScore(r[tab.scoreKey])}
                     </div>
                   </div>
@@ -177,15 +177,15 @@ export default function Leaderboard() {
             {results.slice(3).map((r, i) => (
               <div key={r.id} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '12px', padding: '1rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '13px', color: '#aaa', width: '28px' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '13px', color: '#aaa', width: '28px' }}>
                     #{i + 4}
                   </div>
                   <div>
-                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.95rem', fontWeight: 600, color: '#0f0f0f' }}>{r.name}</div>
-                    <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa' }}>{r.roll_number}</div>
+                    <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '0.95rem', fontWeight: 600, color: '#0f0f0f' }}>{r.name}</div>
+                    <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa' }}>{r.roll_number}</div>
                   </div>
                 </div>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '1rem', fontWeight: 700, color: tab.scoreColor }}>
+                <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '1rem', fontWeight: 700, color: tab.scoreColor }}>
                   {tab.formatScore(r[tab.scoreKey])}
                 </div>
               </div>
@@ -202,8 +202,8 @@ export default function Leaderboard() {
               { label: `Top ${tab.statsLabel}`, value: tab.topFn(results) },
             ].map((s, i) => (
               <div key={i} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '12px', padding: '1rem', textAlign: 'center' }}>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{s.label}</div>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '1.2rem', fontWeight: 700, color: '#0f0f0f' }}>{s.value}</div>
+                <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{s.label}</div>
+                <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '1.2rem', fontWeight: 700, color: '#0f0f0f' }}>{s.value}</div>
               </div>
             ))}
           </div>

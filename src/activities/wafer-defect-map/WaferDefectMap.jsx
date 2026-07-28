@@ -149,7 +149,7 @@ export default function WaferDefectMap() {
   return (
     <div style={{ minHeight: '100vh', background: '#F7F6F2' }}>
       <div style={{ padding: '1.5rem 2.5rem 0' }}>
-        <button onClick={() => navigate('/')} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
+        <button onClick={() => navigate('/playground')} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
           ← back to activities
         </button>
       </div>
@@ -159,7 +159,7 @@ export default function WaferDefectMap() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <div style={{ fontSize: '3rem', marginBottom: '0.8rem' }}>🎲</div>
-          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.5rem' }}>Wafer Defect Map</h1>
+          <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.5rem' }}>Wafer Defect Map</h1>
           <p style={{ color: '#888', fontSize: '0.95rem', maxWidth: '460px', margin: '0 auto' }}>
             Click or drag on the wafer to place defects. Watch yield drop in real time. Resize dies to see how area affects economics.
           </p>
@@ -172,9 +172,9 @@ export default function WaferDefectMap() {
 
             {/* Yield — big number */}
             <div style={{ background: '#0f0f0f', borderRadius: '14px', padding: '1.8rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#666', marginBottom: '0.4rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Wafer Yield</div>
-              <div style={{ fontSize: '3.5rem', fontWeight: 700, fontFamily: 'Space Mono, monospace', color: yieldColor, lineHeight: 1 }}>{stats.yield}%</div>
-              <div style={{ fontSize: '12px', color: '#555', marginTop: '0.4rem', fontFamily: 'Space Mono, monospace' }}>
+              <div style={{ fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#666', marginBottom: '0.4rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Wafer Yield</div>
+              <div style={{ fontSize: '3.5rem', fontWeight: 700, fontFamily: 'IBM Plex Mono, monospace', color: yieldColor, lineHeight: 1 }}>{stats.yield}%</div>
+              <div style={{ fontSize: '12px', color: '#555', marginTop: '0.4rem', fontFamily: 'IBM Plex Mono, monospace' }}>
                 {stats.good} good / {stats.total} total dies
               </div>
             </div>
@@ -188,8 +188,8 @@ export default function WaferDefectMap() {
                 { label: 'Dies per wafer', value: stats.total, color: '#0f0f0f' },
               ].map((s, i) => (
                 <div key={i} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '10px', padding: '1rem' }}>
-                  <div style={{ fontSize: '11px', color: '#aaa', fontFamily: 'Space Mono, monospace', marginBottom: '0.3rem' }}>{s.label}</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, fontFamily: 'Space Mono, monospace', color: s.color }}>{s.value}</div>
+                  <div style={{ fontSize: '11px', color: '#aaa', fontFamily: 'IBM Plex Mono, monospace', marginBottom: '0.3rem' }}>{s.label}</div>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 700, fontFamily: 'IBM Plex Mono, monospace', color: s.color }}>{s.value}</div>
                 </div>
               ))}
             </div>
@@ -197,33 +197,33 @@ export default function WaferDefectMap() {
             {/* Die size */}
             <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '12px', padding: '1.2rem 1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                <div style={{ fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Die Size</div>
-                <div style={{ fontSize: '13px', fontFamily: 'Space Mono, monospace', fontWeight: 700, color: '#0f0f0f' }}>{dieSize}mm</div>
+                <div style={{ fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Die Size</div>
+                <div style={{ fontSize: '13px', fontFamily: 'IBM Plex Mono, monospace', fontWeight: 700, color: '#0f0f0f' }}>{dieSize}mm</div>
               </div>
               <input type="range" min="5" max="30" step="1" value={dieSize}
                 onChange={e => { setDieSize(Number(e.target.value)); setDefects([]) }}
                 style={{ width: '100%', accentColor: '#0f0f0f' }} />
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#ccc', fontFamily: 'Space Mono, monospace', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#ccc', fontFamily: 'IBM Plex Mono, monospace', marginTop: '4px' }}>
                 <span>5mm (tiny)</span><span>30mm (huge)</span>
               </div>
-              <div style={{ marginTop: '0.6rem', fontSize: '11px', color: '#aaa', fontFamily: 'Space Mono, monospace' }}>
+              <div style={{ marginTop: '0.6rem', fontSize: '11px', color: '#aaa', fontFamily: 'IBM Plex Mono, monospace' }}>
                 Changing die size resets defects
               </div>
             </div>
 
             {/* Buttons */}
             <div style={{ display: 'flex', gap: '0.75rem' }}>
-              <button onClick={addRandom} style={{ flex: 1, background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.85rem', fontSize: '13px', cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600 }}>
+              <button onClick={addRandom} style={{ flex: 1, background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.85rem', fontSize: '13px', cursor: 'pointer', fontFamily: 'Archivo, sans-serif', fontWeight: 600 }}>
                 + scatter 20 defects
               </button>
-              <button onClick={() => setDefects([])} style={{ flex: 1, background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.12)', borderRadius: '10px', padding: '0.85rem', fontSize: '13px', cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600 }}>
+              <button onClick={() => setDefects([])} style={{ flex: 1, background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.12)', borderRadius: '10px', padding: '0.85rem', fontSize: '13px', cursor: 'pointer', fontFamily: 'Archivo, sans-serif', fontWeight: 600 }}>
                 clear all
               </button>
             </div>
 
             {/* Insight */}
             <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '1.2rem 1.5rem' }}>
-              <div style={{ fontSize: '11px', fontFamily: 'Space Mono, monospace', color: '#1e40af', fontWeight: 700, marginBottom: '0.4rem' }}>💡 insight</div>
+              <div style={{ fontSize: '11px', fontFamily: 'IBM Plex Mono, monospace', color: '#1e40af', fontWeight: 700, marginBottom: '0.4rem' }}>💡 insight</div>
               <div style={{ fontSize: '12px', color: '#1d4ed8', lineHeight: 1.6 }}>
                 {yieldNum === 100
                   ? 'No defects yet. Click the wafer or scatter some defects to see yield drop.'
@@ -250,7 +250,7 @@ export default function WaferDefectMap() {
               onMouseLeave={handleMouseUp}
               style={{ cursor: 'crosshair', borderRadius: '12px', display: 'block', maxWidth: '100%', userSelect: 'none' }}
             />
-            <div style={{ textAlign: 'center', marginTop: '0.8rem', fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#ccc', letterSpacing: '0.06em' }}>
+            <div style={{ textAlign: 'center', marginTop: '0.8rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#ccc', letterSpacing: '0.06em' }}>
               click or drag to place defects
             </div>
           </div>

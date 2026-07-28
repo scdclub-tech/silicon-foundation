@@ -15,13 +15,13 @@ export default function WeekHub() {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.8rem' }}>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.8rem' }}>
             welcome back
           </div>
-          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+          <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
             Hey {student.name.split(' ')[0]} 👋
           </h1>
-          <p style={{ color: '#888', fontSize: '0.9rem', fontFamily: 'Space Mono, monospace' }}>
+          <p style={{ color: '#888', fontSize: '0.9rem', fontFamily: 'IBM Plex Mono, monospace' }}>
             {student.roll_number} · SCDC Summer VLSI '26
           </p>
         </div>
@@ -51,11 +51,11 @@ export default function WeekHub() {
                     <div style={{ fontSize: '2rem' }}>{config.emoji}</div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                        <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1rem', fontWeight: 600, color: '#0f0f0f' }}>
+                        <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1rem', fontWeight: 600, color: '#0f0f0f' }}>
                           Week {weekNum} — {config.title}
                         </div>
                         <div style={{
-                          fontFamily: 'Space Mono, monospace',
+                          fontFamily: 'IBM Plex Mono, monospace',
                           fontSize: '10px',
                           padding: '2px 8px',
                           borderRadius: '99px',
@@ -73,17 +73,17 @@ export default function WeekHub() {
                       </div>
 
                       {isUnlocked && (
-                        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#f59e0b', marginTop: '4px' }}>
+                        <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#f59e0b', marginTop: '4px' }}>
                           ⏰ deadline: {deadlineDate}
                         </div>
                       )}
                       {isLocked && (
-                        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#bbb', marginTop: '4px' }}>
+                        <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#bbb', marginTop: '4px' }}>
                           unlocks {unlockDate}
                         </div>
                       )}
                       {isExpired && (
-                        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#dc2626', marginTop: '4px' }}>
+                        <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#dc2626', marginTop: '4px' }}>
                           closed on {deadlineDate}
                         </div>
                       )}
@@ -93,20 +93,20 @@ export default function WeekHub() {
                   {isUnlocked && (
                     <button
                       onClick={() => navigate(`/challenges/${config.activity}`, { state: { student } })}
-                      style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.75rem 1.2rem', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif', whiteSpace: 'nowrap', flexShrink: 0 }}
+                      style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.75rem 1.2rem', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif', whiteSpace: 'nowrap', flexShrink: 0 }}
                     >
                       Start →
                     </button>
                   )}
 
                   {isExpired && (
-                    <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#dc2626', flexShrink: 0, padding: '0.75rem 1.2rem', background: '#FEF2F2', borderRadius: '10px' }}>
+                    <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#dc2626', flexShrink: 0, padding: '0.75rem 1.2rem', background: '#FEF2F2', borderRadius: '10px' }}>
                       Closed
                     </div>
                   )}
 
                   {isLocked && (
-                    <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#9CA3AF', flexShrink: 0, padding: '0.75rem 1.2rem', background: '#F3F4F6', borderRadius: '10px' }}>
+                    <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#9CA3AF', flexShrink: 0, padding: '0.75rem 1.2rem', background: '#F3F4F6', borderRadius: '10px' }}>
                       🔒 Locked
                     </div>
                   )}
@@ -120,14 +120,14 @@ export default function WeekHub() {
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <button
             onClick={() => navigate('/challenges/leaderboard')}
-            style={{ background: 'none', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.75rem 2rem', fontSize: '13px', color: '#666', cursor: 'pointer', fontFamily: 'Space Mono, monospace' }}
+            style={{ background: 'none', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.75rem 2rem', fontSize: '13px', color: '#666', cursor: 'pointer', fontFamily: 'IBM Plex Mono, monospace' }}
           >
             🏆 view leaderboard
           </button>
         </div>
 
         {/* Footer */}
-        <div style={{ textAlign: 'center', marginTop: '2rem', fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#ccc' }}>
+        <div style={{ textAlign: 'center', marginTop: '2rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#ccc' }}>
           SCDC Summer VLSI '26 · one attempt per activity
         </div>
       </div>

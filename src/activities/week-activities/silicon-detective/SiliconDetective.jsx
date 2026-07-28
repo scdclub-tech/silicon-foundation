@@ -189,15 +189,15 @@ export default function SiliconDetective() {
   <div style={{ minHeight: '100vh', background: '#F7F6F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
     <div style={{ textAlign: 'center', maxWidth: '400px', padding: '2rem' }}>
       <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔒</div>
-      <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Already submitted!</h2>
-      <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px', lineHeight: 1.8, marginBottom: '2rem' }}>
+      <h2 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Already submitted!</h2>
+      <p style={{ color: '#888', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', lineHeight: 1.8, marginBottom: '2rem' }}>
         You've already completed Silicon Detective. Only one attempt is allowed per student. Check the leaderboard to see your ranking!
       </p>
       <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
-        <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+        <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
           🏆 View leaderboard
         </button>
-        <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+        <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
           Back to hub
         </button>
       </div>
@@ -207,9 +207,9 @@ export default function SiliconDetective() {
       <style>{`@keyframes pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}`}</style>
 
       <div style={{ padding: '1.5rem 2.5rem 0', display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={() => navigate('/challenges', { state: { student } })} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer' }}>← back</button>
+        <button onClick={() => navigate('/challenges', { state: { student } })} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer' }}>← back</button>
         {screen === 'playing' && (
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888' }}>round {round} / 3</div>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888' }}>round {round} / 3</div>
         )}
       </div>
 
@@ -220,16 +220,16 @@ export default function SiliconDetective() {
           <div style={{ animation: 'pop 0.4s ease' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
               <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>🔍</div>
-              <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.5rem' }}>Silicon Detective</h1>
-              <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px' }}>Week 3 Challenge · 3 rounds of failure analysis</p>
+              <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.5rem' }}>Silicon Detective</h1>
+              <p style={{ color: '#888', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px' }}>Week 3 Challenge · 3 rounds of failure analysis</p>
             </div>
 
             {/* Case file */}
             <div style={{ background: '#0f0f0f', borderRadius: '16px', padding: '2rem', marginBottom: '1.5rem', color: '#fff' }}>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#555', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.8rem' }}>🗂️ case file</div>
-              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.3rem' }}>{CASE.title}</h2>
-              <p style={{ color: '#666', fontSize: '12px', fontFamily: 'Space Mono, monospace', marginBottom: '1.2rem' }}>{CASE.chip}</p>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>observed symptoms</div>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#555', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.8rem' }}>🗂️ case file</div>
+              <h2 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.3rem' }}>{CASE.title}</h2>
+              <p style={{ color: '#666', fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', marginBottom: '1.2rem' }}>{CASE.chip}</p>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>observed symptoms</div>
               {CASE.symptoms.map((s, i) => (
                 <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '0.5rem', fontSize: '13px', color: '#aaa', alignItems: 'flex-start' }}>
                   <span style={{ color: '#ef4444', flexShrink: 0 }}>⚠</span> {s}
@@ -241,13 +241,13 @@ export default function SiliconDetective() {
               {[['🎯', 'Round 1', 'Diagnose the root cause'], ['🔬', 'Round 2', 'Choose your investigation'], ['🔧', 'Round 3', 'Prescribe the fix']].map(([e, l, d]) => (
                 <div key={l} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '10px', padding: '1rem', textAlign: 'center' }}>
                   <div style={{ fontSize: '1.5rem', marginBottom: '0.4rem' }}>{e}</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '13px', fontWeight: 600, color: '#0f0f0f', marginBottom: '2px' }}>{l}</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa' }}>{d}</div>
+                  <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '13px', fontWeight: 600, color: '#0f0f0f', marginBottom: '2px' }}>{l}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa' }}>{d}</div>
                 </div>
               ))}
             </div>
 
-            <button onClick={() => setScreen('playing')} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '12px', padding: '1rem', fontSize: '1rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+            <button onClick={() => setScreen('playing')} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '12px', padding: '1rem', fontSize: '1rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
               Open case file →
             </button>
           </div>
@@ -268,9 +268,9 @@ export default function SiliconDetective() {
             {round === 1 && (
               <div>
                 <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1rem' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>🎯 Round 1 — Diagnosis</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.5rem' }}>{ROUND1.question}</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa', background: '#fafafa', padding: '0.75rem', borderRadius: '8px' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>🎯 Round 1 — Diagnosis</div>
+                  <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.5rem' }}>{ROUND1.question}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa', background: '#fafafa', padding: '0.75rem', borderRadius: '8px' }}>
                     💡 hint: {ROUND1.hint}
                   </div>
                 </div>
@@ -295,10 +295,10 @@ export default function SiliconDetective() {
                         border: `1.5px solid ${borderColor}`,
                         borderRadius: '12px', padding: '1rem 1.2rem',
                         textAlign: 'left', cursor: showR1Result ? 'default' : 'pointer',
-                        fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.9rem',
+                        fontFamily: 'Archivo, sans-serif', fontSize: '0.9rem',
                         lineHeight: 1.5, transition: 'all 0.15s',
                       }}>
-                        <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', opacity: 0.5, marginRight: '8px' }}>{String.fromCharCode(65 + i)}.</span>
+                        <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', opacity: 0.5, marginRight: '8px' }}>{String.fromCharCode(65 + i)}.</span>
                         {opt.label}
                         {showResult && (opt.correct || isSelected) && (
                           <div style={{ fontSize: '12px', marginTop: '8px', opacity: 0.8, lineHeight: 1.6 }}>{opt.explanation}</div>
@@ -309,11 +309,11 @@ export default function SiliconDetective() {
                 </div>
 
                 {!showR1Result ? (
-                  <button onClick={handleR1Submit} disabled={!r1Choice} style={{ width: '100%', background: r1Choice ? '#0f0f0f' : '#e5e7eb', color: r1Choice ? '#fff' : '#aaa', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: r1Choice ? 'pointer' : 'default', fontFamily: 'Space Grotesk, sans-serif' }}>
+                  <button onClick={handleR1Submit} disabled={!r1Choice} style={{ width: '100%', background: r1Choice ? '#0f0f0f' : '#e5e7eb', color: r1Choice ? '#fff' : '#aaa', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: r1Choice ? 'pointer' : 'default', fontFamily: 'Archivo, sans-serif' }}>
                     Submit diagnosis →
                   </button>
                 ) : (
-                  <button onClick={() => setRound(2)} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+                  <button onClick={() => setRound(2)} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
                     Proceed to investigation → {r1Choice?.correct ? '(+10 pts)' : `(+${r1Choice?.partial} pts)`}
                   </button>
                 )}
@@ -324,11 +324,11 @@ export default function SiliconDetective() {
             {round === 2 && (
               <div>
                 <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1rem' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>🔬 Round 2 — Investigation</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>🔬 Round 2 — Investigation</div>
+                  <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.4rem' }}>
                     Choose up to 2 tests to run. What will give you the most useful data?
                   </div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa' }}>
                     select 1 or 2 tests · choose wisely
                   </div>
                 </div>
@@ -353,7 +353,7 @@ export default function SiliconDetective() {
                         border: `1.5px solid ${borderColor}`,
                         borderRadius: '12px', padding: '1rem 1.2rem',
                         textAlign: 'left', cursor: showR2Result ? 'default' : 'pointer',
-                        fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.9rem',
+                        fontFamily: 'Archivo, sans-serif', fontSize: '0.9rem',
                         lineHeight: 1.5, transition: 'all 0.15s',
                       }}>
                         {opt.label}
@@ -366,11 +366,11 @@ export default function SiliconDetective() {
                 </div>
 
                 {!showR2Result ? (
-                  <button onClick={handleR2Submit} disabled={r2Choices.length === 0} style={{ width: '100%', background: r2Choices.length > 0 ? '#0f0f0f' : '#e5e7eb', color: r2Choices.length > 0 ? '#fff' : '#aaa', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: r2Choices.length > 0 ? 'pointer' : 'default', fontFamily: 'Space Grotesk, sans-serif' }}>
+                  <button onClick={handleR2Submit} disabled={r2Choices.length === 0} style={{ width: '100%', background: r2Choices.length > 0 ? '#0f0f0f' : '#e5e7eb', color: r2Choices.length > 0 ? '#fff' : '#aaa', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: r2Choices.length > 0 ? 'pointer' : 'default', fontFamily: 'Archivo, sans-serif' }}>
                     Run tests →
                   </button>
                 ) : (
-                  <button onClick={() => setRound(3)} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+                  <button onClick={() => setRound(3)} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
                     Prescribe the fix →
                   </button>
                 )}
@@ -381,11 +381,11 @@ export default function SiliconDetective() {
             {round === 3 && (
               <div>
                 <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1rem' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>🔧 Round 3 — The Fix</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>🔧 Round 3 — The Fix</div>
+                  <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.4rem' }}>
                     You've identified the problem. What's your recommended fix?
                   </div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa' }}>
                     automotive customer is waiting — choose carefully
                   </div>
                 </div>
@@ -400,7 +400,7 @@ export default function SiliconDetective() {
                         border: `1.5px solid ${isSelected ? '#0f0f0f' : 'rgba(0,0,0,0.08)'}`,
                         borderRadius: '12px', padding: '1rem 1.2rem',
                         textAlign: 'left', cursor: r3Choice ? 'default' : 'pointer',
-                        fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.9rem',
+                        fontFamily: 'Archivo, sans-serif', fontSize: '0.9rem',
                         lineHeight: 1.5, transition: 'all 0.15s',
                       }}>
                         {opt.label}
@@ -412,7 +412,7 @@ export default function SiliconDetective() {
                   })}
                 </div>
 
-                <button onClick={handleFinish} disabled={!r3Choice} style={{ width: '100%', background: r3Choice ? '#0f0f0f' : '#e5e7eb', color: r3Choice ? '#fff' : '#aaa', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: r3Choice ? 'pointer' : 'default', fontFamily: 'Space Grotesk, sans-serif' }}>
+                <button onClick={handleFinish} disabled={!r3Choice} style={{ width: '100%', background: r3Choice ? '#0f0f0f' : '#e5e7eb', color: r3Choice ? '#fff' : '#aaa', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: r3Choice ? 'pointer' : 'default', fontFamily: 'Archivo, sans-serif' }}>
                   Close the case →
                 </button>
               </div>
@@ -427,23 +427,23 @@ export default function SiliconDetective() {
               <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>
                 {totalScore >= 80 ? '🕵️' : totalScore >= 60 ? '✅' : totalScore >= 40 ? '😅' : '💀'}
               </div>
-              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+              <h2 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
                 {totalScore >= 80 ? 'Master Detective!' : totalScore >= 60 ? 'Good analysis!' : totalScore >= 40 ? 'Partial credit' : 'Case unsolved'}
               </h2>
-              <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#aaa' }}>Case #001 — The Thermal Runaway</p>
+              <p style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#aaa' }}>Case #001 — The Thermal Runaway</p>
             </div>
 
             {/* Score */}
             <div style={{ background: '#0f0f0f', borderRadius: '16px', padding: '2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '3.5rem', fontWeight: 700, color: totalScore >= 70 ? '#22c55e' : totalScore >= 50 ? '#f59e0b' : '#ef4444' }}>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '3.5rem', fontWeight: 700, color: totalScore >= 70 ? '#22c55e' : totalScore >= 50 ? '#f59e0b' : '#ef4444' }}>
                 {totalScore}
               </div>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#555', marginTop: '4px' }}>out of 100 points</div>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#555', marginTop: '4px' }}>out of 100 points</div>
             </div>
 
             {/* Breakdown */}
             <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1.5rem' }}>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>score breakdown</div>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>score breakdown</div>
               {[
                 { label: '🎯 Diagnosis', score: r1Score, max: 10, note: r1Choice?.label },
                 { label: '🔬 Investigation', score: Math.min(r2Score, 15), max: 15, note: r2Choices.map(c => c.label).join(' + ') },
@@ -451,30 +451,30 @@ export default function SiliconDetective() {
               ].map((item, i) => (
                 <div key={i} style={{ marginBottom: '1.2rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#666' }}>{item.label}</span>
-                    <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', fontWeight: 700, color: '#0f0f0f' }}>{item.score}/{item.max}</span>
+                    <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#666' }}>{item.label}</span>
+                    <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', fontWeight: 700, color: '#0f0f0f' }}>{item.score}/{item.max}</span>
                   </div>
                   <div style={{ height: '5px', background: '#f3f4f6', borderRadius: '99px', overflow: 'hidden', marginBottom: '4px' }}>
                     <div style={{ height: '100%', width: `${(item.score / item.max) * 100}%`, background: item.score >= item.max * 0.7 ? '#16a34a' : item.score >= item.max * 0.4 ? '#f59e0b' : '#ef4444', borderRadius: '99px' }} />
                   </div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa' }}>{item.note}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa' }}>{item.note}</div>
                 </div>
               ))}
             </div>
 
             {/* Real answer reveal */}
             <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '14px', padding: '1.5rem', marginBottom: '1.5rem' }}>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#1e40af', fontWeight: 700, marginBottom: '0.6rem' }}>📖 what actually happened</div>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#1e40af', fontWeight: 700, marginBottom: '0.6rem' }}>📖 what actually happened</div>
               <p style={{ fontSize: '13px', color: '#1d4ed8', lineHeight: 1.8 }}>
                 The NeuroEdge NPU had insufficient timing margin at the 85°C temperature corner. Process variation caused threshold voltage (Vt) to shift, reducing drive strength on the critical path by 23%. The correct fix was an ECO to upsize the 12 standard cells on the critical path — a metal-layer-only change that resolved the issue in 6 weeks without a full respin.
               </p>
             </div>
 
             <div style={{ display: 'flex', gap: '0.75rem' }}>
-              <button onClick={() => navigate('/challenges/leaderboard')} style={{ flex: 1, background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+              <button onClick={() => navigate('/challenges/leaderboard')} style={{ flex: 1, background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
                 🏆 Leaderboard
               </button>
-              <button onClick={() => navigate('/challenges', { state: { student } })} style={{ flex: 1, background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+              <button onClick={() => navigate('/challenges', { state: { student } })} style={{ flex: 1, background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
                 Back to hub
               </button>
             </div>

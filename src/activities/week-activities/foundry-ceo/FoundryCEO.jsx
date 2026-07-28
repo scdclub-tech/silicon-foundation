@@ -146,8 +146,8 @@ export default function FoundryCEO() {
   const metricBar = (label, value, color) => (
     <div style={{ marginBottom: '0.6rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-        <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#888' }}>{label}</span>
-        <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#0f0f0f', fontWeight: 700 }}>{value}</span>
+        <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#888' }}>{label}</span>
+        <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#0f0f0f', fontWeight: 700 }}>{value}</span>
       </div>
       <div style={{ height: '6px', background: '#f3f4f6', borderRadius: '99px', overflow: 'hidden' }}>
         <div style={{ height: '100%', width: `${Math.min(100, (value / (label === 'Valuation' ? 600 : 100)) * 100)}%`, background: color, borderRadius: '99px', transition: 'width 0.5s ease' }} />
@@ -164,15 +164,15 @@ export default function FoundryCEO() {
     <div style={{ minHeight: '100vh', background: '#F7F6F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ textAlign: 'center', maxWidth: '400px', padding: '2rem' }}>
         <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔒</div>
-        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Already submitted!</h2>
-        <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px', lineHeight: 1.8, marginBottom: '2rem' }}>
+        <h2 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Already submitted!</h2>
+        <p style={{ color: '#888', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', lineHeight: 1.8, marginBottom: '2rem' }}>
           You've already completed Foundry CEO. Only one attempt is allowed per student. Check the leaderboard to see your ranking!
         </p>
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
-          <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+          <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
             🏆 View leaderboard
           </button>
-          <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+          <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 1.5rem', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
             Back to hub
           </button>
         </div>
@@ -185,8 +185,8 @@ export default function FoundryCEO() {
     <div style={{ minHeight: '100vh', background: '#F7F6F2' }}>
       <style>{`@keyframes pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}`}</style>
       <div style={{ padding: '1.5rem 2.5rem 0', display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={() => navigate('/challenges')} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer' }}>← back</button>
-        {screen === 'playing' && <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888' }}>scenario {step + 1} / {SCENARIOS.length}</div>}
+        <button onClick={() => navigate('/challenges')} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer' }}>← back</button>
+        {screen === 'playing' && <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888' }}>scenario {step + 1} / {SCENARIOS.length}</div>}
       </div>
 
       <div style={{ maxWidth: '760px', margin: '0 auto', padding: '2rem' }}>
@@ -195,23 +195,23 @@ export default function FoundryCEO() {
         {screen === 'intro' && (
           <div style={{ textAlign: 'center', animation: 'pop 0.4s ease' }}>
             <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🏭</div>
-            <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Foundry CEO</h1>
+            <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.8rem' }}>Foundry CEO</h1>
             <p style={{ color: '#666', fontSize: '0.95rem', maxWidth: '480px', margin: '0 auto 1rem', lineHeight: 1.8 }}>
               You've just been hired as CEO of <strong>SiliconForge Inc.</strong> — a mid-tier fab fighting for market share. Make 5 critical decisions that will determine your company's fate.
             </p>
-            <p style={{ color: '#aaa', fontFamily: 'Space Mono, monospace', fontSize: '12px', marginBottom: '2.5rem' }}>
+            <p style={{ color: '#aaa', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', marginBottom: '2.5rem' }}>
               30 seconds per decision · no second chances · your score goes on the leaderboard
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.8rem', marginBottom: '2.5rem', maxWidth: '500px', margin: '0 auto 2.5rem' }}>
               {[['💰', 'Valuation', '$500M'], ['⚗️', 'Yield', '85%'], ['😊', 'Satisfaction', '70%'], ['⚠️', 'Risk', '50%']].map(([e, l, v]) => (
                 <div key={l} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '10px', padding: '0.8rem', textAlign: 'center' }}>
                   <div style={{ fontSize: '1.2rem' }}>{e}</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', margin: '4px 0 2px' }}>{l}</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', fontWeight: 700, color: '#0f0f0f' }}>{v}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', margin: '4px 0 2px' }}>{l}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', fontWeight: 700, color: '#0f0f0f' }}>{v}</div>
                 </div>
               ))}
             </div>
-            <button onClick={() => { setScreen('playing'); startTime.current = Date.now() }} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '1rem 3rem', fontSize: '1rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+            <button onClick={() => { setScreen('playing'); startTime.current = Date.now() }} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '1rem 3rem', fontSize: '1rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
               Take the CEO chair →
             </button>
           </div>
@@ -225,8 +225,8 @@ export default function FoundryCEO() {
                 {!showExplanation && (
                   <div style={{ marginBottom: '1.2rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#aaa' }}>time remaining</span>
-                      <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: timerColor, fontWeight: 700 }}>{timeLeft}s</span>
+                      <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#aaa' }}>time remaining</span>
+                      <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: timerColor, fontWeight: 700 }}>{timeLeft}s</span>
                     </div>
                     <div style={{ height: '4px', background: '#f3f4f6', borderRadius: '99px', overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${timerPct}%`, background: timerColor, borderRadius: '99px', transition: 'width 1s linear' }} />
@@ -235,9 +235,9 @@ export default function FoundryCEO() {
                 )}
 
                 <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1rem' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>situation</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>situation</div>
                   <p style={{ fontSize: '0.95rem', color: '#0f0f0f', lineHeight: 1.7, marginBottom: '1rem' }}>{scenario.situation}</p>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1rem', fontWeight: 600, color: '#0f0f0f' }}>{scenario.question}</div>
+                  <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1rem', fontWeight: 600, color: '#0f0f0f' }}>{scenario.question}</div>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -252,12 +252,12 @@ export default function FoundryCEO() {
                         padding: '1rem 1.2rem',
                         textAlign: 'left',
                         cursor: showExplanation ? 'default' : 'pointer',
-                        fontFamily: 'Space Grotesk, sans-serif',
+                        fontFamily: 'Archivo, sans-serif',
                         fontSize: '0.9rem',
                         lineHeight: 1.5,
                         transition: 'all 0.15s',
                       }}>
-                        <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', opacity: 0.5, marginRight: '8px' }}>{String.fromCharCode(65 + i)}.</span>
+                        <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', opacity: 0.5, marginRight: '8px' }}>{String.fromCharCode(65 + i)}.</span>
                         {opt.label}
                       </button>
                     )
@@ -266,11 +266,11 @@ export default function FoundryCEO() {
 
                 {showExplanation && selected && (
                   <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '12px', padding: '1.2rem', marginTop: '1rem', animation: 'pop 0.3s ease' }}>
-                    <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#16a34a', fontWeight: 700, marginBottom: '0.4rem' }}>📊 analysis</div>
+                    <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#16a34a', fontWeight: 700, marginBottom: '0.4rem' }}>📊 analysis</div>
                     <p style={{ fontSize: '13px', color: '#166534', lineHeight: 1.7, marginBottom: '0.8rem' }}>{selected.explanation}</p>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                       {Object.entries(selected.impact).map(([k, v]) => (
-                        <span key={k} style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', padding: '2px 8px', borderRadius: '99px', background: v > 0 ? '#dcfce7' : '#fee2e2', color: v > 0 ? '#16a34a' : '#dc2626' }}>
+                        <span key={k} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', padding: '2px 8px', borderRadius: '99px', background: v > 0 ? '#dcfce7' : '#fee2e2', color: v > 0 ? '#16a34a' : '#dc2626' }}>
                           {k} {v > 0 ? '+' : ''}{v}
                         </span>
                       ))}
@@ -279,21 +279,21 @@ export default function FoundryCEO() {
                 )}
 
                 {showExplanation && (
-                  <button onClick={handleNext} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif', marginTop: '1rem' }}>
+                  <button onClick={handleNext} style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif', marginTop: '1rem' }}>
                     {step < SCENARIOS.length - 1 ? 'Next scenario →' : 'See final results →'}
                   </button>
                 )}
               </div>
 
               <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.2rem', position: 'sticky', top: '1rem' }}>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>your metrics</div>
+                <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>your metrics</div>
                 {metricBar('Valuation', metrics.valuation, '#2563EB')}
                 {metricBar('Yield %', metrics.yield, '#16a34a')}
                 {metricBar('Client Sat.', metrics.satisfaction, '#f59e0b')}
                 {metricBar('Risk Score', metrics.risk, '#ef4444')}
                 <div style={{ marginTop: '1rem', padding: '0.8rem', background: '#0f0f0f', borderRadius: '8px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#666', marginBottom: '2px' }}>company value</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#666', marginBottom: '2px' }}>company value</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>
                     ${(metrics.valuation * 10).toFixed(0)}M
                   </div>
                 </div>
@@ -308,31 +308,31 @@ export default function FoundryCEO() {
             <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>
               {metrics.valuation > 550 ? '🚀' : metrics.valuation > 480 ? '✅' : metrics.valuation > 400 ? '😅' : '📉'}
             </div>
-            <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+            <h2 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
               {metrics.valuation > 550 ? 'You crushed it!' : metrics.valuation > 480 ? 'Solid CEO!' : metrics.valuation > 400 ? 'Room to grow' : 'Tough quarter'}
             </h2>
-            <p style={{ color: '#888', fontFamily: 'Space Mono, monospace', fontSize: '12px', marginBottom: '2rem' }}>
+            <p style={{ color: '#888', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', marginBottom: '2rem' }}>
               SiliconForge final valuation
             </p>
             <div style={{ background: '#0f0f0f', borderRadius: '16px', padding: '2rem', marginBottom: '2rem', maxWidth: '400px', margin: '0 auto 2rem' }}>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '3rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '3rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>
                 ${(metrics.valuation * 10).toFixed(0)}M
               </div>
-              <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#555' }}>company valuation</div>
+              <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#555' }}>company valuation</div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.8rem', marginBottom: '2rem', maxWidth: '500px', margin: '0 auto 2rem' }}>
               {[['Yield', metrics.yield + '%', '#16a34a'], ['Client Sat.', metrics.satisfaction + '%', '#f59e0b'], ['Risk', metrics.risk + '%', '#ef4444']].map(([l, v, c]) => (
                 <div key={l} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '10px', padding: '1rem' }}>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', color: '#aaa', marginBottom: '4px' }}>{l}</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '1.3rem', fontWeight: 700, color: c }}>{v}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', color: '#aaa', marginBottom: '4px' }}>{l}</div>
+                  <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '1.3rem', fontWeight: 700, color: c }}>{v}</div>
                 </div>
               ))}
             </div>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
-              <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 2rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+              <button onClick={() => navigate('/challenges/leaderboard')} style={{ background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem 2rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
                 🏆 View leaderboard
               </button>
-              <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 2rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>
+              <button onClick={() => navigate('/challenges')} style={{ background: '#fff', color: '#0f0f0f', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', padding: '0.9rem 2rem', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Archivo, sans-serif' }}>
                 Back to hub
               </button>
             </div>

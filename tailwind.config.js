@@ -6,8 +6,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        grotesk: ['Space Grotesk', 'sans-serif'],
-        mono: ['Space Mono', 'monospace'],
+        display: ['Archivo', 'sans-serif'],
+        body: ['Newsreader', 'serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
       },
     },
   },

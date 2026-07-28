@@ -43,8 +43,8 @@ export default function TapeoutCalculator() {
 
   const statCard = (label, value, sub, color = '#0f0f0f') => (
     <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '12px', padding: '1.2rem 1.5rem' }}>
-      <div style={{ fontSize: '12px', color: '#aaa', fontFamily: 'Space Mono, monospace', marginBottom: '0.4rem' }}>{label}</div>
-      <div style={{ fontSize: '1.6rem', fontWeight: 700, color, fontFamily: 'Space Mono, monospace', lineHeight: 1.1 }}>{value}</div>
+      <div style={{ fontSize: '12px', color: '#aaa', fontFamily: 'IBM Plex Mono, monospace', marginBottom: '0.4rem' }}>{label}</div>
+      <div style={{ fontSize: '1.6rem', fontWeight: 700, color, fontFamily: 'IBM Plex Mono, monospace', lineHeight: 1.1 }}>{value}</div>
       {sub && <div style={{ fontSize: '11px', color: '#bbb', marginTop: '0.3rem' }}>{sub}</div>}
     </div>
   )
@@ -52,7 +52,7 @@ export default function TapeoutCalculator() {
   return (
     <div style={{ minHeight: '100vh', background: '#F7F6F2' }}>
       <div style={{ padding: '1.5rem 2.5rem 0' }}>
-        <button onClick={() => navigate('/')} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
+        <button onClick={() => navigate('/playground')} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.06em' }}>
           ← back to activities
         </button>
       </div>
@@ -62,7 +62,7 @@ export default function TapeoutCalculator() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <div style={{ fontSize: '3rem', marginBottom: '0.8rem' }}>💰</div>
-          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.5rem' }}>Tape-out Cost Calculator</h1>
+          <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2.2rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.5rem' }}>Tape-out Cost Calculator</h1>
           <p style={{ color: '#888', fontSize: '0.95rem', maxWidth: '480px', margin: '0 auto' }}>
             Pick a process node, die size, and production volume. See exactly why chip design costs so much.
           </p>
@@ -75,7 +75,7 @@ export default function TapeoutCalculator() {
 
             {/* Node selector */}
             <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem' }}>
-              <div style={{ fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#aaa', marginBottom: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Process Node</div>
+              <div style={{ fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#aaa', marginBottom: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Process Node</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
                 {NODES.map((n, i) => (
                   <button key={i} onClick={() => setNodeIdx(i)} style={{
@@ -85,7 +85,7 @@ export default function TapeoutCalculator() {
                     borderColor: nodeIdx === i ? '#0f0f0f' : 'rgba(0,0,0,0.08)',
                     background: nodeIdx === i ? '#0f0f0f' : '#fff',
                     color: nodeIdx === i ? '#fff' : '#666',
-                    fontFamily: 'Space Mono, monospace',
+                    fontFamily: 'IBM Plex Mono, monospace',
                     fontSize: '11px',
                     cursor: 'pointer',
                     fontWeight: nodeIdx === i ? 700 : 400,
@@ -95,7 +95,7 @@ export default function TapeoutCalculator() {
                   </button>
                 ))}
               </div>
-              <div style={{ marginTop: '0.8rem', fontSize: '11px', color: '#bbb', fontFamily: 'Space Mono, monospace' }}>
+              <div style={{ marginTop: '0.8rem', fontSize: '11px', color: '#bbb', fontFamily: 'IBM Plex Mono, monospace' }}>
                 Foundry: {node.foundry}
               </div>
             </div>
@@ -103,15 +103,15 @@ export default function TapeoutCalculator() {
             {/* Die size slider */}
             <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                <div style={{ fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#aaa', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Die Size</div>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '14px', fontWeight: 700, color: '#0f0f0f' }}>{dieSize} mm²</div>
+                <div style={{ fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#aaa', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Die Size</div>
+                <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '14px', fontWeight: 700, color: '#0f0f0f' }}>{dieSize} mm²</div>
               </div>
               <input type="range" min="10" max="800" step="10" value={dieSize} onChange={e => setDieSize(Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#0f0f0f' }} />
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#ccc', fontFamily: 'Space Mono, monospace', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#ccc', fontFamily: 'IBM Plex Mono, monospace', marginTop: '4px' }}>
                 <span>10mm² (tiny)</span><span>800mm² (massive)</span>
               </div>
-              <div style={{ marginTop: '0.8rem', fontSize: '11px', color: '#bbb', fontFamily: 'Space Mono, monospace' }}>
+              <div style={{ marginTop: '0.8rem', fontSize: '11px', color: '#bbb', fontFamily: 'IBM Plex Mono, monospace' }}>
                 {dieSize < 50 ? 'Microcontroller size' : dieSize < 150 ? 'Mobile SoC size' : dieSize < 300 ? 'Desktop CPU size' : dieSize < 500 ? 'High-end GPU size' : 'Massive — very low yield'}
               </div>
             </div>
@@ -119,15 +119,15 @@ export default function TapeoutCalculator() {
             {/* Volume slider */}
             <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', padding: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                <div style={{ fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#aaa', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Production Volume</div>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '14px', fontWeight: 700, color: '#0f0f0f' }}>{volume.toLocaleString()} chips</div>
+                <div style={{ fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#aaa', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Production Volume</div>
+                <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '14px', fontWeight: 700, color: '#0f0f0f' }}>{volume.toLocaleString()} chips</div>
               </div>
               <input type="range" min="100" max="1000000" step="100" value={volume} onChange={e => setVolume(Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#0f0f0f' }} />
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#ccc', fontFamily: 'Space Mono, monospace', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#ccc', fontFamily: 'IBM Plex Mono, monospace', marginTop: '4px' }}>
                 <span>100</span><span>1,000,000</span>
               </div>
-              <div style={{ marginTop: '0.8rem', fontSize: '11px', color: '#bbb', fontFamily: 'Space Mono, monospace' }}>
+              <div style={{ marginTop: '0.8rem', fontSize: '11px', color: '#bbb', fontFamily: 'IBM Plex Mono, monospace' }}>
                 {volume < 1000 ? 'Prototype run' : volume < 50000 ? 'Small batch' : volume < 200000 ? 'Medium production' : 'High volume manufacturing'}
               </div>
             </div>
@@ -138,9 +138,9 @@ export default function TapeoutCalculator() {
 
             {/* Big total */}
             <div style={{ background: '#0f0f0f', borderRadius: '14px', padding: '1.8rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#666', marginBottom: '0.5rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Total cost</div>
-              <div style={{ fontSize: '2.8rem', fontWeight: 700, color: '#fff', fontFamily: 'Space Mono, monospace', lineHeight: 1 }}>{fmt(totalCost)}</div>
-              <div style={{ fontSize: '12px', color: '#555', marginTop: '0.5rem', fontFamily: 'Space Mono, monospace' }}>to manufacture {volume.toLocaleString()} chips</div>
+              <div style={{ fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#666', marginBottom: '0.5rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Total cost</div>
+              <div style={{ fontSize: '2.8rem', fontWeight: 700, color: '#fff', fontFamily: 'IBM Plex Mono, monospace', lineHeight: 1 }}>{fmt(totalCost)}</div>
+              <div style={{ fontSize: '12px', color: '#555', marginTop: '0.5rem', fontFamily: 'IBM Plex Mono, monospace' }}>to manufacture {volume.toLocaleString()} chips</div>
             </div>
 
             {statCard('NRE Cost (one-time)', fmt(node.nre), 'masks, setup, engineering', '#dc2626')}
@@ -150,7 +150,7 @@ export default function TapeoutCalculator() {
 
             {/* Insight box */}
             <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '1.2rem 1.5rem' }}>
-              <div style={{ fontSize: '11px', fontFamily: 'Space Mono, monospace', color: '#1e40af', marginBottom: '0.4rem', fontWeight: 700 }}>💡 insight</div>
+              <div style={{ fontSize: '11px', fontFamily: 'IBM Plex Mono, monospace', color: '#1e40af', marginBottom: '0.4rem', fontWeight: 700 }}>💡 insight</div>
               <div style={{ fontSize: '12px', color: '#1d4ed8', lineHeight: 1.6 }}>
                 {perUnitCost > 1000
                   ? 'At this volume, NRE dominates. You need far more chips to amortize the fixed costs.'

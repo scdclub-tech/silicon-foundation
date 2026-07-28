@@ -36,22 +36,22 @@ export default function StudentEntry({ onEnter }) {
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <div style={{ fontSize: '2.5rem', marginBottom: '0.8rem' }}>🏆</div>
-          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
+          <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '1.8rem', fontWeight: 700, color: '#0f0f0f', marginBottom: '0.4rem' }}>
             SCDC Weekly Challenge
           </h1>
-          <p style={{ color: '#888', fontSize: '0.9rem', fontFamily: 'Space Mono, monospace' }}>
+          <p style={{ color: '#888', fontSize: '0.9rem', fontFamily: 'IBM Plex Mono, monospace' }}>
             Semiconductor Chip Design Club
           </p>
         </div>
 
         {/* Card */}
         <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '16px', padding: '2rem' }}>
-          <div style={{ fontSize: '13px', fontFamily: 'Space Mono, monospace', color: '#aaa', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '13px', fontFamily: 'IBM Plex Mono, monospace', color: '#aaa', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
             Enter your details to begin
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#666', marginBottom: '6px', letterSpacing: '0.06em' }}>
+            <label style={{ display: 'block', fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#666', marginBottom: '6px', letterSpacing: '0.06em' }}>
               FULL NAME
             </label>
             <input
@@ -59,12 +59,12 @@ export default function StudentEntry({ onEnter }) {
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="e.g. Dushyant Sharma"
-              style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '0.95rem', fontFamily: 'Space Grotesk, sans-serif', border: '1.5px solid rgba(0,0,0,0.1)', borderRadius: '8px', outline: 'none', background: '#fafafa', color: '#0f0f0f', boxSizing: 'border-box' }}
+              style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '0.95rem', fontFamily: 'Archivo, sans-serif', border: '1.5px solid rgba(0,0,0,0.1)', borderRadius: '8px', outline: 'none', background: '#fafafa', color: '#0f0f0f', boxSizing: 'border-box' }}
             />
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', fontSize: '12px', fontFamily: 'Space Mono, monospace', color: '#666', marginBottom: '6px', letterSpacing: '0.06em' }}>
+            <label style={{ display: 'block', fontSize: '12px', fontFamily: 'IBM Plex Mono, monospace', color: '#666', marginBottom: '6px', letterSpacing: '0.06em' }}>
               ROLL NUMBER
             </label>
             <input
@@ -73,12 +73,12 @@ export default function StudentEntry({ onEnter }) {
               onChange={e => setRoll(e.target.value)}
               placeholder="e.g. CS2024001"
               onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-              style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '0.95rem', fontFamily: 'Space Grotesk, sans-serif', border: '1.5px solid rgba(0,0,0,0.1)', borderRadius: '8px', outline: 'none', background: '#fafafa', color: '#0f0f0f', boxSizing: 'border-box' }}
+              style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '0.95rem', fontFamily: 'Archivo, sans-serif', border: '1.5px solid rgba(0,0,0,0.1)', borderRadius: '8px', outline: 'none', background: '#fafafa', color: '#0f0f0f', boxSizing: 'border-box' }}
             />
           </div>
 
           {error && (
-            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem', fontSize: '13px', color: '#DC2626', fontFamily: 'Space Mono, monospace' }}>
+            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem', fontSize: '13px', color: '#DC2626', fontFamily: 'IBM Plex Mono, monospace' }}>
               {error}
             </div>
           )}
@@ -86,13 +86,13 @@ export default function StudentEntry({ onEnter }) {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '1rem', fontWeight: 600, cursor: loading ? 'wait' : 'pointer', fontFamily: 'Space Grotesk, sans-serif', opacity: loading ? 0.7 : 1 }}
+            style={{ width: '100%', background: '#0f0f0f', color: '#fff', border: 'none', borderRadius: '10px', padding: '0.9rem', fontSize: '1rem', fontWeight: 600, cursor: loading ? 'wait' : 'pointer', fontFamily: 'Archivo, sans-serif', opacity: loading ? 0.7 : 1 }}
           >
             {loading ? 'Entering...' : 'Enter Challenge →'}
           </button>
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '1.5rem', fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#ccc' }}>
+        <div style={{ textAlign: 'center', marginTop: '1.5rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#ccc' }}>
           your data is only used for club leaderboards
         </div>
       </div>

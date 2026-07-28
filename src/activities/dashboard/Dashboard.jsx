@@ -39,8 +39,8 @@ export default function Dashboard() {
     <div style={{ minHeight: '100vh', background: '#0f0f0f', color: '#fff', padding: '3rem 2rem' }}>
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
         <div style={{ marginBottom: '2rem' }}>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>instructor view</div>
-          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '2rem', fontWeight: 700 }}>Challenge Results</h1>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>instructor view</div>
+          <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '2rem', fontWeight: 700 }}>Challenge Results</h1>
         </div>
 
         {/* Tabs */}
@@ -50,7 +50,7 @@ export default function Dashboard() {
               key={t.id}
               onClick={() => setActiveTab(i)}
               style={{
-                fontFamily: 'Space Mono, monospace',
+                fontFamily: 'IBM Plex Mono, monospace',
                 fontSize: '12px',
                 padding: '0.6rem 1.2rem',
                 background: 'none',
@@ -69,21 +69,21 @@ export default function Dashboard() {
         </div>
 
         {rows !== null && (
-          <p style={{ color: '#555', fontFamily: 'Space Mono, monospace', fontSize: '12px', marginBottom: '1.5rem', marginTop: '-1rem' }}>
+          <p style={{ color: '#555', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', marginBottom: '1.5rem', marginTop: '-1rem' }}>
             {rows.length} submission{rows.length !== 1 ? 's' : ''}
           </p>
         )}
 
         {isLoading || rows === null ? (
-          <div style={{ fontFamily: 'Space Mono, monospace', color: '#555' }}>Loading...</div>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', color: '#555' }}>Loading...</div>
         ) : rows.length === 0 ? (
-          <div style={{ fontFamily: 'Space Mono, monospace', color: '#555' }}>No submissions yet.</div>
+          <div style={{ fontFamily: 'IBM Plex Mono, monospace', color: '#555' }}>No submissions yet.</div>
         ) : (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #222' }}>
                 {['Rank', 'Name', 'Roll No.', 'Score', 'Time Taken', 'Submitted'].map(h => (
-                  <th key={h} style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#555', textAlign: 'left', padding: '0.75rem 1rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{h}</th>
+                  <th key={h} style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#555', textAlign: 'left', padding: '0.75rem 1rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -95,16 +95,16 @@ export default function Dashboard() {
                   onMouseEnter={e => e.currentTarget.style.background = '#161616'}
                   onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                 >
-                  <td style={{ padding: '1rem', fontFamily: 'Space Mono, monospace', fontSize: '13px', color: i === 0 ? '#f59e0b' : i === 1 ? '#9ca3af' : i === 2 ? '#b45309' : '#555' }}>
+                  <td style={{ padding: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '13px', color: i === 0 ? '#f59e0b' : i === 1 ? '#9ca3af' : i === 2 ? '#b45309' : '#555' }}>
                     {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`}
                   </td>
-                  <td style={{ padding: '1rem', fontFamily: 'Space Grotesk, sans-serif', fontSize: '14px', color: '#fff', fontWeight: 600 }}>{r.name}</td>
-                  <td style={{ padding: '1rem', fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#666' }}>{r.roll_number}</td>
-                  <td style={{ padding: '1rem', fontFamily: 'Space Mono, monospace', fontSize: '14px', color: '#22c55e', fontWeight: 700 }}>
+                  <td style={{ padding: '1rem', fontFamily: 'Archivo, sans-serif', fontSize: '14px', color: '#fff', fontWeight: 600 }}>{r.name}</td>
+                  <td style={{ padding: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#666' }}>{r.roll_number}</td>
+                  <td style={{ padding: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '14px', color: '#22c55e', fontWeight: 700 }}>
                     {formatScore(tab, r[tab.scoreKey])}
                   </td>
-                  <td style={{ padding: '1rem', fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#666' }}>{r.time_taken}s</td>
-                  <td style={{ padding: '1rem', fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#444' }}>
+                  <td style={{ padding: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: '#666' }}>{r.time_taken}s</td>
+                  <td style={{ padding: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#444' }}>
                     {new Date(r.created_at).toLocaleDateString('en-IN')}
                   </td>
                 </tr>
