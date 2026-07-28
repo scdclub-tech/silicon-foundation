@@ -2,16 +2,16 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 
 const activities = [
-  { id: 'binary-blitz', icon: '⚡', title: 'Binary Blitz', desc: 'Binary flashes on screen. Convert to decimal before the timer runs out. Gets brutal fast.', tag: 'Game', tagClass: 'tag-game', bg: '#FFF1F2' },
-  { id: 'tapeout-calculator', icon: '💰', title: 'Tape-out Cost Calculator', desc: 'Pick a node, set die size, choose volume. Watch NRE and per-unit cost update live.', tag: 'Tool', tagClass: 'tag-tool', bg: '#F0FDF4' },
-  { id: 'wafer-defect-map', icon: '🎲', title: 'Wafer Defect Map', desc: 'Sprinkle defects across a silicon wafer and watch yield drop in real time.', tag: 'Simulation', tagClass: 'tag-sim', bg: '#FFF7ED' },
-  { id: 'size-of-transistor', icon: '🔬', title: 'The Size of a Transistor', desc: 'Scroll from a human hair down to a 2nm transistor. Feel the scale that makes modern chips extraordinary.', tag: 'Visualization', tagClass: 'tag-viz', bg: '#F0FDFA' },
-  { id: 'moores-law', icon: '📈', title: "Moore's Law Timeline", desc: "From Intel's 4004 to Apple's M-series — an animated journey through 50 years of exponential growth.", tag: 'Visualization', tagClass: 'tag-viz', bg: '#EEF2FF' },
-  { id: 'verification-puzzle', icon: '🧩', title: 'The Verification Puzzle', desc: 'Probe a black-box chip. Set inputs, observe outputs, figure out what is hiding inside.', tag: 'Game', tagClass: 'tag-game', bg: '#FFFBEB' },
-  { id: 'logic-gate-sandbox', icon: '🔧', title: 'Logic Gate Sandbox', desc: 'Drag, drop, and wire logic gates together. Watch truth tables update live.', tag: 'Tool', tagClass: 'tag-tool', bg: '#FAF5FF' },
-  { id: 'build-your-fab', icon: '🏭', title: 'Build Your Own Fab', desc: 'Run a chip fabrication plant. Buy equipment, manage yield, survive random events.', tag: 'Simulation', tagClass: 'tag-sim', bg: '#EFF6FF' },
-  { id: 'journey-through-chip', icon: '🌀', title: 'Journey Through a Chip', desc: 'Zoom from a full 300mm wafer into a single atom-thin gate oxide. Like Google Maps for silicon.', tag: 'Visualization', tagClass: 'tag-viz', bg: '#FDF2F8' },
-  { id: 'hot-takes', icon: '🤔', title: 'Hot Takes: VLSI Edition', desc: 'Spicy statements about chip design. Agree or disagree. See how your batch splits.', tag: 'Discussion', tagClass: 'tag-quiz', bg: '#F9FAFB' },
+  { id: 'binary-blitz', icon: '⚡', title: 'Binary Blitz', desc: 'Binary flashes on screen. Convert to decimal before the timer runs out. Gets brutal fast.', tag: 'Game', tagClass: 'tag-game', bg: '#FFF1F2', available: true },
+  { id: 'tapeout-calculator', icon: '💰', title: 'Tape-out Cost Calculator', desc: 'Pick a node, set die size, choose volume. Watch NRE and per-unit cost update live.', tag: 'Tool', tagClass: 'tag-tool', bg: '#F0FDF4', available: true },
+  { id: 'wafer-defect-map', icon: '🎲', title: 'Wafer Defect Map', desc: 'Sprinkle defects across a silicon wafer and watch yield drop in real time.', tag: 'Simulation', tagClass: 'tag-sim', bg: '#FFF7ED', available: true },
+  { id: 'size-of-transistor', icon: '🔬', title: 'The Size of a Transistor', desc: 'Scroll from a human hair down to a 2nm transistor. Feel the scale that makes modern chips extraordinary.', tag: 'Visualization', tagClass: 'tag-viz', bg: '#F0FDFA', available: true },
+  { id: 'moores-law', icon: '📈', title: "Moore's Law Timeline", desc: "From Intel's 4004 to Apple's M-series — an animated journey through 50 years of exponential growth.", tag: 'Visualization', tagClass: 'tag-viz', bg: '#EEF2FF', available: false },
+  { id: 'verification-puzzle', icon: '🧩', title: 'The Verification Puzzle', desc: 'Probe a black-box chip. Set inputs, observe outputs, figure out what is hiding inside.', tag: 'Game', tagClass: 'tag-game', bg: '#FFFBEB', available: false },
+  { id: 'logic-gate-sandbox', icon: '🔧', title: 'Logic Gate Sandbox', desc: 'Drag, drop, and wire logic gates together. Watch truth tables update live.', tag: 'Tool', tagClass: 'tag-tool', bg: '#FAF5FF', available: false },
+  { id: 'build-your-fab', icon: '🏭', title: 'Build Your Own Fab', desc: 'Run a chip fabrication plant. Buy equipment, manage yield, survive random events.', tag: 'Simulation', tagClass: 'tag-sim', bg: '#EFF6FF', available: false },
+  { id: 'journey-through-chip', icon: '🌀', title: 'Journey Through a Chip', desc: 'Zoom from a full 300mm wafer into a single atom-thin gate oxide. Like Google Maps for silicon.', tag: 'Visualization', tagClass: 'tag-viz', bg: '#FDF2F8', available: false },
+  { id: 'hot-takes', icon: '🤔', title: 'Hot Takes: VLSI Edition', desc: 'Spicy statements about chip design. Agree or disagree. See how your batch splits.', tag: 'Discussion', tagClass: 'tag-quiz', bg: '#F9FAFB', available: false },
 ]
 
 export default function Playground() {
@@ -25,7 +25,7 @@ export default function Playground() {
     const interval = setInterval(() => {
       const count = base + ((Date.now() - start) * rate) / 1000
       if (countRef.current) {
-        countRef.current.textContent = Math.floor(count).toLocaleString('en-IN')
+        countRef.current.textContent = Math.floor(count).toLocaleString('en-US')
       }
     }, 100)
     return () => clearInterval(interval)
@@ -43,6 +43,9 @@ export default function Playground() {
         .tag-viz { background: #FFF7ED; color: #9A3412; }
         .tag-tool { background: #FAF5FF; color: #7E22CE; }
         .tag-quiz { background: #F9FAFB; color: #374151; }
+        .tag-soon { background: rgba(20,20,15,0.06); color: #6B6B60; }
+        .activity-card--soon { opacity: 0.5; cursor: default; }
+        .activity-card--soon:hover { background: #F7F6F2; }
       `}</style>
 
       {/* Hero */}
@@ -61,7 +64,7 @@ export default function Playground() {
         </h1>
 
         <p style={{ fontSize: '1.05rem', color: '#666', lineHeight: 1.7, maxWidth: '540px', margin: '0 auto 2.5rem' }}>
-          Ten interactive activities that teach semiconductor design, chip fabrication, and digital logic — no textbook required.
+          Interactive activities that teach semiconductor design, chip fabrication, and digital logic — no textbook required.
         </p>
 
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#0f0f0f', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontFamily: 'IBM Plex Mono, monospace', fontSize: '13px' }}>
@@ -80,16 +83,22 @@ export default function Playground() {
       {/* Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1px', background: 'rgba(0,0,0,0.08)', borderTop: '1px solid rgba(0,0,0,0.08)', borderBottom: '1px solid rgba(0,0,0,0.08)', marginTop: '1rem' }}>
         {activities.map(a => (
-          <button key={a.id} className="activity-card" onClick={() => navigate(`/playground/${a.id}`)}>
+          <button
+            key={a.id}
+            className={`activity-card${a.available ? '' : ' activity-card--soon'}`}
+            disabled={!a.available}
+            aria-disabled={!a.available}
+            onClick={a.available ? () => navigate(`/playground/${a.id}`) : undefined}
+          >
             <div style={{ width: '44px', height: '44px', borderRadius: '10px', background: a.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', marginBottom: '1.1rem' }}>
               {a.icon}
             </div>
             <div style={{ fontSize: '1rem', fontWeight: 600, color: '#0f0f0f', marginBottom: '0.45rem', lineHeight: 1.3 }}>{a.title}</div>
             <div style={{ fontSize: '0.82rem', color: '#777', lineHeight: 1.6 }}>{a.desc}</div>
-            <div className={`card-tag ${a.tagClass}`} style={{ display: 'inline-block', marginTop: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 8px', borderRadius: '4px' }}>
-              {a.tag}
+            <div className={`card-tag ${a.available ? a.tagClass : 'tag-soon'}`} style={{ display: 'inline-block', marginTop: '1rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '10px', letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 8px', borderRadius: '4px' }}>
+              {a.available ? a.tag : 'Coming soon'}
             </div>
-            <div className="card-arrow">↗</div>
+            {a.available && <div className="card-arrow">↗</div>}
           </button>
         ))}
       </div>

@@ -1,17 +1,7 @@
-// Faculty, core team and domain heads — all factual content is supplied by the club.
-//
-// PROVISIONAL SHAPE — replace with the real schema when it lands.
-// Every consumer must render gracefully when TEAM is empty.
-//
-//   {
-//     id: 'unique-slug',
-//     name: '',
-//     role: '',
-//     group: 'faculty' | 'core' | 'head',
-//     image: '',       // '/images/...'
-//     linkedin: '',
-//   }
-
+// Schema per member:
+//   name      string
+//   role      string
+//   tier      string   'faculty' | 'core' | 'domain-head'
+//   image     string   '/images/team/<file>.jpg'
+//   linkedin  string   optional
 export const TEAM = []
-
-export default TEAM

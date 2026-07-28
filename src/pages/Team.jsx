@@ -21,7 +21,7 @@ export default function Team() {
       ) : (
         <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {TEAM.map((m) => (
-            <li key={m.id} className="border-t pt-4" style={{ borderColor: colors.line }}>
+            <li key={m.name} className="border-t pt-4" style={{ borderColor: colors.line }}>
               <div className="font-display text-base font-semibold" style={{ color: colors.ink }}>
                 {m.name}
               </div>
