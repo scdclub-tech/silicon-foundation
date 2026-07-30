@@ -47,7 +47,7 @@ export const EVENTS = [
     images: [
       '/images/events/silicon-foundation.png',
       '/images/events/silicon-foundation-2.png',
-      '/images/events/silicon-foundation-3.png',
+      
     ],
     attendees: 45,
   },
@@ -85,7 +85,7 @@ export const EVENTS = [
     images: [
       '/images/events/cadence-virtuoso-workshop.jpg',
       '/images/events/cadence-virtuoso-workshop-2.jpg',
-      '/images/events/cadence-virtuoso-workshop-3.jpg',
+      
     ],
     attendees: 50,
   },
