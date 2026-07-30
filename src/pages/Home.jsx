@@ -312,7 +312,7 @@ export default function Home() {
             className="font-display text-[1.75rem] font-bold leading-[1.1] tracking-tight md:text-[2.5rem]"
             style={{ color: colors.ink }}
           >
-            Join us
+            Build something real
           </h2>
 
           {/* TODO: content pending */}

@@ -53,7 +53,7 @@ only. Deployed on Vercel, auto-deploys from `main`.
 PUBLIC CLUB SITE                  PLAYGROUND
 /            Home                 /playground                        Activity index
 /about       About                /playground/binary-blitz
-/domains     Four domains         /playground/tapeout-calculator
+/domains     Five domains         /playground/tapeout-calculator
 /programs    Programs             /playground/wafer-defect-map
 /events      Event archive        /playground/size-of-transistor
 /team        Faculty / core / heads
@@ -159,7 +159,15 @@ Row Level Security policies allow public insert and select on all four tables.
 
 ## Conventions
 
-- Content data lives in plain JS arrays in `src/data/` (`events.js`, `team.js`)
+- Content data lives in plain JS arrays in `src/data/`:
+  - `events.js` — `EVENTS`. Each entry carries `images` (always an array; `images[0]` is
+    the card thumbnail, the full array feeds the detail-view carousel) plus optional
+    `registrationOpen`, `registrationUrl` and `attendees`.
+  - `team.js` — `TEAM`. Keyed on `name`; the schema has no `id`.
+  - `activities.js` — `activities`, the playground index. Shared by `/playground` and the
+    homepage teaser, so it must stay in `src/data/`: exporting it from `Playground.jsx`
+    trips `react-refresh/only-export-components`. `available: false` renders a
+    non-clickable COMING SOON card.
 - Images go in `public/images/` and are referenced as `/images/...`
 - File names: lowercase-with-hyphens, no spaces
 - Pages in `src/pages/`, shared components in `src/components/`
