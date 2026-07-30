@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { colors, chamfer } from '../theme'
 import { EVENTS } from '../data/events'
 import { activities } from '../data/activities'
+import EventImage from '../components/EventImage'
 
 // Shared page gutter. Bands break the full width; their inner content uses this.
 const SHELL = 'mx-auto w-full max-w-6xl px-6 md:px-10'
@@ -211,12 +212,11 @@ export default function Home() {
             {FEATURED_EVENTS.map((e) => (
               <li key={e.id}>
                 <Link to={`/events/${e.id}`} className="group block no-underline">
-                  <img
+                  <EventImage
                     src={e.images?.[0]}
                     alt={e.title}
                     loading="lazy"
-                    className="aspect-video w-full object-cover"
-                    style={{ ...chamfer(12), background: colors.card }}
+                    style={chamfer(12)}
                   />
 
                   <div

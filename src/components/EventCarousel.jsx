@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { colors } from '../theme'
+import EventImage from './EventImage'
 
 // A decisive ease-out that settles rather than bounces.
 const EASE = [0.22, 1, 0.36, 1]
@@ -38,14 +39,7 @@ export default function EventCarousel({ images = [], alt = '' }) {
 
   // A single image needs no controls, dots, or track.
   if (count === 1) {
-    return (
-      <img
-        src={images[0]}
-        alt={alt}
-        className="block w-full"
-        style={{ background: colors.card }}
-      />
-    )
+    return <EventImage src={images[0]} alt={alt} alwaysFrame={false} />
   }
 
   const go = (next) => setIndex(((next % count) + count) % count)
@@ -111,11 +105,12 @@ export default function EventCarousel({ images = [], alt = '' }) {
                 }
                 transition={slideTransition}
               >
-                <img
+                <EventImage
                   src={src}
                   alt={alt}
+                  alwaysFrame={false}
                   draggable={false}
-                  className="pointer-events-none block w-full select-none"
+                  className="pointer-events-none select-none"
                 />
               </motion.div>
             )

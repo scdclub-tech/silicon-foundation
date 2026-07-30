@@ -20,8 +20,7 @@ export const EVENTS = [
     title: 'IEEE Mini Colloquium',
     date: '2026-08-06',
     status: 'upcoming',
-    registrationOpen: true,
-    registrationUrl: 'FILL', // paste the registration link, or delete this line
+    registrationOpen: false,
     domain: 'Semiconductor Devices',
     format: 'Colloquium',
     blurb:

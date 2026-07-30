@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { colors } from '../theme'
 import { EVENTS } from '../data/events'
+import EventImage from '../components/EventImage'
 
 export function RegistrationMeta({ event, className = '' }) {
   if (!event.registrationOpen) return null
@@ -53,12 +54,11 @@ export default function Events() {
             <li key={e.id} style={{ background: colors.cream }}>
               <article className="grid grid-cols-1 gap-6 py-8 sm:grid-cols-[200px_1fr]">
                 <Link to={`/events/${e.id}`} className="block no-underline">
-                  <img
-                    src={e.images[0]}
+                  <EventImage
+                    src={e.images?.[0]}
                     alt={e.title}
                     loading="lazy"
-                    className="aspect-[4/3] w-full object-cover"
-                    style={{ background: colors.card }}
+                    frameClass="aspect-[4/3]"
                   />
                 </Link>
 
