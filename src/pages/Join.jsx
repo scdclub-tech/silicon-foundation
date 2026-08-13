@@ -76,11 +76,17 @@ function FieldError({ id, children }) {
   )
 }
 
+// Longhand only: mixing the `border` shorthand with `borderLeftWidth` lets the
+// invalid state's thicker left edge survive into the valid state.
 function controlStyle({ focused, invalid }) {
   return {
     background: colors.cream,
     color: colors.ink,
-    border: `1px solid ${focused || invalid ? colors.ink : colors.line}`,
+    borderStyle: 'solid',
+    borderColor: focused || invalid ? colors.ink : colors.line,
+    borderTopWidth: '1px',
+    borderRightWidth: '1px',
+    borderBottomWidth: '1px',
     borderLeftWidth: invalid ? '3px' : '1px',
     borderRadius: radius.sm,
     outline: 'none',
