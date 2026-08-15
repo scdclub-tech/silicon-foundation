@@ -189,31 +189,65 @@ function MemberCard({ member, expanded, dimmed, panelId, onToggle, buttonRef }) 
 
 // ── icon links ─────────────────────────────────────────────────────────────
 
+// `stroke` icons are drawn in the Tabler outline style (24px grid, 2px stroke);
+// the brand marks are solid. Each entry carries its own aria-label.
 const ICONS = {
-  linkedin: (
-    <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05a4.2 4.2 0 0 1 3.75-2c4 0 4.75 2.6 4.75 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4z" />
-  ),
-  github: (
-    <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z" />
-  ),
+  linkedin: {
+    label: (name) => `${name} on LinkedIn`,
+    title: 'LinkedIn',
+    art: (
+      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05a4.2 4.2 0 0 1 3.75-2c4 0 4.75 2.6 4.75 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4z" />
+    ),
+  },
+  github: {
+    label: (name) => `${name} on GitHub`,
+    title: 'GitHub',
+    art: (
+      <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z" />
+    ),
+  },
+  // ti-external-link
+  profile: {
+    label: () => 'Faculty profile',
+    title: 'Faculty profile',
+    stroke: true,
+    art: (
+      <>
+        <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+        <path d="M11 13l9 -9" />
+        <path d="M15 4h5v5" />
+      </>
+    ),
+  },
 }
 
 function IconLink({ kind, url, name }) {
-  const label = kind === 'linkedin' ? 'LinkedIn' : 'GitHub'
+  const icon = ICONS[kind]
   return (
     <a
       href={normalizeUrl(url)}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${name} on ${label}`}
-      title={label}
+      aria-label={icon.label(name)}
+      title={icon.title}
       className="inline-flex h-8 w-8 items-center justify-center border no-underline"
       style={{ borderColor: colors.line, color: colors.muted, ...chamfer(5) }}
       onMouseEnter={(e) => (e.currentTarget.style.color = colors.accent)}
       onMouseLeave={(e) => (e.currentTarget.style.color = colors.muted)}
     >
-      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" focusable="false">
-        {ICONS[kind]}
+      <svg
+        viewBox="0 0 24 24"
+        width="15"
+        height="15"
+        fill={icon.stroke ? 'none' : 'currentColor'}
+        stroke={icon.stroke ? 'currentColor' : undefined}
+        strokeWidth={icon.stroke ? 2 : undefined}
+        strokeLinecap={icon.stroke ? 'round' : undefined}
+        strokeLinejoin={icon.stroke ? 'round' : undefined}
+        aria-hidden="true"
+        focusable="false"
+      >
+        {icon.art}
       </svg>
     </a>
   )
@@ -225,11 +259,28 @@ function IconLink({ kind, url, name }) {
 const HAS_PROJECTS = false
 
 function MemberPanel({ member, panelId, onClose, panelRef }) {
-  const showLinkedin = has(member.linkedin)
-  const showGithub = has(member.github)
-  const showLinks = showLinkedin || showGithub
+  const isFaculty = member.tier === 'faculty'
   const showSince = has(member.since)
-  const showFocus = has(member.focus)
+  // Faculty panels are name / designation / links only — see the comment below.
+  const showFocus = !isFaculty && has(member.focus)
+
+  // One row, built from whichever links exist. Conditional children inside a
+  // flex+gap row means any combination closes up; null when none, so a member
+  // with no links gets no empty row at all.
+  const links = [
+    has(member.linkedin) && ['linkedin', member.linkedin],
+    has(member.github) && ['github', member.github],
+    has(member.profile) && ['profile', member.profile],
+  ].filter(Boolean)
+
+  const linksRow =
+    links.length > 0 ? (
+      <div className="flex flex-wrap items-center gap-2">
+        {links.map(([kind, url]) => (
+          <IconLink key={kind} kind={kind} url={url} name={member.name} />
+        ))}
+      </div>
+    ) : null
 
   return (
     <div
@@ -255,32 +306,44 @@ function MemberPanel({ member, panelId, onClose, panelRef }) {
         {/* photo column — fixed 140px on sm and up, stacked above content below */}
         <div className="w-[140px] shrink-0">
           <Portrait member={member} size={10} fontSize="2.5rem" />
-          {showLinks && (
-            <div className="mt-3 flex items-center gap-2">
-              {showLinkedin && <IconLink kind="linkedin" url={member.linkedin} name={member.name} />}
-              {showGithub && <IconLink kind="github" url={member.github} name={member.name} />}
-            </div>
-          )}
+          {/* core keeps its links under the portrait; faculty move them into
+              the content column, which is otherwise near-empty */}
+          {!isFaculty && linksRow && <div className="mt-3">{linksRow}</div>}
         </div>
 
         <div className="min-w-0 flex-1 pr-6 sm:pr-8">
-          <h3 className="font-display text-2xl font-semibold leading-tight" style={{ color: colors.ink }}>
+          <h3
+            className={`font-display font-semibold leading-tight ${isFaculty ? 'text-[28px] md:text-[32px]' : 'text-2xl'}`}
+            style={{ color: colors.ink }}
+          >
             {member.name}
           </h3>
-          <div
-            className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em]"
-            style={{ color: colors.muted }}
-          >
-            <span>{member.role}</span>
-            {showSince && (
-              <>
-                <span aria-hidden="true"> · </span>
-                <span>{member.since}</span>
-              </>
-            )}
-          </div>
 
-          <hr className="my-5 border-0 border-t" style={{ borderColor: colors.line }} />
+          {isFaculty ? (
+            <>
+              {/* full designation on its own line, Archivo rather than mono */}
+              <p className="mt-2 font-display text-[15px] leading-snug" style={{ color: colors.muted }}>
+                {member.role}
+              </p>
+              {linksRow && <div className="mt-5">{linksRow}</div>}
+            </>
+          ) : (
+            <div
+              className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em]"
+              style={{ color: colors.muted }}
+            >
+              <span>{member.role}</span>
+              {showSince && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  <span>{member.since}</span>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* the rule introduces the FOCUS block, so it goes with it */}
+          {!isFaculty && <hr className="my-5 border-0 border-t" style={{ borderColor: colors.line }} />}
 
           {showFocus && (
             <div>
@@ -296,7 +359,7 @@ function MemberPanel({ member, panelId, onClose, panelRef }) {
             </div>
           )}
 
-          {HAS_PROJECTS && (
+          {HAS_PROJECTS && !isFaculty && (
             <div className={showFocus ? 'mt-6' : ''}>
               <div
                 className="font-mono text-[10px] uppercase tracking-[0.18em]"
