@@ -1,21 +1,13 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { colors, chamfer } from '../theme'
+import { colors, chamfer, withAlpha } from '../theme'
 import { TEAM } from '../data/team'
+import Portrait from '../components/Portrait'
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
 /** A field counts as present only when it holds non-blank text. */
 const has = (v) => typeof v === 'string' && v.trim() !== ''
-
-/** First letter of the first and last name. Single-word names give one letter. */
-function initialsOf(name) {
-  const parts = String(name || '').trim().split(/\s+/).filter(Boolean)
-  if (parts.length === 0) return '?'
-  const first = parts[0][0]
-  const last = parts.length > 1 ? parts[parts.length - 1][0] : ''
-  return (first + last).toUpperCase()
-}
 
 /**
  * The data file stores some links bare ('www.linkedin.com/in/…'), which the
@@ -27,18 +19,9 @@ function normalizeUrl(url) {
   return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
 }
 
-/** Derive an alpha variant of a token hex so colors still come from theme.js. */
-function withAlpha(hex, alpha) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim())
-  if (!m) return hex
-  const int = parseInt(m[1], 16)
-  return `rgba(${(int >> 16) & 255}, ${(int >> 8) & 255}, ${int & 255}, ${alpha})`
-}
-
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const EASE_ARRAY = [0.22, 1, 0.36, 1]
 const HOVER_BORDER = withAlpha(colors.ink, 0.4)
-const INITIALS_BG = withAlpha(colors.accent, 0.12)
 
 /**
  * Column count for a section, kept in JS so the panel knows which grid row the
@@ -72,59 +55,6 @@ function useColumnCount(desktopCols) {
   }, [query, read])
 
   return cols
-}
-
-// ── photo ──────────────────────────────────────────────────────────────────
-
-/**
- * Square portrait, or a deliberate initials plate when there is no image.
- * A path that is set but fails to load warns in dev and falls back to the same
- * plate, so a wrong filename never ships as a broken-image icon.
- */
-function Portrait({ member, size, fontSize }) {
-  // Track which src failed rather than a bare flag, so a new image path
-  // retries on its own without an effect resetting state.
-  const [failedSrc, setFailedSrc] = useState(null)
-
-  const showInitials = !has(member.image) || failedSrc === member.image
-  const frame = {
-    ...chamfer(size),
-    aspectRatio: '1 / 1',
-    background: showInitials ? INITIALS_BG : colors.card,
-  }
-
-  if (showInitials) {
-    return (
-      <div className="flex w-full items-center justify-center" style={frame} aria-hidden="true">
-        <span
-          className="font-display font-semibold leading-none"
-          style={{ color: colors.accent, fontSize, letterSpacing: '0.02em' }}
-        >
-          {initialsOf(member.name)}
-        </span>
-      </div>
-    )
-  }
-
-  return (
-    <img
-      src={member.image}
-      alt={member.name}
-      loading="lazy"
-      className="w-full object-cover"
-      style={frame}
-      onError={() => {
-        if (import.meta.env.DEV) {
-          console.warn(
-            `[team] image failed to load for "${member.name}": ${member.image} — ` +
-              `check the file exists in public${member.image} (extension and case must match). ` +
-              `Falling back to initials.`,
-          )
-        }
-        setFailedSrc(member.image)
-      }}
-    />
-  )
 }
 
 // ── hover / motion rules ───────────────────────────────────────────────────
@@ -173,7 +103,7 @@ function MemberCard({ member, expanded, dimmed, panelId, onToggle, buttonRef }) 
         ...chamfer(10),
       }}
     >
-      <Portrait member={member} size={8} fontSize="2rem" />
+      <Portrait src={member.image} name={member.name} size={8} fontSize="2rem" context="team" />
       <div className="mt-3 font-display text-[15px] font-semibold leading-snug" style={{ color: colors.ink }}>
         {member.name}
       </div>
@@ -305,7 +235,7 @@ function MemberPanel({ member, panelId, onClose, panelRef }) {
       <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
         {/* photo column — fixed 140px on sm and up, stacked above content below */}
         <div className="w-[140px] shrink-0">
-          <Portrait member={member} size={10} fontSize="2.5rem" />
+          <Portrait src={member.image} name={member.name} size={10} fontSize="2.5rem" context="team" />
           {/* core keeps its links under the portrait; faculty move them into
               the content column, which is otherwise near-empty */}
           {!isFaculty && linksRow && <div className="mt-3">{linksRow}</div>}

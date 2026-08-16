@@ -35,6 +35,20 @@ export const radius = {
 }
 
 /**
+ * Derive an alpha variant of a token hex, so tinted fills and borders still
+ * trace back to the palette above rather than to a new hardcoded colour.
+ *
+ * @param {string} hex    a six-digit hex token, with or without the leading '#'
+ * @param {number} alpha  0–1
+ */
+export function withAlpha(hex, alpha) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim())
+  if (!m) return hex
+  const int = parseInt(m[1], 16)
+  return `rgba(${(int >> 16) & 255}, ${(int >> 8) & 255}, ${int & 255}, ${alpha})`
+}
+
+/**
  * 45-degree cut corners, the PCB/chip-package motif.
  * Returns a style object — spread it onto an element.
  *
@@ -61,4 +75,4 @@ export function chamfer(size = 12, corners = ['tl', 'tr', 'br', 'bl']) {
   return { clipPath: `polygon(${points.join(', ')})` }
 }
 
-export default { colors, fonts, spacing, radius, chamfer }
+export default { colors, fonts, spacing, radius, chamfer, withAlpha }
