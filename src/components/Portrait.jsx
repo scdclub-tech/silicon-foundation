@@ -26,9 +26,10 @@ const INITIALS_BG = withAlpha(colors.accent, 0.12)
  * @param {string} name      used for the alt text and the initials
  * @param {number} size      chamfer cut in px
  * @param {string} fontSize  CSS size for the initials
+ * @param {string} aspect    CSS aspect-ratio for the frame; square by default
  * @param {string} context   tag for the dev warning, e.g. 'team' | 'events'
  */
-export default function Portrait({ src, name, size, fontSize, context = 'image' }) {
+export default function Portrait({ src, name, size, fontSize, aspect = '1 / 1', context = 'image' }) {
   // Track which src failed rather than a bare flag, so a new image path
   // retries on its own without an effect resetting state.
   const [failedSrc, setFailedSrc] = useState(null)
@@ -36,7 +37,7 @@ export default function Portrait({ src, name, size, fontSize, context = 'image' 
   const showInitials = !has(src) || failedSrc === src
   const frame = {
     ...chamfer(size),
-    aspectRatio: '1 / 1',
+    aspectRatio: aspect,
     background: showInitials ? INITIALS_BG : colors.card,
   }
 

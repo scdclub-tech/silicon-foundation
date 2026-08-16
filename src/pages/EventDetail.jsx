@@ -113,11 +113,46 @@ function Attendance({ total, breakdown }) {
   )
 }
 
+/**
+ * Session artwork comes in two shapes, so the row template is picked per
+ * session rather than fixed. Both step down a size at tablet width and go
+ * full-bleed above the text once the row stacks, below 640px.
+ *
+ * The two frames land within a few pixels of each other in height — 120 square
+ * against 200×112 wide — so a mixed list keeps a steady rhythm rather than
+ * jumping row to row. Class strings are written out in full because Tailwind
+ * only sees literals in the source.
+ */
+const MEDIA = {
+  square: {
+    columns: 'sm:grid-cols-[96px_1fr] md:grid-cols-[120px_1fr]',
+    aspect: '1 / 1',
+  },
+  wide: {
+    columns: 'sm:grid-cols-[160px_1fr] md:grid-cols-[200px_1fr]',
+    aspect: '16 / 9',
+  },
+}
+
 function SessionRow({ session }) {
+  // Anything unrecognised — including the field being absent — reads as square.
+  const media = MEDIA[session.imageAspect] || MEDIA.square
+
   return (
-    <div className="grid grid-cols-1 gap-4 py-6 sm:grid-cols-[72px_1fr] sm:gap-5">
-      <div className="w-[72px] shrink-0">
-        <Portrait src={session.image} name={session.speaker} size={8} fontSize="1.25rem" context="events" />
+    <div className={`grid grid-cols-1 gap-4 py-6 sm:gap-5 ${media.columns}`}>
+      {/* The wrapper takes the stretch the grid applies, leaving the frame
+          inside free to hold its aspect ratio. Its min-height is the square
+          frame's height, so a 16:9 thumbnail — 8px shorter at the same column
+          width — reserves the same slot and the two row types line up. */}
+      <div className="w-full sm:min-h-[96px] md:min-h-[120px]">
+        <Portrait
+          src={session.image}
+          name={session.speaker}
+          size={10}
+          fontSize="1.75rem"
+          aspect={media.aspect}
+          context="events"
+        />
       </div>
 
       <div className="min-w-0">

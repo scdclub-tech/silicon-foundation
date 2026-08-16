@@ -30,6 +30,10 @@
 //    affiliation  string
 //    title        string    talk title
 //    image        string    portrait path, or '' to fall back to initials
+//    imageAspect  string    optional, 'square' (default) | 'wide'. Use 'wide'
+//                           for a landscape shot of the speaker presenting —
+//                           it renders a 16:9 thumbnail instead of a square
+//                           crop, which would cut the subject out.
 //    online       boolean   optional, true for remote talks
 //
 //  RULES
