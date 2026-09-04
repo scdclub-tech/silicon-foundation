@@ -45,6 +45,15 @@ only. Deployed on Vercel, auto-deploys from `main`.
 5. **Every page must render gracefully when its data array is empty.** No crashes on
    `EVENTS = []` or `TEAM = []`.
 
+6. **Chip War session content lives in `src/data/chipWarSession.js`.** No session copy
+   is hardcoded in components.
+
+7. **Registration open/closed state is derived from `registrationOpensAt` via
+   `registrationIsOpen()`.** Never add a manual boolean toggle.
+
+8. **The authoritative registration gate is the Supabase RLS policy timestamp on
+   `session_registrations`, not the React check.**
+
 ---
 
 ## Route map

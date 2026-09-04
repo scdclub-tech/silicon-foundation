@@ -3,6 +3,7 @@ import { colors, chamfer } from '../theme'
 import { EVENTS } from '../data/events'
 import { activities } from '../data/activities'
 import EventImage from '../components/EventImage'
+import ChipWarAnnouncement from '../components/ChipWarAnnouncement'
 
 // Shared page gutter. Bands break the full width; their inner content uses this.
 const SHELL = 'mx-auto w-full max-w-6xl px-6 md:px-10'
@@ -109,6 +110,8 @@ export default function Home() {
           </figcaption>
         </figure>
       </section>
+
+      <ChipWarAnnouncement />
 
       {/* ── 2. Stats strip ────────────────────────────────────────── */}
       <section style={{ background: colors.card }}>

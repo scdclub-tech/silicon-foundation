@@ -10,6 +10,7 @@ import Events from './pages/Events'
 import EventDetail from './pages/EventDetail'
 import Team from './pages/Team'
 import Join from './pages/Join'
+import RegisterChipWar from './pages/RegisterChipWar'
 
 // Playground
 import Playground from './pages/Playground'
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/team" element={<Team />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/events/chip-war/register" element={<RegisterChipWar />} />
 
         <Route path="/playground" element={<Playground />} />
         <Route path="/playground/binary-blitz" element={<BinaryBlitz />} />
