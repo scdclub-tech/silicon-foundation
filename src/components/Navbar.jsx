@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { colors, fonts } from '../theme'
+import { applicationsAreOpen } from '../data/applicationQuestions'
 
 const LINKS = [
   { to: '/about', label: 'About' },
@@ -33,6 +34,10 @@ function ChipLogo() {
 }
 
 function JoinButton({ block = false, onNavigate }) {
+  // Hidden while applications are closed. Both the desktop and mobile
+  // placements render through here, so this one guard covers both.
+  if (!applicationsAreOpen()) return null
+
   return (
     <Link
       to="/join"

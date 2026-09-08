@@ -4,10 +4,13 @@
 -- is UI convenience, this policy is the real gate.
 --
 -- Two places must be changed on launch day:
---   1. applicationsOpenAt in src/data/applicationQuestions.js
+--   1. APPLICATIONS_OPEN_AT in src/data/applicationQuestions.js
 --   2. BOTH timestamps below
 --
--- Until then every application insert and every resume upload is rejected.
+-- Both are set to 7 October 2026, 4:20 PM IST -- the moment applications
+-- are announced from the stage during the Chip War session. Until then
+-- every application insert and every resume upload is rejected by the
+-- database.
 
 -- ---------------------------------------------------------------------
 -- 1. applications table
@@ -17,13 +20,12 @@
 
 drop policy if exists "public insert" on public.applications;
 
--- TODO: replace the timestamp with the confirmed applications opening
--- datetime (IST) when the website is announced.
+-- Unlocks at the announcement, not at session start.
 create policy applications_insert_when_open
   on public.applications
   for insert
   to anon
-  with check (now() >= timestamptz '2099-01-01 00:00:00+05:30');
+  with check (now() >= timestamptz '2026-10-07 16:20:00+05:30');
 
 -- No select policy is created. Applications remain unreadable by anon,
 -- which is the existing behaviour and must stay that way.
@@ -40,14 +42,14 @@ create policy applications_insert_when_open
 
 drop policy if exists "public upload i5g8va_0" on storage.objects;
 
--- TODO: keep this timestamp identical to the one above.
+-- Must stay identical to the timestamp above.
 create policy resumes_upload_when_open
   on storage.objects
   for insert
   to anon
   with check (
     bucket_id = 'resumes'
-    and now() >= timestamptz '2099-01-01 00:00:00+05:30'
+    and now() >= timestamptz '2026-10-07 16:20:00+05:30'
   );
 
 -- No select, update or delete policy on storage.objects for anon.

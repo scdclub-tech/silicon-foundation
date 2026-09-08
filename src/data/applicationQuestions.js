@@ -1,3 +1,15 @@
+// Applications unlock at 4:20 PM on 7 October 2026 — the moment they are
+// announced from the stage during the Chip War session.
+// This MUST stay identical to both timestamps in
+// supabase/migrations/0002_gate_applications.sql.
+export const APPLICATIONS_OPEN_AT = '2026-10-07T16:20:00+05:30';
+
+export function applicationsAreOpen(now = new Date()) {
+  const opensAt = new Date(APPLICATIONS_OPEN_AT);
+  if (Number.isNaN(opensAt.getTime())) return false;
+  return now >= opensAt;
+}
+
 // Application question sets for /join, keyed by year of study (1–5).
 //
 // The three questions in a set are chained — each one follows from the answer

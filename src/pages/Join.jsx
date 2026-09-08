@@ -1,7 +1,14 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { colors, radius } from '../theme'
 import { supabase } from '../lib/supabase'
-import { QUESTIONS, COMMON_QUESTION, YEARS } from '../data/applicationQuestions'
+import {
+  QUESTIONS,
+  COMMON_QUESTION,
+  YEARS,
+  APPLICATIONS_OPEN_AT,
+  applicationsAreOpen,
+} from '../data/applicationQuestions'
+import ApplicationsLocked from '../components/ApplicationsLocked'
 
 const SHELL = 'mx-auto w-full max-w-3xl px-6 md:px-10'
 
@@ -14,6 +21,11 @@ const STANCE = [
 
 const RESUME_FROM_YEAR = 2
 const MAX_RESUME_BYTES = 5 * 1024 * 1024
+
+// setTimeout holds its delay in a signed 32-bit int. A larger delay overflows
+// and fires immediately, which would unlock the form early — so past this
+// horizon we skip the timer entirely and let a reload pick the change up.
+const MAX_TIMEOUT_MS = 2147483647
 
 const BLANK = {
   fullName: '',
@@ -180,10 +192,26 @@ export default function Join() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
+  // Seeded from the clock, then flipped by a single timeout so a tab left open
+  // across the unlock moment reveals the form without a reload.
+  const [applicationsOpen, setApplicationsOpen] = useState(applicationsAreOpen)
+
   const fileInputRef = useRef(null)
   // Remembers a successful upload so a retry after a failed insert does not
   // leave an orphaned copy in the bucket.
   const uploadedRef = useRef(null)
+
+  useEffect(() => {
+    if (applicationsOpen) return undefined
+
+    const msLeft = new Date(APPLICATIONS_OPEN_AT).getTime() - Date.now()
+    // An unparseable timestamp leaves the gate closed rather than opening it.
+    if (!Number.isFinite(msLeft) || msLeft > MAX_TIMEOUT_MS) return undefined
+
+    // Clamped: the date may have passed between the initial render and here.
+    const id = setTimeout(() => setApplicationsOpen(true), Math.max(msLeft, 0))
+    return () => clearTimeout(id)
+  }, [applicationsOpen])
 
   const yearNum = Number(form.year) || 0
   const needsResume = yearNum >= RESUME_FROM_YEAR
@@ -339,6 +367,10 @@ export default function Join() {
       setSubmitting(false)
     }
   }
+
+  // Closed until APPLICATIONS_OPEN_AT. Returns before any form field or upload
+  // control mounts; the form below is untouched and resumes once the date passes.
+  if (!applicationsOpen) return <ApplicationsLocked />
 
   return (
     <main className={`${SHELL} pb-24 pt-24 md:pb-32 md:pt-28`}>
