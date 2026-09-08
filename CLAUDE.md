@@ -54,6 +54,19 @@ only. Deployed on Vercel, auto-deploys from `main`.
 8. **The authoritative registration gate is the Supabase RLS policy timestamp on
    `session_registrations`, not the React check.**
 
+9. **Verify, then ship — at the end of every task.** Run `npx eslint` on the files you
+   touched and `npm run build`. If both pass, stage the changes, commit with a
+   descriptive message, and push to `main`. If either fails, do not commit or push —
+   report the failure instead. Never push a broken build; `main` auto-deploys to
+   production.
+
+   *Exception:* if the task was exploratory, diagnostic, or the user explicitly asked
+   you not to commit, skip this and say so.
+
+   Note: `npm run lint` over the whole repo currently reports pre-existing errors in
+   `src/activities/week-activities/` and `src/lib/weekConfig.js`, which are off-limits
+   under rule 2. Scope the check to the files you touched.
+
 ---
 
 ## Route map
