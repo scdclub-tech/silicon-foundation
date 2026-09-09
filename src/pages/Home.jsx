@@ -4,7 +4,6 @@ import { EVENTS } from '../data/events'
 import { activities } from '../data/activities'
 import EventImage from '../components/EventImage'
 import ChipWarAnnouncement from '../components/ChipWarAnnouncement'
-import { applicationsAreOpen } from '../data/applicationQuestions'
 
 // Shared page gutter. Bands break the full width; their inner content uses this.
 const SHELL = 'mx-auto w-full max-w-6xl px-6 md:px-10'
@@ -310,32 +309,27 @@ export default function Home() {
       )}
 
       {/* ── 7. Join CTA ───────────────────────────────────────────── */}
-      {/* Hidden entirely while applications are closed — the section carries a
-          colors.card background band, so hiding only the link would leave the
-          heading stranded on a coloured strip. */}
-      {applicationsAreOpen() && (
-        <section style={{ background: colors.card }} className="py-20 text-center md:py-28">
-          <div className={SHELL}>
-            <h2
-              className="font-display text-[1.75rem] font-bold leading-[1.1] tracking-tight md:text-[2.5rem]"
-              style={{ color: colors.ink }}
-            >
-              Build something real
-            </h2>
+      <section style={{ background: colors.card }} className="py-20 text-center md:py-28">
+        <div className={SHELL}>
+          <h2
+            className="font-display text-[1.75rem] font-bold leading-[1.1] tracking-tight md:text-[2.5rem]"
+            style={{ color: colors.ink }}
+          >
+            Build something real
+          </h2>
 
-            {/* TODO: content pending */}
+          {/* TODO: content pending */}
 
-            <Link
-              to="/join"
-              className="mt-8 inline-flex items-center gap-2 rounded-md px-6 py-3 text-[14px] font-semibold no-underline transition-opacity hover:opacity-85"
-              style={{ background: colors.ink, color: colors.cream }}
-            >
-              Join us
-              <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </section>
-      )}
+          <Link
+            to="/join"
+            className="mt-8 inline-flex items-center gap-2 rounded-md px-6 py-3 text-[14px] font-semibold no-underline transition-opacity hover:opacity-85"
+            style={{ background: colors.ink, color: colors.cream }}
+          >
+            Join us
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
     </main>
   )
 }
