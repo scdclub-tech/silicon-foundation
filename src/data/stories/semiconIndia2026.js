@@ -5,6 +5,8 @@
 // FILL rule: any string that is 'FILL' or contains 'FILL' renders nothing.
 // A section whose paragraphs are all FILL does not render. An image whose src is FILL does not render.
 
+import { APPLICATIONS_OPEN_AT } from '../applicationQuestions'
+
 export const semiconIndia2026 = {
   slug: 'semicon-india-2026',
 
@@ -162,11 +164,24 @@ export const semiconIndia2026 = {
     { name: 'Tanishq Sharma', role: 'Member, SCD', photo: '/images/stories/semicon-2026/tanishq.jpg', linkedin: 'https://www.linkedin.com/in/tanishq-sharma-253936319/' },
   ],
 
+  // The band flips itself at the moment applications open, which is announced
+  // from the stage during the Chip War session. Same instant as the /join gate,
+  // imported so the two can never drift apart.
   closing: {
-    kicker: 'Next',
-    // non-breaking space so the date never splits across lines
-    line: 'What comes next begins on 7 October.',
-    cta: { label: 'Chip War Keynote Session', href: '/events/chip-war' },
-    meta: 'J.C. Bose Hall · 2:30 PM',
+    switchAt: APPLICATIONS_OPEN_AT,
+    before: {
+      kicker: 'Next',
+      // non-breaking space so the date never splits across lines
+      line: 'What comes next begins on 7 October.',
+      cta: { label: 'Chip War Keynote Session', href: '/events/chip-war/register' },
+      meta: 'J.C. Bose Hall · 2:30 PM',
+    },
+    after: {
+      kicker: 'Next',
+      line: 'Want to be next? Join SCD.',
+      cta: { label: 'Apply to SCD', href: '/join' },
+      meta: '',
+    },
   },
+
 }

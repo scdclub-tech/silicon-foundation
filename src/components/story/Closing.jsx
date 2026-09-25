@@ -1,15 +1,37 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { colors, fonts } from '../../theme'
 import { hasText, text } from '../../lib/fill'
+import { currentClosing } from './closingState'
+
+// setTimeout saturates past this, firing immediately; beyond it the band simply
+// waits for the next page load, which is the safe direction to fail.
+const MAX_TIMEOUT_MS = 2_147_483_647
 
 export default function Closing({ closing }) {
-  if (!closing) return null
+  // Seeded from the clock, then flipped by a single timeout, so a tab left open
+  // across the switch turns over without a reload — as /join does.
+  const [now, setNow] = useState(() => new Date())
 
-  const kicker = text(closing.kicker)
-  const line = text(closing.line)
-  const meta = text(closing.meta)
-  const ctaLabel = text(closing.cta?.label)
-  const ctaHref = hasText(closing.cta?.href) ? closing.cta.href : null
+  const switchMs = closing?.switchAt ? new Date(closing.switchAt).getTime() : NaN
+  const pending = Number.isFinite(switchMs) && switchMs > now.getTime()
+
+  useEffect(() => {
+    if (!pending) return undefined
+    const msLeft = switchMs - Date.now()
+    if (msLeft > MAX_TIMEOUT_MS) return undefined
+    const id = setTimeout(() => setNow(new Date()), Math.max(msLeft, 0))
+    return () => clearTimeout(id)
+  }, [pending, switchMs])
+
+  const active = currentClosing(closing, now)
+  if (!active) return null
+
+  const kicker = text(active.kicker)
+  const line = text(active.line)
+  const meta = text(active.meta)
+  const ctaLabel = text(active.cta?.label)
+  const ctaHref = hasText(active.cta?.href) ? active.cta.href : null
   const showCta = Boolean(ctaLabel && ctaHref)
 
   if (!kicker && !line && !meta && !showCta) return null
