@@ -137,6 +137,8 @@ export const semiconIndia2026 = {
   },
 
   // ── Team + closing ──────────────────────────────────────────
+  teamKicker: 'The team',
+
   team: [
     { name: 'Dr. Md. Jawaid Alam', role: 'Faculty Mentor', photo: 'FILL', linkedin: '' },
     { name: 'Dushyant Singh', role: 'President, SCD', photo: 'FILL', linkedin: '' },

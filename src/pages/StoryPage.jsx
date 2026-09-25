@@ -4,6 +4,9 @@ import { getStory } from '../data/stories'
 import { hasText, text } from '../lib/fill'
 import Squeeze from '../components/story/Squeeze'
 import Knobs from '../components/story/Knobs'
+import Words from '../components/story/Words'
+import Team from '../components/story/Team'
+import Closing from '../components/story/Closing'
 
 // ── motion and hairline rules ──────────────────────────────────────────────
 // Keyframes, media queries and nth-child rules cannot be expressed inline, so
@@ -262,14 +265,13 @@ export default function StoryPage() {
       <Hero hero={story.hero} />
       <Stats stats={story.stats} />
 
-      {/* ═══ EMPTY SLOT — WORD FROM MENTOR (story.mentor) ═══ */}
+      <Words words={story.mentor} quoteMark />
       <Squeeze squeeze={story.squeeze} />
       <Knobs knobs={story.knobs} />
-
-      {/* ═══ EMPTY SLOT — WORD FROM THE TEAM (story.teammate) — same Words layout as mentor and president ═══ */}
-      {/* ═══ EMPTY SLOT — WORD FROM PRESIDENT (story.president) ═══ */}
-      {/* ═══ EMPTY SLOT — TEAM (story.team) ═══ */}
-      {/* ═══ EMPTY SLOT — CLOSING (story.closing) ═══ */}
+      <Words words={story.president} bordered />
+      <Words words={story.teammate} bordered />
+      <Team team={story.team} kicker={story.teamKicker} />
+      <Closing closing={story.closing} />
     </main>
   )
 }

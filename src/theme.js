@@ -12,6 +12,8 @@ export const colors = {
   inert: '#8A887E',            // a figure that measured zero — present but not load-bearing
   warn: '#FB923C',             // a run that failed its checks
   warnDeep: '#F97316',         // the sealed-gap hatch
+  placeholder: '#DDD7C9',      // hatched stand-in for a portrait, on cream
+  placeholderDark: '#26261F',  // the same stand-in, on ink
   line: 'rgba(20,20,15,0.12)', // hairlines, borders
 }
 
