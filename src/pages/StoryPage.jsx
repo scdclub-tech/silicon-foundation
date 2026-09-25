@@ -36,6 +36,19 @@ const STORY_CSS = `
 @media (prefers-reduced-motion: reduce) {
   .story-fins, .story-float { animation: none; }
 }
+/*
+ * Stat figures are sized to the column they sit in, not to the viewport. The
+ * coefficients come from each figure's measured width per px of font-size
+ * (Top 3 3.60, 432→288 4.56, 33.3% 3.19, 4 of 4 3.59): a plain vw clamp fits
+ * at 1440 but overflows everywhere below it, because the column narrows
+ * faster than the viewport does.
+ */
+.story-stat-value { font-size: clamp(34px, 9vw, 64px); }
+.story-stat-value--arrow { font-size: clamp(26px, 7vw, 52px); }
+@media (min-width: 1024px) {
+  .story-stat-value { font-size: clamp(34px, calc(7.6vw - 32px), 80px); }
+  .story-stat-value--arrow { font-size: clamp(26px, calc(5.3vw - 22px), 56px); }
+}
 @media (min-width: 1024px) {
   .story-stats > * {
     padding-left: 32px;
@@ -199,14 +212,9 @@ function Stats({ stats }) {
       {items.map((s) => (
         <div key={s.value} className="flex flex-col gap-3.5">
           <div
+            className={`story-stat-value${s.accentArrow ? ' story-stat-value--arrow' : ''}`}
             style={{
               fontFamily: fonts.display,
-              // '432→288' is by far the widest of the four figures and the spec's
-              // 80px spills past its 256px column, so that one cell gets its own
-              // ceiling and tracks the column width rather than the viewport.
-              fontSize: s.accentArrow
-                ? 'clamp(30px, calc(5.9vw - 24px), 56px)'
-                : 'clamp(40px, 5.6vw, 80px)',
               lineHeight: 1,
               fontWeight: 800,
               fontStretch: s.accentArrow ? '100%' : '112%',

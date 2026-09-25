@@ -147,7 +147,8 @@ export const semiconIndia2026 = {
 
   closing: {
     kicker: 'Next',
-    line: 'What comes next begins on 7 October.',
+    // non-breaking space so the date never splits across lines
+    line: 'What comes next begins on 7 October.',
     cta: { label: 'Chip War Keynote Session', href: '/events/chip-war' },
     meta: 'J.C. Bose Hall · 2:30 PM',
   },
