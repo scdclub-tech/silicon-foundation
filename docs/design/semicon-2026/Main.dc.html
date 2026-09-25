@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Homepage — SCD's First Triumph panel</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#14140F}
+a{color:#14140F}a:hover{color:#2563EB}
+.fins{background-image:linear-gradient(90deg,rgba(247,246,242,0.07) 0 1px,transparent 1px);background-size:108px 100%;animation:squeeze 9s ease-in-out infinite alternate}
+@keyframes squeeze{from{background-size:108px 100%}to{background-size:72px 100%}}
+.float{animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-16px) rotate(-1deg)}}
+.ph{background-color:#26261F;background-image:repeating-linear-gradient(135deg,rgba(247,246,242,0.05) 0 2px,transparent 2px 14px)}
+@media (prefers-reduced-motion: reduce){.fins,.float{animation:none}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; position: relative; overflow: hidden; background: #14140F; color: #F7F6F2; font-family: 'Archivo', sans-serif;">
+  <div class="fins" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;"></div>
+
+  <div style="position: absolute; top: 48px; left: 80px; right: 80px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,246,242,0.72);">
+    <span>SCD / 01 — Recognition</span>
+    <span>SEMICON India 2026 · Yashobhoomi, New Delhi</span>
+  </div>
+
+  <div class="float" style="position: absolute; top: 150px; right: 96px; width: 640px; height: 460px;">
+    <div class="ph" style="width: 640px; height: 460px; border-radius: 6px; box-shadow: 0 48px 96px rgba(0,0,0,0.6), 0 0 0 1px rgba(247,246,242,0.14); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247,246,242,0.55);">[Photo — Dushyant · Dr. Alam · Tanishq]</div>
+    <div style="position: absolute; top: -22px; right: -28px; transform: rotate(5deg); background: #2563EB; color: #FFFFFF; padding: 12px 18px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 500; letter-spacing: 0.02em; box-shadow: 0 12px 24px rgba(0,0,0,0.35);">432 → 288 nm</div>
+    <div style="position: absolute; bottom: -40px; left: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: rgba(247,246,242,0.6);">Dushyant Singh · Dr. Md. Jawaid Alam · Tanishq Sharma</div>
+  </div>
+
+  <h2 style="position: absolute; top: 178px; left: 72px; margin: 0; font-size: 172px; line-height: 0.86; font-weight: 850; font-stretch: 125%; letter-spacing: -0.025em; color: #F7F6F2; text-shadow: 0 6px 40px rgba(0,0,0,0.55);">SCD's<br>First<br>Triumph<span style="color: #2563EB;">.</span></h2>
+
+  <div style="position: absolute; left: 80px; right: 80px; bottom: 64px; display: flex; justify-content: space-between; align-items: flex-end; gap: 48px;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-size: 30px; font-weight: 700; font-stretch: 110%;">2nd Runner-up · Top 3 in India</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.04em; color: rgba(247,246,242,0.72);">Lam Research Student Hackathon · in collaboration with CeNSE, IISc Bengaluru</div>
+    </div>
+    <a href="Story.dc.html" style="display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 32px; border-radius: 999px; background: #F7F6F2; color: #14140F; text-decoration: none; font-size: 18px; font-weight: 600; white-space: nowrap;">Read the story <span aria-hidden="true">→</span></a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
