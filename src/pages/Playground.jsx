@@ -93,7 +93,7 @@ export default function Playground() {
 
       {/* Footer */}
       <footer style={{ textAlign: 'center', padding: '3rem 2rem', fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#bbb', letterSpacing: '0.06em' }}>
-        <strong style={{ color: '#888' }}>SCDC</strong> — Semiconductor Chip Design Club · Summer VLSI Program 2026
+        <strong style={{ color: '#888' }}>SCD</strong> — Semiconductor Chip Design Club · Summer VLSI Program 2026
       </footer>
     </div>
   )

@@ -2,27 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { colors, fonts } from '../theme'
 import { VISIBLE_NAV as LINKS } from '../data/nav'
-
-function ChipLogo() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <rect x="8" y="8" width="16" height="16" rx="2" fill={colors.ink} />
-      <rect x="11" y="11" width="10" height="10" rx="1" fill={colors.cream} />
-      <rect x="13" y="13" width="2" height="2" fill={colors.accent} />
-      <rect x="17" y="13" width="2" height="2" fill={colors.accent} />
-      <rect x="13" y="17" width="2" height="2" fill={colors.accent} />
-      <rect x="17" y="17" width="2" height="2" fill={colors.accent} />
-      {[11, 14, 17].map((v) => (
-        <g key={v}>
-          <rect x="5" y={v} width="3" height="1.5" rx="0.5" fill={colors.ink} />
-          <rect x="24" y={v} width="3" height="1.5" rx="0.5" fill={colors.ink} />
-          <rect x={v} y="5" width="1.5" height="3" rx="0.5" fill={colors.ink} />
-          <rect x={v} y="24" width="1.5" height="3" rx="0.5" fill={colors.ink} />
-        </g>
-      ))}
-    </svg>
-  )
-}
+import BrandMark from './BrandMark'
 
 function JoinButton({ block = false, onNavigate }) {
   return (
@@ -66,19 +46,25 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between gap-6 px-6 py-4 md:px-10">
         <Link to="/" className="flex items-center gap-2.5 no-underline">
-          <ChipLogo />
+          <BrandMark />
           <span className="flex flex-col leading-tight">
             <span
-              className="text-[13px] font-bold uppercase tracking-[0.04em]"
-              style={{ fontFamily: fonts.mono, color: colors.ink }}
+              className="text-[15px] uppercase tracking-[0.04em]"
+              style={{
+                fontFamily: fonts.display,
+                fontWeight: 800,
+                fontStretch: '115%',
+                color: colors.ink,
+              }}
             >
-              SCDC
+              SCD
             </span>
+            {/* the full name is the first thing to go when space is tight */}
             <span
-              className="hidden text-[10px] tracking-[0.08em] sm:block"
-              style={{ fontFamily: fonts.mono, color: colors.muted }}
+              className="hidden text-[12.5px] md:block"
+              style={{ fontFamily: fonts.display, fontWeight: 500, color: colors.muted }}
             >
-              Semiconductor Chip Design Club
+              Semiconductor Chip Design Club · SRMIST
             </span>
           </span>
         </Link>

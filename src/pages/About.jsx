@@ -10,7 +10,7 @@ export default function About() {
         className="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl"
         style={{ color: colors.ink }}
       >
-        About SCDC
+        About SCD
       </h1>
       {/* TODO: content pending — body copy goes in <p className="prose-serif"> */}
     </main>
