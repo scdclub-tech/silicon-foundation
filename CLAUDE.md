@@ -81,6 +81,9 @@ PUBLIC CLUB SITE                  PLAYGROUND
 /team        Faculty / core / heads
 /join        Join us
 
+STORIES
+/stories/:slug                    one long-form story, looked up by slug
+
 CHALLENGES — LOCKED, DO NOT CHANGE THESE PATHS
 /challenges                       weekly challenge hub (requires student entry)
 /challenges/foundry-ceo
@@ -190,10 +193,58 @@ Row Level Security policies allow public insert and select on all four tables.
     homepage teaser, so it must stay in `src/data/`: exporting it from `Playground.jsx`
     trips `react-refresh/only-export-components`. `available: false` renders a
     non-clickable COMING SOON card.
+  - `nav.js` — `NAV`, the primary navigation and the single switch for which pages are
+    live. `hidden: true` drops an entry from the navbar, unlinks any homepage panel
+    pointing at it, and redirects its route to `/`; the page's own code is left alone.
+    About, Domains and Programs are currently hidden.
+  - `stories/` — one module per story plus `index.js`, which exports `STORIES` and
+    `getStory(slug)`. See the stories section below.
 - Images go in `public/images/` and are referenced as `/images/...`
 - File names: lowercase-with-hyphens, no spaces
 - Pages in `src/pages/`, shared components in `src/components/`
 - `vercel.json` rewrites all paths to `index.html` for client-side routing — do not remove
+
+---
+
+## Stories
+
+Long-form write-ups at `/stories/:slug`. `StoryPage.jsx` resolves the slug through
+`getStory()` in `src/data/stories/index.js` and renders a not-found view when there is
+no match. Register a new story by adding its module to `STORIES` — nothing else.
+
+**All copy lives in the data module. Never hardcode story copy in a component.**
+
+### Schema
+
+Every key is optional; a section whose data is missing or entirely FILL does not render.
+
+| Key | Shape | Renders as |
+|---|---|---|
+| `slug` | string | the URL segment; must be unique |
+| `panel` | `{ label, location, titleLines[], tag, result, event, cta, image }` | the homepage teaser (`TriumphPanel`) |
+| `hero` | `{ backLabel, backHref, index, kicker, title, subtitle, tag, image, metaLeft, metaRight }` | the dark story hero |
+| `stats` | `[{ value, label, accentArrow? }]` | the four-figure band; `accentArrow` tints a `→` inside the value |
+| `mentor`, `teammate` | `{ kicker, author, role, initials, heading?, photo, linkedin?, paragraphs[] }` | a `Words` section |
+| `president` | same, but `body[]` instead of `paragraphs[]` | a `Words` section with the richer body |
+| `president.body[]` | `{ p, note? }` or `{ quote }` | paragraph (first gets the drop cap) / margin note / pull quote |
+| `squeeze` | `{ kicker, headingLines[], runs[] }` | the interactive diagram |
+| `squeeze.runs[]` | `{ id, run, pitch, pitchLabel, outcome, height, readout, failed, note?, text }` | one run; `pitch` and `height` drive the drawing |
+| `knobs` | `{ kicker, heading, items[{ name, value, why, lit? }] }` | five cards; `lit` is the dark one |
+| `teamKicker`, `team` | string, `[{ name, role, photo, linkedin }]` | the dark portrait grid |
+| `closing` | `{ kicker, line, cta: { label, href }, meta }` | the blue band |
+
+The squeeze diagram is drawn at **1 px = 1 nm**. Fin positions derive from `run.pitch`
+(`pitch * i + pitch / 2 - 14`) and the box from `run.height`, so a new run needs no
+layout work. Do not hardcode per-run coordinates.
+
+### The FILL rule
+
+Story copy is drafted with `'FILL'` standing in for text that is not written or cleared
+yet. **Any string that is, or contains, `FILL` renders nothing** — an image whose `src`
+is FILL is skipped, and a section whose paragraphs are all FILL does not render at all.
+Use the helpers in `src/lib/fill.js` (`isFill`, `text`, `hasText`) for every string a
+story component renders; never test for the marker inline. This is what keeps unfinished
+copy off a live page, so a new story section must honour it.
 
 ## Git
 

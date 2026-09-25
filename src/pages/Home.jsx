@@ -4,6 +4,9 @@ import { EVENTS } from '../data/events'
 import { activities } from '../data/activities'
 import EventImage from '../components/EventImage'
 import ChipWarAnnouncement from '../components/ChipWarAnnouncement'
+import { isHidden } from '../data/nav'
+import TriumphPanel from '../components/story/TriumphPanel'
+import { semiconIndia2026 } from '../data/stories/semiconIndia2026'
 
 // Shared page gutter. Bands break the full width; their inner content uses this.
 const SHELL = 'mx-auto w-full max-w-6xl px-6 md:px-10'
@@ -111,6 +114,8 @@ export default function Home() {
         </figure>
       </section>
 
+      <TriumphPanel panel={semiconIndia2026.panel} to={`/stories/${semiconIndia2026.slug}`} />
+
       <ChipWarAnnouncement />
 
       {/* ── 2. Stats strip ────────────────────────────────────────── */}
@@ -140,31 +145,45 @@ export default function Home() {
         <SectionHeading>What we do</SectionHeading>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PILLARS.map((p) => (
-            <Link
-              key={p.label}
-              to={p.to}
-              className="group relative block p-7 no-underline transition-opacity hover:opacity-90"
-              style={{ ...chamfer(14), background: colors.card }}
-            >
-              <div className="font-display text-lg font-semibold" style={{ color: colors.ink }}>
-                {p.label}
-              </div>
-              <p
-                className="prose-serif mt-2 max-w-[22ch] text-[15px] leading-relaxed"
-                style={{ color: colors.muted }}
+          {PILLARS.map((p) => {
+            // While a pillar's page is hidden the card stays, minus the link
+            // and its hover affordance, so it does not offer a dead end.
+            const linked = !isHidden(p.to)
+            const Card = linked ? Link : 'div'
+
+            return (
+              <Card
+                key={p.label}
+                {...(linked
+                  ? {
+                      to: p.to,
+                      className:
+                        'group relative block p-7 no-underline transition-opacity hover:opacity-90',
+                    }
+                  : { className: 'relative block p-7' })}
+                style={{ ...chamfer(14), background: colors.card }}
               >
-                {p.line}
-              </p>
-              <span
-                aria-hidden="true"
-                className="absolute right-6 top-6 text-sm opacity-0 transition-all duration-200 group-hover:translate-x-[2px] group-hover:opacity-100"
-                style={{ color: colors.ink }}
-              >
-                →
-              </span>
-            </Link>
-          ))}
+                <div className="font-display text-lg font-semibold" style={{ color: colors.ink }}>
+                  {p.label}
+                </div>
+                <p
+                  className="prose-serif mt-2 max-w-[22ch] text-[15px] leading-relaxed"
+                  style={{ color: colors.muted }}
+                >
+                  {p.line}
+                </p>
+                {linked && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute right-6 top-6 text-sm opacity-0 transition-all duration-200 group-hover:translate-x-[2px] group-hover:opacity-100"
+                    style={{ color: colors.ink }}
+                  >
+                    →
+                  </span>
+                )}
+              </Card>
+            )
+          })}
         </div>
       </section>
 

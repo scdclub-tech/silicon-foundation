@@ -7,35 +7,12 @@ import Knobs from '../components/story/Knobs'
 import Words from '../components/story/Words'
 import Team from '../components/story/Team'
 import Closing from '../components/story/Closing'
+import { STORY_MOTION_CSS } from '../components/story/motionStyles'
 
-// ── motion and hairline rules ──────────────────────────────────────────────
-// Keyframes, media queries and nth-child rules cannot be expressed inline, so
-// they live here. Colours still come from theme.js.
+// ── hairline and stat rules ────────────────────────────────────────────────
+// The fin background and the floating photo come from STORY_MOTION_CSS, which
+// the homepage panel shares. Only the stats band's own rules live here.
 const STORY_CSS = `
-.story-fins {
-  background-image: linear-gradient(90deg, ${withAlpha(colors.cream, 0.07)} 0 1px, transparent 1px);
-  background-size: 108px 100%;
-  animation: story-squeeze 9s ease-in-out infinite alternate;
-}
-@keyframes story-squeeze {
-  from { background-size: 108px 100%; }
-  to   { background-size: 72px 100%; }
-}
-.story-float { animation: story-float 8s ease-in-out infinite; }
-@keyframes story-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-12px); }
-}
-@media (max-width: 767px) {
-  .story-fins { background-size: 54px 100%; }
-  @keyframes story-squeeze {
-    from { background-size: 54px 100%; }
-    to   { background-size: 36px 100%; }
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .story-fins, .story-float { animation: none; }
-}
 /*
  * Stat figures are sized to the column they sit in, not to the viewport. The
  * coefficients come from each figure's measured width per px of font-size
@@ -268,7 +245,7 @@ export default function StoryPage() {
 
   return (
     <main style={{ background: colors.cream, color: colors.ink }}>
-      <style>{STORY_CSS}</style>
+      <style>{STORY_MOTION_CSS + STORY_CSS}</style>
 
       <Hero hero={story.hero} />
       <Stats stats={story.stats} />

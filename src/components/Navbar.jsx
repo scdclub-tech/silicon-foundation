@@ -1,15 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { colors, fonts } from '../theme'
-
-const LINKS = [
-  { to: '/about', label: 'About' },
-  { to: '/domains', label: 'Domains' },
-  { to: '/programs', label: 'Programs' },
-  { to: '/events', label: 'Events' },
-  { to: '/team', label: 'Team' },
-  { to: '/playground', label: 'Playground' },
-]
+import { VISIBLE_NAV as LINKS } from '../data/nav'
 
 function ChipLogo() {
   return (

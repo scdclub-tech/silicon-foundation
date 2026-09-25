@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import { isHidden } from './data/nav'
 
 // Public club site
 import Home from './pages/Home'
@@ -30,15 +31,24 @@ import SiliconDetective from './activities/week-activities/silicon-detective/Sil
 import Dashboard from './activities/dashboard/Dashboard'
 import Leaderboard from './activities/week-activities/Leaderboard'
 
+/**
+ * A route for a page that may be hidden. The page component stays wired up;
+ * while its nav entry carries `hidden`, the path sends visitors home instead,
+ * so an old link cannot land on a half-finished page.
+ */
+function gate(path, element) {
+  return isHidden(path) ? <Navigate to="/" replace /> : element
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/domains" element={<Domains />} />
-        <Route path="/programs" element={<Programs />} />
+        <Route path="/about" element={gate('/about', <About />)} />
+        <Route path="/domains" element={gate('/domains', <Domains />)} />
+        <Route path="/programs" element={gate('/programs', <Programs />)} />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/team" element={<Team />} />
