@@ -54,6 +54,8 @@ function Author({ words }) {
               src={photo}
               alt={author || ''}
               className="h-[120px] w-[120px] rounded-full object-cover"
+              // the portraits are 4:5, so centre on the face rather than the chest
+              style={{ objectPosition: 'center 20%' }}
             />
           ) : (
             <div

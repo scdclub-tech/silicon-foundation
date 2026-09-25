@@ -55,8 +55,15 @@ export const semiconIndia2026 = {
     author: 'Dr. Md. Jawaid Alam',
     role: 'Faculty Mentor, SCD',
     initials: 'JA',
-    photo: 'FILL', // '/images/stories/semicon-2026/jawaid.jpg'
-    paragraphs: ['FILL'], // Dr. Alam's own words — paste exactly as sent
+    photo: '/images/stories/semicon-2026/jawaid.jpg',
+    // DRAFT — publish only after Dr. Alam has read and approved it.
+    paragraphs: [
+      "From the start, what stood out about Dushyant and Tanishq was not a desire to win. It was a desire to understand the problem properly. That difference matters more than any result, and in the end it is usually what produces the result.",
+      "A mentor's job is not to hand students the answer. It is to ask the right question at the right time, and then to step back. The best moment in mentoring is when students stop waiting to be told what to do next. This team reached that point quickly. They planned their own experiments, questioned their own assumptions, and came back with evidence instead of guesses.",
+      "They were also wrong more than once along the way, and they said so openly. I value that as much as the placing. Good engineering is built by people who are honest about what did not work.",
+      "To every student reading this: you do not need to wait for your final year, a perfect idea or anyone's permission to begin. The tools, the labs and the mentors are already here. Pick a real problem, take the first step yourself, and keep going when it gets difficult. Initiative is a habit, and it starts small.",
+      "I am proud of Dushyant and Tanishq, and of what SCD is building. This is the first of many.",
+    ],
   },
 
   teammate: {
@@ -64,9 +71,19 @@ export const semiconIndia2026 = {
     author: 'Tanishq Sharma',
     role: 'Member, SCD',
     initials: 'TS',
-    photo: 'FILL',
+    heading: 'Predict. Run. Check.',
+    photo: '/images/stories/semicon-2026/tanishq.jpg',
     linkedin: 'https://www.linkedin.com/in/tanishq-sharma-253936319/',
-    paragraphs: ['FILL'], // Tanishq's own words — paste exactly as sent
+    // DRAFT — publish only after Tanishq has read and approved it.
+    paragraphs: [
+      "People ask what the winning idea was. Honestly, it came less from a single insight and more from a way of working. Dushyant has written about what we found. I want to write about how we worked.",
+      "The first rule was one change per run. Every run started from a fresh copy of the original layout, never from one we had already modified, and every run was saved and logged under its own name, including the ones that failed. It sounds slow. In practice it meant that whenever something changed in a cross-section, we knew exactly which parameter had caused it.",
+      "The second was locked cross-sections. We fixed two cut planes, one through the gate between the fins and one through the source/drain epi and the contacts, and used identical coordinates in every run. Because we compressed the cell only along X, and the cut planes are positioned along Y, the same coordinates stayed valid in every scaled run. That gave us true before-and-after images at no extra cost.",
+      "The third was a fixed checklist. After every run we asked the same six questions. Is the gate metal still wrapping between the fins? Have neighbouring source/drain epi regions merged? Is the STI fill continuous, with no voids or seams? Does the local interconnect still land on the epi? Is the size threshold unchanged? Are the cell's Y dimensions untouched? A run counted only if it passed all six.",
+      "And before pressing run, we wrote down what we expected to see. We were wrong twice, and Dushyant has described both. Writing the prediction first is what turned those misses into lessons instead of surprises.",
+      "Some lessons were smaller. The tool's Magnify dialog only scales a layout uniformly, which would have shrunk the gate length too and broken the rules of the challenge. The console version of the same command accepts separate X and Y factors. We found that only by reading its usage string. Reading the documentation is an unglamorous skill, and here it saved the whole approach.",
+      "What I am taking away is that a good process makes you faster, not slower. We did not try fifty things. We tried a few things carefully, and every one of them told us something. Thank you to Dushyant for the clarity, to Dr. Alam for his guidance, and to SCD for the platform.",
+    ],
   },
 
   president: {
@@ -75,7 +92,7 @@ export const semiconIndia2026 = {
     author: 'Dushyant Singh',
     role: 'President, SCD',
     initials: 'DS',
-    photo: 'FILL',
+    photo: '/images/stories/semicon-2026/dushyant.jpg',
     // Paragraph objects so the pull quote and margin notes can sit at the right place.
     body: [
       { p: "Every SRAM array on a chip is one small cell, the bitcell, repeated millions of times. Shrink that cell by a nanometre and you shrink the array by a nanometre millions of times over. That is why cell height matters, and it is the problem the Lam Research challenge put in front of us." },
@@ -140,9 +157,9 @@ export const semiconIndia2026 = {
   teamKicker: 'The team',
 
   team: [
-    { name: 'Dr. Md. Jawaid Alam', role: 'Faculty Mentor', photo: 'FILL', linkedin: '' },
-    { name: 'Dushyant Singh', role: 'President, SCD', photo: 'FILL', linkedin: '' },
-    { name: 'Tanishq Sharma', role: 'Member, SCD', photo: 'FILL', linkedin: 'https://www.linkedin.com/in/tanishq-sharma-253936319/' },
+    { name: 'Dr. Md. Jawaid Alam', role: 'Faculty Mentor', photo: '/images/stories/semicon-2026/jawaid.jpg', linkedin: '' },
+    { name: 'Dushyant Singh', role: 'President, SCD', photo: '/images/stories/semicon-2026/dushyant.jpg', linkedin: '' },
+    { name: 'Tanishq Sharma', role: 'Member, SCD', photo: '/images/stories/semicon-2026/tanishq.jpg', linkedin: 'https://www.linkedin.com/in/tanishq-sharma-253936319/' },
   ],
 
   closing: {
