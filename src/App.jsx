@@ -12,6 +12,9 @@ import Team from './pages/Team'
 import Join from './pages/Join'
 import RegisterChipWar from './pages/RegisterChipWar'
 
+// Stories
+import StoryPage from './pages/StoryPage'
+
 // Playground
 import Playground from './pages/Playground'
 import BinaryBlitz from './activities/binary-blitz/BinaryBlitz'
@@ -41,6 +44,8 @@ export default function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/join" element={<Join />} />
         <Route path="/events/chip-war/register" element={<RegisterChipWar />} />
+
+        <Route path="/stories/:slug" element={<StoryPage />} />
 
         <Route path="/playground" element={<Playground />} />
         <Route path="/playground/binary-blitz" element={<BinaryBlitz />} />

@@ -7,6 +7,11 @@ export const colors = {
   ink: '#14140F',              // primary text
   muted: '#6B6B60',            // secondary text
   accent: '#2563EB',           // links, highlights
+  accentLight: '#8FB0FF',      // accent legible on the ink background
+  mutedDeep: '#5A5A50',        // secondary text on cream, where muted reads too light
+  inert: '#8A887E',            // a figure that measured zero — present but not load-bearing
+  warn: '#FB923C',             // a run that failed its checks
+  warnDeep: '#F97316',         // the sealed-gap hatch
   line: 'rgba(20,20,15,0.12)', // hairlines, borders
 }
 

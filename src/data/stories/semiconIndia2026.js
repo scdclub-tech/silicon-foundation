@@ -26,6 +26,9 @@ export const semiconIndia2026 = {
 
   // ── Story hero ──────────────────────────────────────────────
   hero: {
+    backLabel: '← SCD',
+    backHref: '/',
+    index: 'Story 01',
     kicker: "SCD's First Triumph",
     title: 'Top 3 in India',
     subtitle:
