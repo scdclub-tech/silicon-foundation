@@ -133,7 +133,7 @@ export default function DieFloorplan({ className = '' }) {
         fontFamily="'IBM Plex Mono', monospace"
         fontSize="11"
         letterSpacing="1.8"
-        fill="#5A5852"
+        fill={C.faint}
         initial={{ opacity: reduce ? 1 : 0 }}
         variants={{ go: { opacity: 1 } }}
         {...stat(1.6, { duration: 0.4 })}

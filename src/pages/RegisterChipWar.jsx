@@ -49,7 +49,7 @@ function Field({ id, label, error, children }) {
       {children}
       {error && (
         <p
-          style={{ fontFamily: MONO, color: '#E2777A' }}
+          style={{ fontFamily: MONO, color: C.error }}
           className="mt-1.5 text-[11px]"
           role="alert"
         >
@@ -60,14 +60,22 @@ function Field({ id, label, error, children }) {
   );
 }
 
+// Border, focus and placeholder colours go through CSS variables: an inline
+// borderColor would override the focus: class and the focus state would
+// never show.
 const inputStyle = {
   fontFamily: HEAD,
-  backgroundColor: 'transparent',
-  borderColor: C.hairline,
-  color: C.paper,
+  backgroundColor: C.surface,
+  color: C.goldBright,
+  '--input-border': C.hairline,
+  '--input-focus': C.gold,
+  '--input-placeholder': C.muted,
 };
+// Native dropdown lists ignore the select's background on some platforms.
+const optionStyle = { backgroundColor: C.surface, color: C.goldBright };
+
 const inputCls =
-  'w-full rounded-md border px-3.5 py-2.5 text-[15px] outline-none focus:border-[#C9A961]';
+  'w-full rounded-md border border-[color:var(--input-border)] px-3.5 py-2.5 text-[15px] outline-none focus:border-[color:var(--input-focus)] placeholder:text-[color:var(--input-placeholder)]';
 
 function SessionFacts() {
   const s = chipWarSession;
@@ -304,9 +312,11 @@ export default function RegisterChipWar() {
           style={inputStyle}
           className={inputCls}
         >
-          <option value="">Select</option>
+          <option value="" style={optionStyle}>
+            Select
+          </option>
           {YEARS.map((y) => (
-            <option key={y} value={y} style={{ color: '#14140F' }}>
+            <option key={y} value={y} style={optionStyle}>
               {y === 'PG' ? 'Postgraduate' : `Year ${y}`}
             </option>
           ))}
@@ -337,7 +347,7 @@ export default function RegisterChipWar() {
 
       {formError && (
         <p
-          style={{ fontFamily: MONO, color: '#E2777A' }}
+          style={{ fontFamily: MONO, color: C.error }}
           className="mb-4 text-[11.5px]"
           role="alert"
         >

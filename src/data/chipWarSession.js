@@ -2,18 +2,20 @@
 // Every component reads from here. Do not hardcode session copy in components.
 
 export const SESSION_PALETTE = {
-  field: '#0B0B0B',
+  field: '#0D2622', // page background — the die green on the Chip War cover
+  surface: '#123029', // input and card background
   dieField: '#0E1A18',
-  gold: '#C9A961',
-  goldBright: '#E3C77E',
-  teal: '#2A9D8F',
+  gold: '#C9A961', // headings, labels, buttons
+  goldBright: '#E3C77E', // user-entered text; plain gold is too dim on green
+  teal: '#5FB3A1',
   tealDeep: '#14524A',
   tealBright: '#7FD4C6',
   paper: '#F2F0EA',
-  body: '#C8C6BE',
-  muted: '#7E7C75',
-  faint: '#6E6C66',
-  hairline: '#3A3833',
+  body: '#C3D6CE',
+  muted: '#8FA89F',
+  faint: '#6E8A80',
+  hairline: '#2A5A50',
+  error: '#F09A9C', // 7.4:1 on field; the old #E2777A was only 5.4:1
 };
 
 export const chipWarSession = {
