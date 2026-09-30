@@ -19,11 +19,21 @@ export const semiconIndia2026 = {
     result: '2nd Runner-up · Top 3 in India',
     event: 'Lam Research Student Hackathon · in collaboration with CeNSE, IISc Bengaluru',
     cta: 'Read the story',
-    image: {
-      src: '/images/stories/semicon-2026/team.jpg',
-      alt: 'Dushyant Singh, Dr. Md. Jawaid Alam and Tanishq Sharma at SEMICON India 2026',
-      caption: 'Dushyant Singh · Dr. Md. Jawaid Alam · Tanishq Sharma',
-    },
+    // Up to two photos: side by side on desktop, stacked on mobile. The
+    // tag rides on the first.
+    images: [
+      {
+        src: '/images/stories/semicon-2026/team.jpg',
+        alt: 'Dushyant Singh, Dr. Md. Jawaid Alam and Tanishq Sharma at SEMICON India 2026',
+        caption: 'Dushyant Singh · Dr. Md. Jawaid Alam · Tanishq Sharma',
+      },
+      {
+        src: '/images/stories/semicon-2026/hod.jpg',
+        alt: 'The team with faculty, holding the Lam Research Student Hackathon 2026 2nd runner-up cheque and certificates',
+        // TODO: names of everyone in the photo, left to right.
+        caption: 'FILL',
+      },
+    ],
   },
 
   // ── Story hero ──────────────────────────────────────────────

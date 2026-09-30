@@ -31,6 +31,31 @@ const PANEL_CSS = `
 }
 `
 
+// Photo placement from 768px, as percentages of the 1440x900 canvas. One
+// photo fills the right-hand area; two split it side by side, staggered and
+// tilted opposite ways, so the panel's height does not change. Below 768px
+// photos stack.
+const SINGLE_SLOT = {
+  frame: 'mt-14 md:right-[6.67%] md:top-[16.67%] md:h-[51.11%] md:w-[44.44%]',
+  img: 'md:aspect-auto md:h-full',
+  float: 'story-float-tilt',
+  tilt: -2,
+}
+const PAIR_SLOTS = [
+  {
+    frame: 'mt-14 md:left-[46.25%] md:top-[16.67%] md:w-[23%]',
+    img: 'md:aspect-[4/3]',
+    float: 'story-float-tilt',
+    tilt: -2,
+  },
+  {
+    frame: 'mt-8 md:right-[6.67%] md:top-[29%] md:w-[23%]',
+    img: 'md:aspect-[4/3]',
+    float: 'story-float-tilt-alt',
+    tilt: 2,
+  },
+]
+
 export default function TriumphPanel({ panel, to }) {
   const reduce = useReducedMotion()
   if (!panel) return null
@@ -42,10 +67,13 @@ export default function TriumphPanel({ panel, to }) {
   const result = text(panel.result)
   const event = text(panel.event)
   const cta = text(panel.cta)
-  const caption = text(panel.image?.caption)
-  const image = hasText(panel.image?.src) ? panel.image : null
+  // `images` (up to two) supersedes the older single `image` key.
+  const images = (panel.images ?? [panel.image])
+    .filter((img) => hasText(img?.src))
+    .slice(0, 2)
+  const slots = images.length === 2 ? PAIR_SLOTS : [SINGLE_SLOT]
 
-  if (!label && lines.length === 0 && !result && !image) return null
+  if (!label && lines.length === 0 && !result && images.length === 0) return null
 
   const dim = withAlpha(colors.cream, 0.72)
 
@@ -55,7 +83,9 @@ export default function TriumphPanel({ panel, to }) {
     : {
         initial: { opacity: 0, y: 24 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.3 },
+        // Low threshold: the panel peeks above the fold under the hero, and
+        // at 0.3 that peek stayed invisible until the visitor scrolled.
+        viewport: { once: true, amount: 0.05 },
         transition: { duration: 0.6, ease: 'easeOut' },
       }
 
@@ -90,48 +120,53 @@ export default function TriumphPanel({ panel, to }) {
           </div>
         )}
 
-        {image && (
-          <div
-            className="story-float-tilt relative mx-auto mt-14 w-full max-w-[334px] md:absolute md:right-[6.67%] md:top-[16.67%] md:mt-0 md:h-[51.11%] md:w-[44.44%] md:max-w-none"
-            style={{ transform: 'rotate(-2deg)' }}
-          >
-            <img
-              src={image.src}
-              alt={text(image.alt)}
-              loading="lazy"
-              className="block aspect-[334/250] w-full object-cover md:aspect-auto md:h-full"
-              style={{
-                borderRadius: '6px',
-                boxShadow: `0 32px 64px rgba(0,0,0,0.6), 0 0 0 1px ${withAlpha(colors.cream, 0.14)}`,
-              }}
-            />
-            {tag && (
-              <div
-                className="absolute -right-3 -top-4 px-3 py-2 text-[14px] md:-right-7 md:-top-[22px] md:px-[18px] md:py-3 md:text-[clamp(14px,1.25vw,18px)]"
+        {images.map((img, i) => {
+          const slot = slots[i]
+          const caption = text(img.caption)
+          return (
+            <div
+              key={img.src}
+              className={`${slot.float} relative mx-auto w-full max-w-[334px] md:absolute md:mt-0 md:max-w-none ${slot.frame}`}
+              style={{ transform: `rotate(${slot.tilt}deg)` }}
+            >
+              <img
+                src={img.src}
+                alt={text(img.alt)}
+                loading="lazy"
+                className={`block aspect-[334/250] w-full object-cover ${slot.img}`}
                 style={{
-                  transform: 'rotate(5deg)',
-                  background: colors.accent,
-                  color: '#FFFFFF',
-                  borderRadius: '4px',
-                  fontFamily: fonts.mono,
-                  fontWeight: 500,
-                  letterSpacing: '0.02em',
-                  boxShadow: '0 12px 24px rgba(0,0,0,0.35)',
+                  borderRadius: '6px',
+                  boxShadow: `0 32px 64px rgba(0,0,0,0.6), 0 0 0 1px ${withAlpha(colors.cream, 0.14)}`,
                 }}
-              >
-                {tag}
-              </div>
-            )}
-            {caption && (
-              <div
-                className="absolute -bottom-10 left-0 hidden tracking-[0.08em] md:block md:text-[clamp(10px,0.83vw,12px)]"
-                style={{ fontFamily: fonts.mono, color: withAlpha(colors.cream, 0.6) }}
-              >
-                {caption}
-              </div>
-            )}
-          </div>
-        )}
+              />
+              {i === 0 && tag && (
+                <div
+                  className="absolute -right-3 -top-4 px-3 py-2 text-[14px] md:-right-7 md:-top-[22px] md:px-[18px] md:py-3 md:text-[clamp(14px,1.25vw,18px)]"
+                  style={{
+                    transform: 'rotate(5deg)',
+                    background: colors.accent,
+                    color: '#FFFFFF',
+                    borderRadius: '4px',
+                    fontFamily: fonts.mono,
+                    fontWeight: 500,
+                    letterSpacing: '0.02em',
+                    boxShadow: '0 12px 24px rgba(0,0,0,0.35)',
+                  }}
+                >
+                  {tag}
+                </div>
+              )}
+              {caption && (
+                <div
+                  className="absolute left-0 right-0 top-full mt-6 hidden tracking-[0.08em] md:block md:text-[clamp(10px,0.83vw,12px)]"
+                  style={{ fontFamily: fonts.mono, color: withAlpha(colors.cream, 0.6) }}
+                >
+                  {caption}
+                </div>
+              )}
+            </div>
+          )
+        })}
 
         {/* after the photo in source order, so it paints over the photo's edge */}
         {lines.length > 0 && (

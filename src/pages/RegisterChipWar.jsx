@@ -55,7 +55,8 @@ function validate(v) {
     e.email = 'Enter a valid email address';
   if (!v.year) e.year = 'Select your year';
   if (!v.department.trim()) e.department = 'Enter your department';
-  if (v.phone.trim() && !/^[0-9+\-\s]{7,15}$/.test(v.phone.trim()))
+  if (!v.phone.trim()) e.phone = 'Enter your phone number';
+  else if (!/^[0-9+\-\s]{7,15}$/.test(v.phone.trim()))
     e.phone = 'Enter a valid phone number';
 
   // Mirrors session_registrations_od_check: advisor details are required
@@ -273,7 +274,7 @@ export default function RegisterChipWar() {
       email: values.email.trim().toLowerCase(),
       year: values.year,
       department: values.department.trim(),
-      phone: values.phone.trim() || null,
+      phone: values.phone.trim(),
       needs_od: od,
       slot1_subject: odText('slot1_subject'),
       slot1_code: odText('slot1_code'),
@@ -420,7 +421,7 @@ export default function RegisterChipWar() {
         />
       </Field>
 
-      <Field id="phone" label="Phone (optional)" error={errors.phone}>
+      <Field id="phone" label="Phone" error={errors.phone}>
         <input
           id="phone"
           type="tel"

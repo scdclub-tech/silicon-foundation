@@ -33,6 +33,13 @@ export const STORY_MOTION_CSS = `
   50%      { transform: translateY(-16px) rotate(-1deg); }
 }
 
+/* a second panel photo: the mirror tilt, out of phase with the first */
+.story-float-tilt-alt { animation: story-float-tilt-alt 7s ease-in-out -3.5s infinite; }
+@keyframes story-float-tilt-alt {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50%      { transform: translateY(-16px) rotate(1deg); }
+}
+
 @media (max-width: 767px) {
   .story-fins { background-size: 54px 100%; }
   @keyframes story-squeeze {
@@ -43,9 +50,13 @@ export const STORY_MOTION_CSS = `
     0%, 100% { transform: translateY(0) rotate(-2deg); }
     50%      { transform: translateY(-10px) rotate(-1deg); }
   }
+  @keyframes story-float-tilt-alt {
+    0%, 100% { transform: translateY(0) rotate(2deg); }
+    50%      { transform: translateY(-10px) rotate(1deg); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .story-fins, .story-float, .story-float-tilt { animation: none; }
+  .story-fins, .story-float, .story-float-tilt, .story-float-tilt-alt { animation: none; }
 }
 `

@@ -80,38 +80,61 @@ export default function Home() {
   return (
     <main>
       {/* ── 1. Hero ───────────────────────────────────────────────── */}
-      <section className={`${SHELL} pb-16 pt-24 md:pb-20 md:pt-32`}>
-        <p
-          className="font-mono text-[11px] uppercase tracking-[0.18em]"
-          style={{ color: colors.muted }}
-        >
-          Semiconductor Chip Design Club · SRMIST Kattankulathur
-        </p>
-
-        <h1
-          className="mt-6 max-w-4xl font-display font-extrabold leading-[1.05] tracking-tight"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: colors.ink }}
-        >
-          Bridging the gap between industry and academia. Step by step.
-        </h1>
-
-        <figure
-          className="mt-14 max-w-3xl pt-8 md:mt-16 md:pl-10"
-          style={{ borderTop: `1px solid ${colors.line}` }}
-        >
-          <blockquote
-            className="prose-serif italic leading-[1.3]"
-            style={{ fontSize: 'clamp(1.25rem, 3vw, 2.5rem)', color: colors.muted }}
-          >
-            “God decided where the oil reserves are, we get to decide where the fabs are.”
-          </blockquote>
-          <figcaption
-            className="mt-5 font-mono text-[11px] tracking-[0.08em]"
+      {/*
+        Sized so the panel below always peeks above the fold: 60svh on desktop
+        (with the navbar, about two thirds of the screen), capped at 640px so
+        tall monitors do not get a mostly empty hero; content height on
+        mobile. The mission line is set as a subtitle, not a display headline.
+      */}
+      <section className={`${SHELL} flex flex-col pb-6 pt-10 md:min-h-[min(60svh,640px)] md:pb-8 md:pt-16`}>
+        <div className="my-auto">
+          <p
+            className="font-mono text-[11px] uppercase tracking-[0.18em]"
             style={{ color: colors.muted }}
           >
-            Pat Gelsinger, former CEO, Intel
-          </figcaption>
-        </figure>
+            Semiconductor Chip Design Club · SRMIST Kattankulathur
+          </p>
+
+          <h1
+            className="mt-5 max-w-3xl font-display font-medium leading-[1.2] tracking-tight"
+            style={{ fontSize: 'clamp(1.375rem, 2.4vw, 2rem)', color: colors.ink }}
+          >
+            Bridging the gap between industry and academia. Step by step.
+          </h1>
+
+          <figure
+            className="mt-8 max-w-3xl pt-6 md:mt-10 md:pl-10"
+            style={{ borderTop: `1px solid ${colors.line}` }}
+          >
+            <blockquote
+              className="prose-serif italic leading-[1.35]"
+              style={{ fontSize: 'clamp(1.0625rem, 1.6vw, 1.375rem)', color: colors.muted }}
+            >
+              “God decided where the oil reserves are, we get to decide where the fabs are.”
+            </blockquote>
+            <figcaption
+              className="mt-4 font-mono text-[11px] tracking-[0.08em]"
+              style={{ color: colors.muted }}
+            >
+              Pat Gelsinger, former CEO, Intel
+            </figcaption>
+          </figure>
+        </div>
+
+        {/* Scroll cue: decorative; the animation is dropped under reduced motion. */}
+        <div
+          aria-hidden="true"
+          className="mt-10 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em]"
+          style={{ color: colors.muted }}
+        >
+          <span className="relative block h-6 w-px overflow-hidden" style={{ background: colors.line }}>
+            <span
+              className="absolute left-0 top-0 block h-2 w-px motion-safe:animate-scroll-cue"
+              style={{ background: colors.muted }}
+            />
+          </span>
+          Scroll
+        </div>
       </section>
 
       <TriumphPanel panel={semiconIndia2026.panel} to={`/stories/${semiconIndia2026.slug}`} />

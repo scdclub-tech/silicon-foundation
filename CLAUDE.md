@@ -221,7 +221,7 @@ Every key is optional; a section whose data is missing or entirely FILL does not
 | Key | Shape | Renders as |
 |---|---|---|
 | `slug` | string | the URL segment; must be unique |
-| `panel` | `{ label, location, titleLines[], tag, result, event, cta, image }` | the homepage teaser (`TriumphPanel`) |
+| `panel` | `{ label, location, titleLines[], tag, result, event, cta, images[] }` | the homepage teaser (`TriumphPanel`); `images` holds up to two `{ src, alt, caption }` (side by side on desktop, stacked on mobile, tag on the first). A single legacy `image` still works |
 | `hero` | `{ backLabel, backHref, index, kicker, title, subtitle, tag, image, metaLeft, metaRight }` | the dark story hero |
 | `stats` | `[{ value, label, accentArrow? }]` | the four-figure band; `accentArrow` tints a `→` inside the value |
 | `mentor`, `teammate` | `{ kicker, author, role, initials, heading?, photo, linkedin?, paragraphs[] }` | a `Words` section |
