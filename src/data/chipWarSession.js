@@ -34,7 +34,9 @@ export const chipWarSession = {
 
   venue: 'J.C. Bose Hall',
 
-  seatLimit: 100,
+  // Display copy only. The seat cap is enforced by a database trigger, so
+  // no seat number is shown or read on the client.
+  seatsNote: 'LIMITED SEATS · REGISTER EARLY',
 
   // Registrations are open from this moment.
   registrationOpensAt: '2026-09-30T00:00:00+05:30',
@@ -74,8 +76,7 @@ export const chipWarSession = {
       body: 'Registrations for this session have not opened yet. Check back shortly.',
     },
     open: {
-      pill: 'Register',
-      note: 'Limited to 100 seats',
+      pill: 'Register', // the note beneath it is seatsNote
     },
     closed: {
       pill: 'Registrations closed',
@@ -92,7 +93,7 @@ export const chipWarSession = {
     full: {
       eyebrow: 'SESSION FULL',
       heading: 'All seats are taken',
-      body: 'All 100 seats for this session have been claimed, so we couldn’t register you.',
+      body: 'All seats for this session have been taken, so we couldn’t register you.',
     },
   },
 

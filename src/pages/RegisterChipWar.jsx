@@ -342,6 +342,15 @@ export default function RegisterChipWar() {
         <SessionFacts />
       </div>
 
+      {s.seatsNote && (
+        <p
+          style={{ fontFamily: MONO, color: C.muted, letterSpacing: '1.2px' }}
+          className="mt-6 text-[11px] uppercase"
+        >
+          {s.seatsNote}
+        </p>
+      )}
+
       <hr style={{ borderColor: C.hairline }} className="my-9 border-t" />
 
       <Field id="full_name" label="Full name" error={errors.full_name}>

@@ -35,6 +35,7 @@ export default function ChipWarAnnouncement() {
   const s = chipWarSession;
   const status = sessionStatus();
   const copy = s.status[status];
+  const note = status === 'open' ? s.seatsNote : copy.note;
 
   const reveal = reduce
     ? {}
@@ -125,7 +126,7 @@ export default function ChipWarAnnouncement() {
               </div>
             )}
 
-            {copy.note && (
+            {note && (
               <p
                 style={{
                   fontFamily: status === 'open' ? MONO : HEAD,
@@ -138,7 +139,7 @@ export default function ChipWarAnnouncement() {
                     : 'mt-3 text-[14px]'
                 }
               >
-                {copy.note}
+                {note}
               </p>
             )}
           </div>
