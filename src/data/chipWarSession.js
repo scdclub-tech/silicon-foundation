@@ -5,6 +5,8 @@ export const SESSION_PALETTE = {
   field: '#0D2622', // page background — the die green on the Chip War cover
   surface: '#123029', // input and card background
   dieField: '#0E1A18',
+  dieDeep: '#0A1F1B', // die field of the full-page DieBackground
+  backing: 'rgba(10, 31, 27, 0.82)', // dieDeep at 0.82, behind text over the die
   gold: '#C9A961', // headings, labels, buttons
   goldBright: '#E3C77E', // user-entered text; plain gold is too dim on green
   teal: '#5FB3A1',

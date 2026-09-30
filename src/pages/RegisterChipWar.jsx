@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // NOTE: adjust this path to match your existing Supabase client module.
 import { supabase } from '../lib/supabase';
+import DieBackground from '../components/DieBackground';
 import chipWarSession, {
   SESSION_PALETTE as C,
   sessionStatus,
@@ -99,7 +100,8 @@ function Field({ id, label, error, className = 'mb-5', children }) {
 // never show.
 const inputStyle = {
   fontFamily: HEAD,
-  backgroundColor: C.surface,
+  // Each input carries its own backing so typed text reads over the die.
+  backgroundColor: C.backing,
   color: C.goldBright,
   '--input-border': C.hairline,
   '--input-focus': C.gold,
@@ -176,13 +178,22 @@ function StatusPanel({ eyebrow, heading, body }) {
   );
 }
 
+// Every state of the page renders through this, so all of them get the die
+// artwork. The content sits on a backed panel: the texture behind it is too
+// busy for bare text.
 function Shell({ children }) {
   return (
     <main
       style={{ backgroundColor: C.field }}
-      className="min-h-screen w-full px-6 py-16 md:px-12"
+      className="min-h-screen w-full px-4 py-10 sm:px-6 md:px-12 md:py-16"
     >
-      <div className="mx-auto max-w-lg">{children}</div>
+      <DieBackground />
+      <div
+        style={{ backgroundColor: C.backing, borderColor: C.hairline }}
+        className="relative z-10 mx-auto max-w-lg rounded-xl border px-4 py-8 sm:px-10 sm:py-12"
+      >
+        {children}
+      </div>
     </main>
   );
 }
@@ -431,7 +442,7 @@ export default function RegisterChipWar() {
                   fontFamily: MONO,
                   letterSpacing: '1.2px',
                   borderColor: checked ? C.gold : C.hairline,
-                  backgroundColor: checked ? C.gold : C.surface,
+                  backgroundColor: checked ? C.gold : C.backing,
                   color: checked ? C.field : C.goldBright,
                   outlineColor: C.gold,
                 }}
@@ -476,7 +487,7 @@ export default function RegisterChipWar() {
               <fieldset
                 key={slot.id}
                 style={{ borderColor: C.hairline }}
-                className="rounded-lg border px-4 pb-1 pt-4"
+                className="rounded-lg border px-3 pb-1 pt-4 sm:px-4"
               >
                 <legend
                   style={{ fontFamily: MONO, color: C.gold, letterSpacing: '1.6px' }}
