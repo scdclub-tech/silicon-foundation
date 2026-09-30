@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DieFloorplan from './DieFloorplan';
 import chipWarSession, {
   SESSION_PALETTE as C,
-  registrationIsOpen,
+  sessionStatus,
 } from '../data/chipWarSession';
 
 const MONO = "'IBM Plex Mono', monospace";
@@ -33,7 +33,8 @@ function Detail({ label, value }) {
 export default function ChipWarAnnouncement() {
   const reduce = useReducedMotion();
   const s = chipWarSession;
-  const isOpen = registrationIsOpen();
+  const status = sessionStatus();
+  const copy = s.status[status];
 
   const reveal = reduce
     ? {}
@@ -89,7 +90,7 @@ export default function ChipWarAnnouncement() {
           </div>
 
           <div className="mt-8">
-            {isOpen ? (
+            {status === 'open' ? (
               <Link
                 to={s.registrationPath}
                 style={{
@@ -98,9 +99,10 @@ export default function ChipWarAnnouncement() {
                   color: C.field,
                   letterSpacing: '1.2px',
                 }}
-                className="inline-flex items-center rounded-full px-6 py-3 text-[11.5px] uppercase transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[11.5px] uppercase transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Register
+                {copy.pill}
+                <span aria-hidden="true">→</span>
               </Link>
             ) : (
               <div
@@ -110,15 +112,34 @@ export default function ChipWarAnnouncement() {
                   color: C.gold,
                   letterSpacing: '1.2px',
                 }}
-                className="inline-flex items-center gap-2.5 rounded-full border px-5 py-2.5 text-[11.5px] uppercase"
+                className="inline-flex cursor-default select-none items-center gap-2.5 rounded-full border px-5 py-2.5 text-[11.5px] uppercase"
               >
-                <span
-                  aria-hidden="true"
-                  style={{ backgroundColor: C.gold }}
-                  className="h-[7px] w-[7px] rounded-full"
-                />
-                Registrations open soon
+                {status === 'upcoming' && (
+                  <span
+                    aria-hidden="true"
+                    style={{ backgroundColor: C.gold }}
+                    className="h-[7px] w-[7px] rounded-full"
+                  />
+                )}
+                {copy.pill}
               </div>
+            )}
+
+            {copy.note && (
+              <p
+                style={{
+                  fontFamily: status === 'open' ? MONO : HEAD,
+                  color: C.muted,
+                  letterSpacing: status === 'open' ? '1.2px' : undefined,
+                }}
+                className={
+                  status === 'open'
+                    ? 'mt-3 text-[11px] uppercase'
+                    : 'mt-3 text-[14px]'
+                }
+              >
+                {copy.note}
+              </p>
             )}
           </div>
 

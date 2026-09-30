@@ -30,12 +30,53 @@ export const chipWarSession = {
 
   venue: 'J.C. Bose Hall',
 
-  // TODO: FILL — ISO datetime when registrations open, e.g.
-  // '2026-09-21T09:00:00+05:30'. While null, the panel shows the
-  // "Registrations open soon" state indefinitely.
-  registrationOpensAt: null,
+  seatLimit: 100,
+
+  // Registrations are open from this moment.
+  registrationOpensAt: '2026-09-30T00:00:00+05:30',
+
+  // And close when the session begins. Must stay identical to the
+  // timestamp in the RLS policy in
+  // supabase/migrations/0004_open_registrations_add_od_fields.sql —
+  // that policy is the authoritative gate, this is UI convenience.
+  registrationClosesAt: '2026-10-07T14:30:00+05:30',
+
+  // When the session finishes. After this the site reports it as concluded.
+  sessionEndsAt: '2026-10-07T16:30:00+05:30',
 
   registrationPath: '/events/chip-war/register',
+
+  // Copy for each lifecycle state returned by sessionStatus(). `pill` is
+  // the homepage panel label and `note` the line beneath it; `heading`
+  // and `body` are used on the registration page.
+  status: {
+    upcoming: {
+      pill: 'Registrations open soon',
+      heading: 'Registrations open soon',
+      body: 'Registrations for this session have not opened yet. Check back shortly.',
+    },
+    open: {
+      pill: 'Register',
+      note: 'Limited to 100 seats',
+    },
+    closed: {
+      pill: 'Registrations closed',
+      note: 'The session is today at 2:30 PM in J.C. Bose Hall.',
+      heading: 'Registrations have closed',
+      body: 'The session is today at 2:30 PM in J.C. Bose Hall. Walk-ins cannot be guaranteed a seat.',
+    },
+    concluded: {
+      pill: 'Session concluded',
+      note: 'Thank you to everyone who attended.',
+      heading: 'This session has concluded',
+      body: 'Thank you to everyone who attended.',
+    },
+    full: {
+      eyebrow: 'SESSION FULL',
+      heading: 'All seats are taken',
+      body: 'All 100 seats for this session have been claimed, so we couldn’t register you.',
+    },
+  },
 
   attribution: 'Based on Chip War by Chris Miller (2022)',
 
@@ -46,14 +87,48 @@ export const chipWarSession = {
   ],
 };
 
-// True once registrations are open. Derived from the clock on every render,
-// so the panel flips state without a redeploy.
+// True while the registration window is open. Derived from the clock on
+// every render, so the panel flips state without a redeploy.
 export function registrationIsOpen(now = new Date()) {
-  const { registrationOpensAt } = chipWarSession;
+  const { registrationOpensAt, registrationClosesAt } = chipWarSession;
+
   if (!registrationOpensAt) return false;
+
   const opensAt = new Date(registrationOpensAt);
   if (Number.isNaN(opensAt.getTime())) return false;
-  return now >= opensAt;
+  if (now < opensAt) return false;
+
+  if (registrationClosesAt) {
+    const closesAt = new Date(registrationClosesAt);
+    if (!Number.isNaN(closesAt.getTime()) && now >= closesAt) return false;
+  }
+
+  return true;
+}
+
+// Parses an ISO string to a Date, or null if missing or unparseable.
+function parseDate(iso) {
+  if (!iso) return null;
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+// Where the session is in its lifecycle, derived from the clock on render:
+//   'upcoming'  -- before registrations open (or no valid open date)
+//   'open'      -- between registrationOpensAt and registrationClosesAt
+//   'closed'    -- between registrationClosesAt and sessionEndsAt
+//   'concluded' -- after sessionEndsAt
+export function sessionStatus(now = new Date()) {
+  const endsAt = parseDate(chipWarSession.sessionEndsAt);
+  if (endsAt && now >= endsAt) return 'concluded';
+
+  const closesAt = parseDate(chipWarSession.registrationClosesAt);
+  if (closesAt && now >= closesAt) return 'closed';
+
+  const opensAt = parseDate(chipWarSession.registrationOpensAt);
+  if (!opensAt || now < opensAt) return 'upcoming';
+
+  return 'open';
 }
 
 export default chipWarSession;

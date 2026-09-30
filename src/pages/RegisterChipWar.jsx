@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import chipWarSession, {
   SESSION_PALETTE as C,
-  registrationIsOpen,
+  sessionStatus,
 } from '../data/chipWarSession';
 
 const MONO = "'IBM Plex Mono', monospace";
@@ -99,6 +99,41 @@ function SessionFacts() {
   );
 }
 
+function StatusPanel({ eyebrow, heading, body }) {
+  return (
+    <Shell>
+      <p
+        style={{ fontFamily: MONO, color: C.teal, letterSpacing: '2.4px' }}
+        className="text-[11px]"
+      >
+        {eyebrow}
+      </p>
+      <h1
+        style={{ fontFamily: HEAD, color: C.gold }}
+        className="mt-4 text-4xl font-medium"
+      >
+        {heading}
+      </h1>
+      <p
+        style={{ fontFamily: BODY, color: C.body }}
+        className="mt-4 text-[15px] leading-relaxed"
+      >
+        {body}
+      </p>
+      <div className="mt-8">
+        <SessionFacts />
+      </div>
+      <Link
+        to="/"
+        style={{ fontFamily: MONO, color: C.gold, letterSpacing: '1.2px' }}
+        className="mt-10 inline-block text-[11.5px] uppercase underline underline-offset-4"
+      >
+        Back to home
+      </Link>
+    </Shell>
+  );
+}
+
 function Shell({ children }) {
   return (
     <main
@@ -117,77 +152,38 @@ export default function RegisterChipWar() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
   const [done, setDone] = useState(false);
+  const [full, setFull] = useState(false);
 
-  // Direct navigation before the window opens falls through to this.
-  if (!registrationIsOpen()) {
+  if (full) {
+    const copy = s.status.full;
     return (
-      <Shell>
-        <p
-          style={{ fontFamily: MONO, color: C.teal, letterSpacing: '2.4px' }}
-          className="text-[11px]"
-        >
-          {s.eyebrow}
-        </p>
-        <h1
-          style={{ fontFamily: HEAD, color: C.gold }}
-          className="mt-4 text-4xl font-medium"
-        >
-          {s.title}
-        </h1>
-        <p
-          style={{ fontFamily: BODY, color: C.body }}
-          className="mt-4 text-[15px] leading-relaxed"
-        >
-          Registrations for this session have not opened yet. Check back
-          shortly.
-        </p>
-        <div className="mt-8">
-          <SessionFacts />
-        </div>
-        <Link
-          to="/"
-          style={{ fontFamily: MONO, color: C.gold, letterSpacing: '1.2px' }}
-          className="mt-10 inline-block text-[11.5px] uppercase underline underline-offset-4"
-        >
-          Back to home
-        </Link>
-      </Shell>
+      <StatusPanel eyebrow={copy.eyebrow} heading={copy.heading} body={copy.body} />
     );
   }
 
   if (done) {
     return (
-      <Shell>
-        <p
-          style={{ fontFamily: MONO, color: C.teal, letterSpacing: '2.4px' }}
-          className="text-[11px]"
-        >
-          REGISTRATION CONFIRMED
-        </p>
-        <h1
-          style={{ fontFamily: HEAD, color: C.gold }}
-          className="mt-4 text-4xl font-medium"
-        >
-          You&rsquo;re registered
-        </h1>
-        <p
-          style={{ fontFamily: BODY, color: C.body }}
-          className="mt-4 text-[15px] leading-relaxed"
-        >
-          We&rsquo;ll see you at the session. Please arrive a few minutes early
-          for seating.
-        </p>
-        <div className="mt-8">
-          <SessionFacts />
-        </div>
-        <Link
-          to="/"
-          style={{ fontFamily: MONO, color: C.gold, letterSpacing: '1.2px' }}
-          className="mt-10 inline-block text-[11.5px] uppercase underline underline-offset-4"
-        >
-          Back to home
-        </Link>
-      </Shell>
+      <StatusPanel
+        eyebrow="REGISTRATION CONFIRMED"
+        heading={<>You&rsquo;re registered</>}
+        body={
+          <>
+            We&rsquo;ll see you at the session. Please arrive a few minutes
+            early for seating.
+          </>
+        }
+      />
+    );
+  }
+
+  const status = sessionStatus();
+
+  // Direct navigation outside the registration window lands here. The RLS
+  // policy on session_registrations is the real gate; this is only UI.
+  if (status !== 'open') {
+    const copy = s.status[status];
+    return (
+      <StatusPanel eyebrow={s.eyebrow} heading={copy.heading} body={copy.body} />
     );
   }
 
@@ -217,13 +213,16 @@ export default function RegisterChipWar() {
     setSubmitting(false);
 
     if (error) {
-      if (error.code === '23505') {
+      // Raised by the database once every seat is taken.
+      if (error.message?.includes('SESSION_FULL')) {
+        setFull(true);
+      } else if (error.code === '23505') {
         setErrors((x) => ({
           ...x,
           reg_number: 'This registration number is already registered',
         }));
       } else if (error.code === '42501') {
-        setFormError('Registrations are not open yet.');
+        setFormError('Registrations for this session are closed.');
       } else {
         setFormError("Couldn't submit your registration. Try again.");
       }
