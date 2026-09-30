@@ -20,25 +20,59 @@ const EMPTY = {
   year: '',
   department: '',
   phone: '',
+  needs_od: false,
+  slot1_subject: '',
+  slot1_code: '',
+  slot1_faculty: '',
+  slot2_subject: '',
+  slot2_code: '',
+  slot2_faculty: '',
+  slot3_subject: '',
+  slot3_code: '',
+  slot3_faculty: '',
+  advisor_name: '',
+  advisor_email: '',
 };
+
+const SLOT_FIELDS = [
+  ['subject', 'Subject'],
+  ['code', 'Subject Code'],
+  ['faculty', 'Faculty In-charge'],
+];
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Trimmed value, or null when blank, so optional columns never get ''.
+const orNull = (str) => str.trim() || null;
 
 function validate(v) {
   const e = {};
   if (!v.full_name.trim()) e.full_name = 'Enter your full name';
   if (!v.reg_number.trim()) e.reg_number = 'Enter your registration number';
   if (!v.email.trim()) e.email = 'Enter your email';
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email.trim()))
+  else if (!EMAIL_RE.test(v.email.trim()))
     e.email = 'Enter a valid email address';
   if (!v.year) e.year = 'Select your year';
   if (!v.department.trim()) e.department = 'Enter your department';
   if (v.phone.trim() && !/^[0-9+\-\s]{7,15}$/.test(v.phone.trim()))
     e.phone = 'Enter a valid phone number';
+
+  // Mirrors session_registrations_od_check: advisor details are required
+  // only when OD is requested. Slot fields are always optional.
+  if (v.needs_od) {
+    if (!v.advisor_name.trim())
+      e.advisor_name = "Enter your faculty advisor's name";
+    if (!v.advisor_email.trim())
+      e.advisor_email = "Enter your faculty advisor's email";
+    else if (!EMAIL_RE.test(v.advisor_email.trim()))
+      e.advisor_email = 'Enter a valid email address';
+  }
   return e;
 }
 
-function Field({ id, label, error, children }) {
+function Field({ id, label, error, className = 'mb-5', children }) {
   return (
-    <div className="mb-5">
+    <div className={className}>
       <label
         htmlFor={id}
         style={{ fontFamily: MONO, color: C.muted, letterSpacing: '1.4px' }}
@@ -201,6 +235,15 @@ export default function RegisterChipWar() {
     if (formError) setFormError('');
   };
 
+  // Switching OD off keeps anything typed (in case it is switched back on)
+  // but clears the advisor errors, which no longer apply.
+  const setNeedsOd = (needs) => {
+    setValues((v) => ({ ...v, needs_od: needs }));
+    if (!needs)
+      setErrors((x) => ({ ...x, advisor_name: undefined, advisor_email: undefined }));
+    if (formError) setFormError('');
+  };
+
   async function handleSubmit() {
     const found = validate(values);
     setErrors(found);
@@ -209,6 +252,10 @@ export default function RegisterChipWar() {
     setSubmitting(true);
     setFormError('');
 
+    // OD columns are only sent when OD is requested; otherwise all null.
+    const od = values.needs_od;
+    const odText = (k) => (od ? orNull(values[k]) : null);
+
     const { error } = await supabase.from('session_registrations').insert({
       full_name: values.full_name.trim(),
       reg_number: values.reg_number.trim().toUpperCase(),
@@ -216,6 +263,18 @@ export default function RegisterChipWar() {
       year: values.year,
       department: values.department.trim(),
       phone: values.phone.trim() || null,
+      needs_od: od,
+      slot1_subject: odText('slot1_subject'),
+      slot1_code: odText('slot1_code'),
+      slot1_faculty: odText('slot1_faculty'),
+      slot2_subject: odText('slot2_subject'),
+      slot2_code: odText('slot2_code'),
+      slot2_faculty: odText('slot2_faculty'),
+      slot3_subject: odText('slot3_subject'),
+      slot3_code: odText('slot3_code'),
+      slot3_faculty: odText('slot3_faculty'),
+      advisor_name: odText('advisor_name'),
+      advisor_email: od ? orNull(values.advisor_email.toLowerCase()) : null,
     });
 
     setSubmitting(false);
@@ -224,6 +283,13 @@ export default function RegisterChipWar() {
       // Raised by the database once every seat is taken.
       if (error.message?.includes('SESSION_FULL')) {
         setFull(true);
+      } else if (error.message?.includes('session_registrations_od_check')) {
+        // The database insists on advisor details when OD is requested.
+        setErrors((x) => ({
+          ...x,
+          advisor_name: "Your faculty advisor's name is required for OD",
+          advisor_email: "Your faculty advisor's email is required for OD",
+        }));
       } else if (error.code === '23505') {
         setErrors((x) => ({
           ...x,
@@ -344,6 +410,140 @@ export default function RegisterChipWar() {
           className={inputCls}
         />
       </Field>
+
+      <fieldset className="mb-5 mt-8">
+        <legend
+          style={{ fontFamily: MONO, color: C.muted, letterSpacing: '1.4px' }}
+          className="mb-3 block text-[11px] uppercase"
+        >
+          {s.od.question}
+        </legend>
+        <div className="flex gap-3">
+          {[
+            [false, 'No'],
+            [true, 'Yes'],
+          ].map(([val, label]) => {
+            const checked = values.needs_od === val;
+            return (
+              <label
+                key={label}
+                style={{
+                  fontFamily: MONO,
+                  letterSpacing: '1.2px',
+                  borderColor: checked ? C.gold : C.hairline,
+                  backgroundColor: checked ? C.gold : C.surface,
+                  color: checked ? C.field : C.goldBright,
+                  outlineColor: C.gold,
+                }}
+                className="cursor-pointer rounded-full border px-6 py-2.5 text-[11.5px] uppercase transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2"
+              >
+                <input
+                  type="radio"
+                  name="needs_od"
+                  checked={checked}
+                  onChange={() => setNeedsOd(val)}
+                  className="sr-only"
+                />
+                {label}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      {values.needs_od && (
+        <section
+          aria-labelledby="od-heading"
+          style={{ borderColor: C.hairline }}
+          className="mb-8 mt-8 border-t pt-8"
+        >
+          <h2
+            id="od-heading"
+            style={{ fontFamily: HEAD, color: C.gold }}
+            className="text-2xl font-medium"
+          >
+            {s.od.heading}
+          </h2>
+          <p
+            style={{ fontFamily: HEAD, color: C.muted }}
+            className="mt-2 text-[14px] leading-relaxed"
+          >
+            {s.od.intro}
+          </p>
+
+          <div className="mt-6 space-y-4">
+            {s.od.slots.map((slot) => (
+              <fieldset
+                key={slot.id}
+                style={{ borderColor: C.hairline }}
+                className="rounded-lg border px-4 pb-1 pt-4"
+              >
+                <legend
+                  style={{ fontFamily: MONO, color: C.gold, letterSpacing: '1.6px' }}
+                  className="px-1.5 text-[11px] uppercase"
+                >
+                  {slot.label}
+                  <span style={{ color: C.muted }}> · {slot.time}</span>
+                </legend>
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-x-3">
+                  {SLOT_FIELDS.map(([key, label]) => {
+                    const id = `${slot.id}_${key}`;
+                    return (
+                      <Field
+                        key={id}
+                        id={id}
+                        label={label}
+                        className={key === 'subject' ? 'col-span-2 mb-3' : 'mb-3'}
+                      >
+                        <input
+                          id={id}
+                          type="text"
+                          value={values[id]}
+                          onChange={set(id)}
+                          style={inputStyle}
+                          className={inputCls}
+                        />
+                      </Field>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <Field
+              id="advisor_name"
+              label="Faculty Advisor Name"
+              error={errors.advisor_name}
+            >
+              <input
+                id="advisor_name"
+                type="text"
+                value={values.advisor_name}
+                onChange={set('advisor_name')}
+                style={inputStyle}
+                className={inputCls}
+              />
+            </Field>
+
+            <Field
+              id="advisor_email"
+              label="Faculty Advisor Email"
+              error={errors.advisor_email}
+            >
+              <input
+                id="advisor_email"
+                type="email"
+                value={values.advisor_email}
+                onChange={set('advisor_email')}
+                style={inputStyle}
+                className={inputCls}
+              />
+            </Field>
+          </div>
+        </section>
+      )}
 
       {formError && (
         <p

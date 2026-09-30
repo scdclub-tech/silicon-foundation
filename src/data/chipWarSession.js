@@ -48,6 +48,20 @@ export const chipWarSession = {
 
   registrationPath: '/events/chip-war/register',
 
+  // On-duty (OD) section of the registration form. Slot ids match the
+  // slotN_* columns on session_registrations.
+  od: {
+    question: 'Do you need on-duty (OD) for this session?',
+    heading: 'On-duty details',
+    intro:
+      'The session runs 2:30 PM - 4:30 PM. Fill in the classes this affects. Leave a slot blank if you have no class then.',
+    slots: [
+      { id: 'slot1', label: 'Slot 1', time: '2:20 to 3:10' },
+      { id: 'slot2', label: 'Slot 2', time: '3:10 to 4:00' },
+      { id: 'slot3', label: 'Slot 3', time: '4:00 to 4:50' },
+    ],
+  },
+
   // Copy for each lifecycle state returned by sessionStatus(). `pill` is
   // the homepage panel label and `note` the line beneath it; `heading`
   // and `body` are used on the registration page.
