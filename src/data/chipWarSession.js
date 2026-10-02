@@ -18,6 +18,7 @@ export const SESSION_PALETTE = {
   faint: '#6E8A80',
   hairline: '#2A5A50',
   error: '#F09A9C', // 7.4:1 on field; the old #E2777A was only 5.4:1
+  errorWash: 'rgba(240, 154, 156, 0.10)', // error at 0.10, behind error panels
 };
 
 export const chipWarSession = {

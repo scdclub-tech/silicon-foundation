@@ -43,6 +43,28 @@ const SLOT_FIELDS = [
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Compared against errors.reg_number to give the duplicate case its own
+// summary above the Register button.
+const DUPLICATE_REG = 'This registration number is already registered';
+
+// Error keys double as input ids, and EMPTY lists them in page order, so
+// the first errored key is the topmost errored field.
+function focusFirstError(found) {
+  const key = Object.keys(EMPTY).find((k) => found[k]);
+  const el = key && document.getElementById(key);
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  // preventScroll so focus doesn't cut the smooth scroll short.
+  el.focus({ preventScroll: true });
+}
+
+// Ties an input to its error message for screen readers.
+const errorAria = (errors, id) =>
+  errors[id]
+    ? { 'aria-invalid': true, 'aria-describedby': `${id}-error` }
+    : {};
+
 // Trimmed value, or null when blank, so optional columns never get ''.
 const orNull = (str) => str.trim() || null;
 
@@ -72,12 +94,22 @@ function validate(v) {
   return e;
 }
 
+// The wrapper sets --input-border and --input-focus, which the input
+// inherits, so an errored field's input is outlined in the error colour.
+// Errors are announced through the summary above the Register button, not
+// per field; aria-describedby reads each one when its input takes focus.
 function Field({ id, label, error, className = 'mb-5', children }) {
   return (
-    <div className={className}>
+    <div
+      className={className}
+      style={{
+        '--input-border': error ? C.error : C.hairline,
+        '--input-focus': error ? C.error : C.gold,
+      }}
+    >
       <label
         htmlFor={id}
-        style={{ fontFamily: MONO, color: C.muted, letterSpacing: '1.4px' }}
+        style={{ fontFamily: MONO, color: error ? C.error : C.muted, letterSpacing: '1.4px' }}
         className="mb-2 block text-[11px] uppercase"
       >
         {label}
@@ -85,9 +117,9 @@ function Field({ id, label, error, className = 'mb-5', children }) {
       {children}
       {error && (
         <p
+          id={`${id}-error`}
           style={{ fontFamily: MONO, color: C.error }}
-          className="mt-1.5 text-[11px]"
-          role="alert"
+          className="mt-1.5 text-[12px]"
         >
           {error}
         </p>
@@ -98,14 +130,12 @@ function Field({ id, label, error, className = 'mb-5', children }) {
 
 // Border, focus and placeholder colours go through CSS variables: an inline
 // borderColor would override the focus: class and the focus state would
-// never show.
+// never show. The border and focus variables come from Field.
 const inputStyle = {
   fontFamily: HEAD,
   // Each input carries its own backing so typed text reads over the die.
   backgroundColor: C.backing,
   color: C.goldBright,
-  '--input-border': C.hairline,
-  '--input-focus': C.gold,
   '--input-placeholder': C.muted,
 };
 // Native dropdown lists ignore the select's background on some platforms.
@@ -256,10 +286,16 @@ export default function RegisterChipWar() {
     if (formError) setFormError('');
   };
 
+  const hasErrors = Object.values(errors).some(Boolean);
+  const duplicate = errors.reg_number === DUPLICATE_REG;
+
   async function handleSubmit() {
     const found = validate(values);
     setErrors(found);
-    if (Object.keys(found).length) return;
+    if (Object.keys(found).length) {
+      focusFirstError(found);
+      return;
+    }
 
     setSubmitting(true);
     setFormError('');
@@ -297,16 +333,16 @@ export default function RegisterChipWar() {
         setFull(true);
       } else if (error.message?.includes('session_registrations_od_check')) {
         // The database insists on advisor details when OD is requested.
-        setErrors((x) => ({
-          ...x,
+        const odErrors = {
           advisor_name: "Your faculty advisor's name is required for OD",
           advisor_email: "Your faculty advisor's email is required for OD",
-        }));
+        };
+        setErrors((x) => ({ ...x, ...odErrors }));
+        focusFirstError(odErrors);
       } else if (error.code === '23505') {
-        setErrors((x) => ({
-          ...x,
-          reg_number: 'This registration number is already registered',
-        }));
+        // reg_number is the only unique column on session_registrations.
+        setErrors((x) => ({ ...x, reg_number: DUPLICATE_REG }));
+        focusFirstError({ reg_number: DUPLICATE_REG });
       } else if (error.code === '42501') {
         setFormError('Registrations for this session are closed.');
       } else {
@@ -360,6 +396,7 @@ export default function RegisterChipWar() {
           type="text"
           value={values.full_name}
           onChange={set('full_name')}
+          {...errorAria(errors, 'full_name')}
           style={inputStyle}
           className={inputCls}
         />
@@ -375,6 +412,7 @@ export default function RegisterChipWar() {
           type="text"
           value={values.reg_number}
           onChange={set('reg_number')}
+          {...errorAria(errors, 'reg_number')}
           style={inputStyle}
           className={inputCls}
         />
@@ -386,6 +424,7 @@ export default function RegisterChipWar() {
           type="email"
           value={values.email}
           onChange={set('email')}
+          {...errorAria(errors, 'email')}
           style={inputStyle}
           className={inputCls}
         />
@@ -396,6 +435,7 @@ export default function RegisterChipWar() {
           id="year"
           value={values.year}
           onChange={set('year')}
+          {...errorAria(errors, 'year')}
           style={inputStyle}
           className={inputCls}
         >
@@ -416,6 +456,7 @@ export default function RegisterChipWar() {
           type="text"
           value={values.department}
           onChange={set('department')}
+          {...errorAria(errors, 'department')}
           style={inputStyle}
           className={inputCls}
         />
@@ -427,6 +468,7 @@ export default function RegisterChipWar() {
           type="tel"
           value={values.phone}
           onChange={set('phone')}
+          {...errorAria(errors, 'phone')}
           style={inputStyle}
           className={inputCls}
         />
@@ -543,6 +585,7 @@ export default function RegisterChipWar() {
                 type="text"
                 value={values.advisor_name}
                 onChange={set('advisor_name')}
+                {...errorAria(errors, 'advisor_name')}
                 style={inputStyle}
                 className={inputCls}
               />
@@ -558,6 +601,7 @@ export default function RegisterChipWar() {
                 type="email"
                 value={values.advisor_email}
                 onChange={set('advisor_email')}
+                {...errorAria(errors, 'advisor_email')}
                 style={inputStyle}
                 className={inputCls}
               />
@@ -566,14 +610,40 @@ export default function RegisterChipWar() {
         </section>
       )}
 
-      {formError && (
-        <p
-          style={{ fontFamily: MONO, color: C.error }}
-          className="mb-4 text-[11.5px]"
+      {/* Summary at the point of action: the errored field may be screens
+          above the button. A duplicate registration number, the most likely
+          real failure, gets its own explanation. */}
+      {duplicate ? (
+        <div
           role="alert"
+          style={{ borderColor: C.error, backgroundColor: C.errorWash }}
+          className="mb-5 rounded-lg border-2 px-4 py-3.5"
         >
-          {formError}
-        </p>
+          <p
+            style={{ fontFamily: MONO, color: C.error, letterSpacing: '1.4px' }}
+            className="text-[12px] font-semibold uppercase"
+          >
+            Already registered
+          </p>
+          <p
+            style={{ fontFamily: HEAD, color: C.paper }}
+            className="mt-1.5 text-[14px] leading-relaxed"
+          >
+            {values.reg_number.trim().toUpperCase()} is already registered for
+            this session. If you registered earlier, you&rsquo;re all set. If
+            not, check the registration number for typos.
+          </p>
+        </div>
+      ) : (
+        (hasErrors || formError) && (
+          <p
+            role="alert"
+            style={{ fontFamily: MONO, color: C.error, borderColor: C.error }}
+            className="mb-5 border-l-2 pl-3 text-[12.5px] leading-relaxed"
+          >
+            {formError || 'Check the highlighted fields above.'}
+          </p>
+        )
       )}
 
       <button
