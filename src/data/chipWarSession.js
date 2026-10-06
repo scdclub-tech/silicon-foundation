@@ -48,6 +48,13 @@ export const chipWarSession = {
   // timestamp only switches the UI to the closed state.
   registrationClosesAt: '2026-10-06T09:00:00+05:30',
 
+  // Invite-only link for Silicon Foundation recipients:
+  // registrationPath?invite=<inviteCode>. These match the 0007 RLS policy
+  // (public.session_invited()), which is the real gate; they only control
+  // whether the UI shows the form after registrationClosesAt.
+  inviteCode: 'silicon-foundation',
+  inviteClosesAt: '2026-10-07T14:30:00+05:30',
+
   // The run of show ends around 4:40 PM, so this allows a little margin.
   sessionEndsAt: '2026-10-07T16:45:00+05:30',
 
@@ -95,6 +102,10 @@ export const chipWarSession = {
       eyebrow: 'SESSION FULL',
       heading: 'All seats are taken',
       body: 'All seats for this session have been taken, so we couldn’t register you.',
+    },
+    invite: {
+      eyebrow: 'SILICON FOUNDATION · INVITE',
+      note: 'This link is for invited Silicon Foundation recipients only.',
     },
   },
 

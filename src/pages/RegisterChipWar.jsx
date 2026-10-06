@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // NOTE: adjust this path to match your existing Supabase client module.
 import { supabase } from '../lib/supabase';
 import DieBackground from '../components/DieBackground';
@@ -237,6 +237,13 @@ export default function RegisterChipWar() {
   const [formError, setFormError] = useState('');
   const [done, setDone] = useState(false);
   const [full, setFull] = useState(false);
+  const location = useLocation();
+
+  // ?invite=<inviteCode> keeps the form open for invited recipients until
+  // inviteClosesAt. The 0007 RLS policy checks the reg number; this is UI.
+  const invited =
+    new URLSearchParams(location.search).get('invite') === s.inviteCode &&
+    new Date() < new Date(s.inviteClosesAt);
 
   if (full) {
     const copy = s.status.full;
@@ -261,10 +268,11 @@ export default function RegisterChipWar() {
   }
 
   const status = sessionStatus();
+  const inviteMode = invited && status === 'closed';
 
   // Direct navigation outside the registration window lands here. The RLS
   // policy on session_registrations is the real gate; this is only UI.
-  if (status !== 'open') {
+  if (status !== 'open' && !inviteMode) {
     const copy = s.status[status];
     return (
       <StatusPanel eyebrow={s.eyebrow} heading={copy.heading} body={copy.body} />
@@ -344,7 +352,11 @@ export default function RegisterChipWar() {
         setErrors((x) => ({ ...x, reg_number: DUPLICATE_REG }));
         focusFirstError({ reg_number: DUPLICATE_REG });
       } else if (error.code === '42501') {
-        setFormError('Registrations for this session are closed.');
+        setFormError(
+          inviteMode
+            ? "This registration number isn't on the invite list. Contact the SCD team."
+            : 'Registrations for this session are closed.',
+        );
       } else {
         setFormError("Couldn't submit your registration. Try again.");
       }
@@ -360,7 +372,7 @@ export default function RegisterChipWar() {
         style={{ fontFamily: MONO, color: C.teal, letterSpacing: '2.4px' }}
         className="text-[11px]"
       >
-        {s.eyebrow}
+        {inviteMode ? s.status.invite.eyebrow : s.eyebrow}
       </p>
       <h1
         style={{ fontFamily: HEAD, color: C.gold }}
@@ -379,12 +391,12 @@ export default function RegisterChipWar() {
         <SessionFacts />
       </div>
 
-      {s.seatsNote && (
+      {(inviteMode ? s.status.invite.note : s.seatsNote) && (
         <p
           style={{ fontFamily: MONO, color: C.muted, letterSpacing: '1.2px' }}
           className="mt-6 text-[11px] uppercase"
         >
-          {s.seatsNote}
+          {inviteMode ? s.status.invite.note : s.seatsNote}
         </p>
       )}
 
