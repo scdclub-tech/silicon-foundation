@@ -42,14 +42,14 @@ export const chipWarSession = {
   // Registrations are open from this moment.
   registrationOpensAt: '2026-09-30T00:00:00+05:30',
 
-  // And close when the session begins. Must stay identical to the
-  // timestamp in the RLS policy in
-  // supabase/migrations/0004_open_registrations_add_od_fields.sql —
-  // that policy is the authoritative gate, this is UI convenience.
-  registrationClosesAt: '2026-10-07T14:30:00+05:30',
+  // Closed early, on the morning of 6 October, to freeze the attendance
+  // list. The authoritative gate is the RLS policy in
+  // supabase/migrations/0006_close_session_registrations.sql; this
+  // timestamp only switches the UI to the closed state.
+  registrationClosesAt: '2026-10-06T09:00:00+05:30',
 
-  // When the session finishes. After this the site reports it as concluded.
-  sessionEndsAt: '2026-10-07T16:30:00+05:30',
+  // The run of show ends around 4:40 PM, so this allows a little margin.
+  sessionEndsAt: '2026-10-07T16:45:00+05:30',
 
   registrationPath: '/events/chip-war/register',
 
@@ -81,9 +81,9 @@ export const chipWarSession = {
     },
     closed: {
       pill: 'Registrations closed',
-      note: 'The session is today at 2:30 PM in J.C. Bose Hall.',
+      note: 'Wednesday, 7 October · 2:30 PM · J.C. Bose Hall',
       heading: 'Registrations have closed',
-      body: 'The session is today at 2:30 PM in J.C. Bose Hall. Walk-ins cannot be guaranteed a seat.',
+      body: 'The session is on Wednesday, 7 October at 2:30 PM in J.C. Bose Hall. Walk-ins cannot be guaranteed a seat.',
     },
     concluded: {
       pill: 'Session concluded',
